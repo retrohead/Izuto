@@ -1,0 +1,1746 @@
+{
+  "TranslationTable": [
+    {
+      "Syllable": "ba",
+      "Bytes": [
+        130,
+        159
+      ],
+      "BytesString": "ぁ"
+    },
+    {
+      "Syllable": "be",
+      "Bytes": [
+        130,
+        160
+      ],
+      "BytesString": "あ"
+    },
+    {
+      "Syllable": "bi",
+      "Bytes": [
+        130,
+        161
+      ],
+      "BytesString": "ぃ"
+    },
+    {
+      "Syllable": "bo",
+      "Bytes": [
+        130,
+        162
+      ],
+      "BytesString": "い"
+    },
+    {
+      "Syllable": "bu",
+      "Bytes": [
+        130,
+        163
+      ],
+      "BytesString": "ぅ"
+    },
+    {
+      "Syllable": "ca",
+      "Bytes": [
+        130,
+        164
+      ],
+      "BytesString": "う"
+    },
+    {
+      "Syllable": "ce",
+      "Bytes": [
+        130,
+        165
+      ],
+      "BytesString": "ぇ"
+    },
+    {
+      "Syllable": "ci",
+      "Bytes": [
+        130,
+        166
+      ],
+      "BytesString": "え"
+    },
+    {
+      "Syllable": "co",
+      "Bytes": [
+        130,
+        167
+      ],
+      "BytesString": "ぉ"
+    },
+    {
+      "Syllable": "cu",
+      "Bytes": [
+        130,
+        168
+      ],
+      "BytesString": "お"
+    },
+    {
+      "Syllable": "da",
+      "Bytes": [
+        130,
+        169
+      ],
+      "BytesString": "か"
+    },
+    {
+      "Syllable": "de",
+      "Bytes": [
+        130,
+        170
+      ],
+      "BytesString": "が"
+    },
+    {
+      "Syllable": "di",
+      "Bytes": [
+        130,
+        171
+      ],
+      "BytesString": "き"
+    },
+    {
+      "Syllable": "do",
+      "Bytes": [
+        130,
+        172
+      ],
+      "BytesString": "ぎ"
+    },
+    {
+      "Syllable": "du",
+      "Bytes": [
+        130,
+        173
+      ],
+      "BytesString": "く"
+    },
+    {
+      "Syllable": "fa",
+      "Bytes": [
+        130,
+        174
+      ],
+      "BytesString": "ぐ"
+    },
+    {
+      "Syllable": "fe",
+      "Bytes": [
+        130,
+        175
+      ],
+      "BytesString": "け"
+    },
+    {
+      "Syllable": "fi",
+      "Bytes": [
+        130,
+        176
+      ],
+      "BytesString": "げ"
+    },
+    {
+      "Syllable": "fo",
+      "Bytes": [
+        130,
+        177
+      ],
+      "BytesString": "こ"
+    },
+    {
+      "Syllable": "fu",
+      "Bytes": [
+        130,
+        178
+      ],
+      "BytesString": "ご"
+    },
+    {
+      "Syllable": "ga",
+      "Bytes": [
+        130,
+        179
+      ],
+      "BytesString": "さ"
+    },
+    {
+      "Syllable": "ge",
+      "Bytes": [
+        130,
+        180
+      ],
+      "BytesString": "ざ"
+    },
+    {
+      "Syllable": "gi",
+      "Bytes": [
+        130,
+        181
+      ],
+      "BytesString": "し"
+    },
+    {
+      "Syllable": "go",
+      "Bytes": [
+        130,
+        182
+      ],
+      "BytesString": "じ"
+    },
+    {
+      "Syllable": "gu",
+      "Bytes": [
+        130,
+        183
+      ],
+      "BytesString": "す"
+    },
+    {
+      "Syllable": "ha",
+      "Bytes": [
+        130,
+        184
+      ],
+      "BytesString": "ず"
+    },
+    {
+      "Syllable": "he",
+      "Bytes": [
+        130,
+        185
+      ],
+      "BytesString": "せ"
+    },
+    {
+      "Syllable": "hi",
+      "Bytes": [
+        130,
+        186
+      ],
+      "BytesString": "ぜ"
+    },
+    {
+      "Syllable": "ho",
+      "Bytes": [
+        130,
+        187
+      ],
+      "BytesString": "そ"
+    },
+    {
+      "Syllable": "hu",
+      "Bytes": [
+        130,
+        188
+      ],
+      "BytesString": "ぞ"
+    },
+    {
+      "Syllable": "ja",
+      "Bytes": [
+        130,
+        189
+      ],
+      "BytesString": "た"
+    },
+    {
+      "Syllable": "je",
+      "Bytes": [
+        130,
+        190
+      ],
+      "BytesString": "だ"
+    },
+    {
+      "Syllable": "ji",
+      "Bytes": [
+        130,
+        191
+      ],
+      "BytesString": "ち"
+    },
+    {
+      "Syllable": "jo",
+      "Bytes": [
+        130,
+        192
+      ],
+      "BytesString": "ぢ"
+    },
+    {
+      "Syllable": "ju",
+      "Bytes": [
+        130,
+        193
+      ],
+      "BytesString": "っ"
+    },
+    {
+      "Syllable": "ka",
+      "Bytes": [
+        130,
+        194
+      ],
+      "BytesString": "つ"
+    },
+    {
+      "Syllable": "ke",
+      "Bytes": [
+        130,
+        195
+      ],
+      "BytesString": "づ"
+    },
+    {
+      "Syllable": "ki",
+      "Bytes": [
+        130,
+        196
+      ],
+      "BytesString": "て"
+    },
+    {
+      "Syllable": "ko",
+      "Bytes": [
+        130,
+        197
+      ],
+      "BytesString": "で"
+    },
+    {
+      "Syllable": "ku",
+      "Bytes": [
+        130,
+        198
+      ],
+      "BytesString": "と"
+    },
+    {
+      "Syllable": "la",
+      "Bytes": [
+        130,
+        199
+      ],
+      "BytesString": "ど"
+    },
+    {
+      "Syllable": "le",
+      "Bytes": [
+        130,
+        200
+      ],
+      "BytesString": "な"
+    },
+    {
+      "Syllable": "li",
+      "Bytes": [
+        130,
+        201
+      ],
+      "BytesString": "に"
+    },
+    {
+      "Syllable": "lo",
+      "Bytes": [
+        130,
+        202
+      ],
+      "BytesString": "ぬ"
+    },
+    {
+      "Syllable": "lu",
+      "Bytes": [
+        130,
+        203
+      ],
+      "BytesString": "ね"
+    },
+    {
+      "Syllable": "na",
+      "Bytes": [
+        130,
+        204
+      ],
+      "BytesString": "の"
+    },
+    {
+      "Syllable": "ne",
+      "Bytes": [
+        130,
+        205
+      ],
+      "BytesString": "は"
+    },
+    {
+      "Syllable": "ni",
+      "Bytes": [
+        130,
+        206
+      ],
+      "BytesString": "ば"
+    },
+    {
+      "Syllable": "no",
+      "Bytes": [
+        130,
+        207
+      ],
+      "BytesString": "ぱ"
+    },
+    {
+      "Syllable": "nu",
+      "Bytes": [
+        130,
+        208
+      ],
+      "BytesString": "ひ"
+    },
+    {
+      "Syllable": "pa",
+      "Bytes": [
+        130,
+        209
+      ],
+      "BytesString": "び"
+    },
+    {
+      "Syllable": "pe",
+      "Bytes": [
+        130,
+        210
+      ],
+      "BytesString": "ぴ"
+    },
+    {
+      "Syllable": "pi",
+      "Bytes": [
+        130,
+        211
+      ],
+      "BytesString": "ふ"
+    },
+    {
+      "Syllable": "po",
+      "Bytes": [
+        130,
+        212
+      ],
+      "BytesString": "ぶ"
+    },
+    {
+      "Syllable": "pu",
+      "Bytes": [
+        130,
+        213
+      ],
+      "BytesString": "ぷ"
+    },
+    {
+      "Syllable": "qa",
+      "Bytes": [
+        130,
+        214
+      ],
+      "BytesString": "へ"
+    },
+    {
+      "Syllable": "qe",
+      "Bytes": [
+        130,
+        215
+      ],
+      "BytesString": "べ"
+    },
+    {
+      "Syllable": "qi",
+      "Bytes": [
+        130,
+        216
+      ],
+      "BytesString": "ぺ"
+    },
+    {
+      "Syllable": "qo",
+      "Bytes": [
+        130,
+        217
+      ],
+      "BytesString": "ほ"
+    },
+    {
+      "Syllable": "qu",
+      "Bytes": [
+        130,
+        218
+      ],
+      "BytesString": "ぼ"
+    },
+    {
+      "Syllable": "ra",
+      "Bytes": [
+        130,
+        219
+      ],
+      "BytesString": "ぽ"
+    },
+    {
+      "Syllable": "re",
+      "Bytes": [
+        130,
+        220
+      ],
+      "BytesString": "ま"
+    },
+    {
+      "Syllable": "ri",
+      "Bytes": [
+        130,
+        221
+      ],
+      "BytesString": "み"
+    },
+    {
+      "Syllable": "ro",
+      "Bytes": [
+        130,
+        222
+      ],
+      "BytesString": "む"
+    },
+    {
+      "Syllable": "ru",
+      "Bytes": [
+        130,
+        223
+      ],
+      "BytesString": "め"
+    },
+    {
+      "Syllable": "sa",
+      "Bytes": [
+        130,
+        224
+      ],
+      "BytesString": "も"
+    },
+    {
+      "Syllable": "se",
+      "Bytes": [
+        130,
+        225
+      ],
+      "BytesString": "ゃ"
+    },
+    {
+      "Syllable": "si",
+      "Bytes": [
+        130,
+        226
+      ],
+      "BytesString": "や"
+    },
+    {
+      "Syllable": "so",
+      "Bytes": [
+        130,
+        227
+      ],
+      "BytesString": "ゅ"
+    },
+    {
+      "Syllable": "su",
+      "Bytes": [
+        130,
+        228
+      ],
+      "BytesString": "ゆ"
+    },
+    {
+      "Syllable": "ta",
+      "Bytes": [
+        130,
+        229
+      ],
+      "BytesString": "ょ"
+    },
+    {
+      "Syllable": "te",
+      "Bytes": [
+        130,
+        230
+      ],
+      "BytesString": "よ"
+    },
+    {
+      "Syllable": "ti",
+      "Bytes": [
+        130,
+        231
+      ],
+      "BytesString": "ら"
+    },
+    {
+      "Syllable": "to",
+      "Bytes": [
+        130,
+        232
+      ],
+      "BytesString": "り"
+    },
+    {
+      "Syllable": "tu",
+      "Bytes": [
+        130,
+        233
+      ],
+      "BytesString": "る"
+    },
+    {
+      "Syllable": "va",
+      "Bytes": [
+        130,
+        234
+      ],
+      "BytesString": "れ"
+    },
+    {
+      "Syllable": "ve",
+      "Bytes": [
+        130,
+        235
+      ],
+      "BytesString": "ろ"
+    },
+    {
+      "Syllable": "vi",
+      "Bytes": [
+        130,
+        236
+      ],
+      "BytesString": "ゎ"
+    },
+    {
+      "Syllable": "vo",
+      "Bytes": [
+        130,
+        237
+      ],
+      "BytesString": "わ"
+    },
+    {
+      "Syllable": "vu",
+      "Bytes": [
+        130,
+        238
+      ],
+      "BytesString": "ゐ"
+    },
+    {
+      "Syllable": "xa",
+      "Bytes": [
+        130,
+        239
+      ],
+      "BytesString": "ゑ"
+    },
+    {
+      "Syllable": "xe",
+      "Bytes": [
+        130,
+        240
+      ],
+      "BytesString": "を"
+    },
+    {
+      "Syllable": "xi",
+      "Bytes": [
+        130,
+        241
+      ],
+      "BytesString": "ん"
+    },
+    {
+      "Syllable": "xo",
+      "Bytes": [
+        129,
+        74
+      ],
+      "BytesString": "゛"
+    },
+    {
+      "Syllable": "xu",
+      "Bytes": [
+        129,
+        75
+      ],
+      "BytesString": "゜"
+    },
+    {
+      "Syllable": "ya",
+      "Bytes": [
+        129,
+        84
+      ],
+      "BytesString": "ゝ"
+    },
+    {
+      "Syllable": "ye",
+      "Bytes": [
+        129,
+        85
+      ],
+      "BytesString": "ゞ"
+    },
+    {
+      "Syllable": "yi",
+      "Bytes": [
+        131,
+        64
+      ],
+      "BytesString": "ァ"
+    },
+    {
+      "Syllable": "yo",
+      "Bytes": [
+        131,
+        65
+      ],
+      "BytesString": "ア"
+    },
+    {
+      "Syllable": "yu",
+      "Bytes": [
+        131,
+        66
+      ],
+      "BytesString": "ィ"
+    },
+    {
+      "Syllable": "za",
+      "Bytes": [
+        131,
+        67
+      ],
+      "BytesString": "イ"
+    },
+    {
+      "Syllable": "ze",
+      "Bytes": [
+        131,
+        68
+      ],
+      "BytesString": "ゥ"
+    },
+    {
+      "Syllable": "zi",
+      "Bytes": [
+        131,
+        69
+      ],
+      "BytesString": "ウ"
+    },
+    {
+      "Syllable": "zo",
+      "Bytes": [
+        131,
+        70
+      ],
+      "BytesString": "ェ"
+    },
+    {
+      "Syllable": "zu",
+      "Bytes": [
+        131,
+        71
+      ],
+      "BytesString": "エ"
+    },
+    {
+      "Syllable": "ça",
+      "Bytes": [
+        131,
+        72
+      ],
+      "BytesString": "ォ"
+    },
+    {
+      "Syllable": "çe",
+      "Bytes": [
+        131,
+        73
+      ],
+      "BytesString": "オ"
+    },
+    {
+      "Syllable": "çi",
+      "Bytes": [
+        131,
+        74
+      ],
+      "BytesString": "カ"
+    },
+    {
+      "Syllable": "ço",
+      "Bytes": [
+        131,
+        75
+      ],
+      "BytesString": "ガ"
+    },
+    {
+      "Syllable": "çu",
+      "Bytes": [
+        131,
+        76
+      ],
+      "BytesString": "キ"
+    },
+    {
+      "Syllable": "ña",
+      "Bytes": [
+        131,
+        77
+      ],
+      "BytesString": "ギ"
+    },
+    {
+      "Syllable": "ñe",
+      "Bytes": [
+        131,
+        78
+      ],
+      "BytesString": "ク"
+    },
+    {
+      "Syllable": "ñi",
+      "Bytes": [
+        131,
+        79
+      ],
+      "BytesString": "グ"
+    },
+    {
+      "Syllable": "ño",
+      "Bytes": [
+        131,
+        80
+      ],
+      "BytesString": "ケ"
+    },
+    {
+      "Syllable": "ñu",
+      "Bytes": [
+        131,
+        81
+      ],
+      "BytesString": "ゲ"
+    },
+    {
+      "Syllable": "ch",
+      "Bytes": [
+        131,
+        82
+      ],
+      "BytesString": "コ"
+    },
+    {
+      "Syllable": "gh",
+      "Bytes": [
+        131,
+        83
+      ],
+      "BytesString": "ゴ"
+    },
+    {
+      "Syllable": "gr",
+      "Bytes": [
+        131,
+        84
+      ],
+      "BytesString": "サ"
+    },
+    {
+      "Syllable": "lh",
+      "Bytes": [
+        131,
+        85
+      ],
+      "BytesString": "ザ"
+    },
+    {
+      "Syllable": "nh",
+      "Bytes": [
+        131,
+        86
+      ],
+      "BytesString": "シ"
+    },
+    {
+      "Syllable": "ph",
+      "Bytes": [
+        131,
+        87
+      ],
+      "BytesString": "ジ"
+    },
+    {
+      "Syllable": "sh",
+      "Bytes": [
+        131,
+        88
+      ],
+      "BytesString": "ス"
+    },
+    {
+      "Syllable": "th",
+      "Bytes": [
+        131,
+        89
+      ],
+      "BytesString": "ズ"
+    },
+    {
+      "Syllable": "ck",
+      "Bytes": [
+        131,
+        90
+      ],
+      "BytesString": "セ"
+    },
+    {
+      "Syllable": "bl",
+      "Bytes": [
+        131,
+        91
+      ],
+      "BytesString": "ゼ"
+    },
+    {
+      "Syllable": "cl",
+      "Bytes": [
+        131,
+        92
+      ],
+      "BytesString": "ソ"
+    },
+    {
+      "Syllable": "dl",
+      "Bytes": [
+        131,
+        93
+      ],
+      "BytesString": "ゾ"
+    },
+    {
+      "Syllable": "fl",
+      "Bytes": [
+        131,
+        94
+      ],
+      "BytesString": "タ"
+    },
+    {
+      "Syllable": "gl",
+      "Bytes": [
+        131,
+        95
+      ],
+      "BytesString": "ダ"
+    },
+    {
+      "Syllable": "ll",
+      "Bytes": [
+        131,
+        96
+      ],
+      "BytesString": "チ"
+    },
+    {
+      "Syllable": "pl",
+      "Bytes": [
+        131,
+        97
+      ],
+      "BytesString": "ヂ"
+    },
+    {
+      "Syllable": "tl",
+      "Bytes": [
+        131,
+        98
+      ],
+      "BytesString": "ッ"
+    },
+    {
+      "Syllable": "an",
+      "Bytes": [
+        131,
+        99
+      ],
+      "BytesString": "ツ"
+    },
+    {
+      "Syllable": "en",
+      "Bytes": [
+        131,
+        100
+      ],
+      "BytesString": "ヅ"
+    },
+    {
+      "Syllable": "in",
+      "Bytes": [
+        131,
+        101
+      ],
+      "BytesString": "テ"
+    },
+    {
+      "Syllable": "kn",
+      "Bytes": [
+        131,
+        102
+      ],
+      "BytesString": "デ"
+    },
+    {
+      "Syllable": "on",
+      "Bytes": [
+        131,
+        103
+      ],
+      "BytesString": "ト"
+    },
+    {
+      "Syllable": "un",
+      "Bytes": [
+        131,
+        104
+      ],
+      "BytesString": "ド"
+    },
+    {
+      "Syllable": "ar",
+      "Bytes": [
+        131,
+        105
+      ],
+      "BytesString": "ナ"
+    },
+    {
+      "Syllable": "br",
+      "Bytes": [
+        131,
+        106
+      ],
+      "BytesString": "ニ"
+    },
+    {
+      "Syllable": "cr",
+      "Bytes": [
+        131,
+        107
+      ],
+      "BytesString": "ヌ"
+    },
+    {
+      "Syllable": "dr",
+      "Bytes": [
+        131,
+        108
+      ],
+      "BytesString": "ネ"
+    },
+    {
+      "Syllable": "er",
+      "Bytes": [
+        131,
+        109
+      ],
+      "BytesString": "ノ"
+    },
+    {
+      "Syllable": "fr",
+      "Bytes": [
+        131,
+        110
+      ],
+      "BytesString": "ハ"
+    },
+    {
+      "Syllable": "ir",
+      "Bytes": [
+        131,
+        111
+      ],
+      "BytesString": "バ"
+    },
+    {
+      "Syllable": "or",
+      "Bytes": [
+        131,
+        112
+      ],
+      "BytesString": "パ"
+    },
+    {
+      "Syllable": "pr",
+      "Bytes": [
+        131,
+        113
+      ],
+      "BytesString": "ヒ"
+    },
+    {
+      "Syllable": "rr",
+      "Bytes": [
+        131,
+        114
+      ],
+      "BytesString": "ビ"
+    },
+    {
+      "Syllable": "tr",
+      "Bytes": [
+        131,
+        115
+      ],
+      "BytesString": "ピ"
+    },
+    {
+      "Syllable": "ur",
+      "Bytes": [
+        131,
+        116
+      ],
+      "BytesString": "フ"
+    },
+    {
+      "Syllable": "vr",
+      "Bytes": [
+        131,
+        117
+      ],
+      "BytesString": "ブ"
+    },
+    {
+      "Syllable": "as",
+      "Bytes": [
+        131,
+        118
+      ],
+      "BytesString": "プ"
+    },
+    {
+      "Syllable": "es",
+      "Bytes": [
+        131,
+        119
+      ],
+      "BytesString": "ヘ"
+    },
+    {
+      "Syllable": "is",
+      "Bytes": [
+        131,
+        120
+      ],
+      "BytesString": "ベ"
+    },
+    {
+      "Syllable": "os",
+      "Bytes": [
+        131,
+        121
+      ],
+      "BytesString": "ペ"
+    },
+    {
+      "Syllable": "sc",
+      "Bytes": [
+        131,
+        122
+      ],
+      "BytesString": "ホ"
+    },
+    {
+      "Syllable": "sç",
+      "Bytes": [
+        131,
+        123
+      ],
+      "BytesString": "ボ"
+    },
+    {
+      "Syllable": "ss",
+      "Bytes": [
+        131,
+        124
+      ],
+      "BytesString": "ポ"
+    },
+    {
+      "Syllable": "us",
+      "Bytes": [
+        131,
+        125
+      ],
+      "BytesString": "マ"
+    },
+    {
+      "Syllable": "tt",
+      "Bytes": [
+        131,
+        126
+      ],
+      "BytesString": "ミ"
+    },
+    {
+      "Syllable": "xc",
+      "Bytes": [
+        131,
+        128
+      ],
+      "BytesString": "ム"
+    },
+    {
+      "Syllable": "xs",
+      "Bytes": [
+        131,
+        129
+      ],
+      "BytesString": "メ"
+    },
+    {
+      "Syllable": "ãe",
+      "Bytes": [
+        131,
+        130
+      ],
+      "BytesString": "モ"
+    },
+    {
+      "Syllable": "ão",
+      "Bytes": [
+        131,
+        131
+      ],
+      "BytesString": "ャ"
+    },
+    {
+      "Syllable": "õe",
+      "Bytes": [
+        131,
+        132
+      ],
+      "BytesString": "ヤ"
+    },
+    {
+      "Syllable": "ae",
+      "Bytes": [
+        131,
+        133
+      ],
+      "BytesString": "ュ"
+    },
+    {
+      "Syllable": "ai",
+      "Bytes": [
+        131,
+        134
+      ],
+      "BytesString": "ユ"
+    },
+    {
+      "Syllable": "au",
+      "Bytes": [
+        131,
+        135
+      ],
+      "BytesString": "ョ"
+    },
+    {
+      "Syllable": "ee",
+      "Bytes": [
+        131,
+        136
+      ],
+      "BytesString": "ヨ"
+    },
+    {
+      "Syllable": "eu",
+      "Bytes": [
+        131,
+        137
+      ],
+      "BytesString": "ラ"
+    },
+    {
+      "Syllable": "oo",
+      "Bytes": [
+        131,
+        138
+      ],
+      "BytesString": "リ"
+    },
+    {
+      "Syllable": "ou",
+      "Bytes": [
+        131,
+        139
+      ],
+      "BytesString": "ル"
+    },
+    {
+      "Syllable": "al",
+      "Bytes": [
+        131,
+        140
+      ],
+      "BytesString": "レ"
+    },
+    {
+      "Syllable": "el",
+      "Bytes": [
+        131,
+        141
+      ],
+      "BytesString": "ロ"
+    },
+    {
+      "Syllable": "il",
+      "Bytes": [
+        131,
+        142
+      ],
+      "BytesString": "ヮ"
+    },
+    {
+      "Syllable": "ol",
+      "Bytes": [
+        131,
+        143
+      ],
+      "BytesString": "ワ"
+    },
+    {
+      "Syllable": "ul",
+      "Bytes": [
+        131,
+        144
+      ],
+      "BytesString": "ヰ"
+    },
+    {
+      "Syllable": "¡",
+      "Bytes": [
+        129,
+        170
+      ],
+      "BytesString": "↑"
+    },
+    {
+      "Syllable": "¿",
+      "Bytes": [
+        129,
+        171
+      ],
+      "BytesString": "↓"
+    },
+    {
+      "Syllable": "Á",
+      "Bytes": [
+        131,
+        159
+      ],
+      "BytesString": "Α"
+    },
+    {
+      "Syllable": "À",
+      "Bytes": [
+        131,
+        160
+      ],
+      "BytesString": "Β"
+    },
+    {
+      "Syllable": "Â",
+      "Bytes": [
+        131,
+        161
+      ],
+      "BytesString": "Γ"
+    },
+    {
+      "Syllable": "Ã",
+      "Bytes": [
+        131,
+        162
+      ],
+      "BytesString": "Δ"
+    },
+    {
+      "Syllable": "Ä",
+      "Bytes": [
+        131,
+        163
+      ],
+      "BytesString": "Ε"
+    },
+    {
+      "Syllable": "É",
+      "Bytes": [
+        131,
+        164
+      ],
+      "BytesString": "Ζ"
+    },
+    {
+      "Syllable": "È",
+      "Bytes": [
+        131,
+        165
+      ],
+      "BytesString": "Η"
+    },
+    {
+      "Syllable": "Ê",
+      "Bytes": [
+        131,
+        166
+      ],
+      "BytesString": "Θ"
+    },
+    {
+      "Syllable": "Ë",
+      "Bytes": [
+        131,
+        167
+      ],
+      "BytesString": "Ι"
+    },
+    {
+      "Syllable": "Í",
+      "Bytes": [
+        131,
+        168
+      ],
+      "BytesString": "Κ"
+    },
+    {
+      "Syllable": "Ì",
+      "Bytes": [
+        131,
+        169
+      ],
+      "BytesString": "Λ"
+    },
+    {
+      "Syllable": "Î",
+      "Bytes": [
+        131,
+        170
+      ],
+      "BytesString": "Μ"
+    },
+    {
+      "Syllable": "Ï",
+      "Bytes": [
+        131,
+        171
+      ],
+      "BytesString": "Ν"
+    },
+    {
+      "Syllable": "Ó",
+      "Bytes": [
+        131,
+        172
+      ],
+      "BytesString": "Ξ"
+    },
+    {
+      "Syllable": "Ò",
+      "Bytes": [
+        131,
+        173
+      ],
+      "BytesString": "Ο"
+    },
+    {
+      "Syllable": "Ô",
+      "Bytes": [
+        131,
+        174
+      ],
+      "BytesString": "Π"
+    },
+    {
+      "Syllable": "Õ",
+      "Bytes": [
+        131,
+        175
+      ],
+      "BytesString": "Ρ"
+    },
+    {
+      "Syllable": "Ö",
+      "Bytes": [
+        131,
+        176
+      ],
+      "BytesString": "Σ"
+    },
+    {
+      "Syllable": "Ú",
+      "Bytes": [
+        131,
+        177
+      ],
+      "BytesString": "Τ"
+    },
+    {
+      "Syllable": "Ù",
+      "Bytes": [
+        131,
+        178
+      ],
+      "BytesString": "Υ"
+    },
+    {
+      "Syllable": "Û",
+      "Bytes": [
+        131,
+        179
+      ],
+      "BytesString": "Φ"
+    },
+    {
+      "Syllable": "Ü",
+      "Bytes": [
+        131,
+        180
+      ],
+      "BytesString": "Χ"
+    },
+    {
+      "Syllable": "Ç",
+      "Bytes": [
+        131,
+        181
+      ],
+      "BytesString": "Ψ"
+    },
+    {
+      "Syllable": "Ñ",
+      "Bytes": [
+        131,
+        182
+      ],
+      "BytesString": "Ω"
+    },
+    {
+      "Syllable": "á",
+      "Bytes": [
+        131,
+        191
+      ],
+      "BytesString": "α"
+    },
+    {
+      "Syllable": "à",
+      "Bytes": [
+        131,
+        192
+      ],
+      "BytesString": "β"
+    },
+    {
+      "Syllable": "â",
+      "Bytes": [
+        131,
+        193
+      ],
+      "BytesString": "γ"
+    },
+    {
+      "Syllable": "ã",
+      "Bytes": [
+        131,
+        194
+      ],
+      "BytesString": "δ"
+    },
+    {
+      "Syllable": "ä",
+      "Bytes": [
+        131,
+        195
+      ],
+      "BytesString": "ε"
+    },
+    {
+      "Syllable": "é",
+      "Bytes": [
+        131,
+        196
+      ],
+      "BytesString": "ζ"
+    },
+    {
+      "Syllable": "è",
+      "Bytes": [
+        131,
+        197
+      ],
+      "BytesString": "η"
+    },
+    {
+      "Syllable": "ê",
+      "Bytes": [
+        131,
+        198
+      ],
+      "BytesString": "θ"
+    },
+    {
+      "Syllable": "ë",
+      "Bytes": [
+        131,
+        199
+      ],
+      "BytesString": "ι"
+    },
+    {
+      "Syllable": "í",
+      "Bytes": [
+        131,
+        200
+      ],
+      "BytesString": "κ"
+    },
+    {
+      "Syllable": "ì",
+      "Bytes": [
+        131,
+        201
+      ],
+      "BytesString": "λ"
+    },
+    {
+      "Syllable": "î",
+      "Bytes": [
+        131,
+        202
+      ],
+      "BytesString": "μ"
+    },
+    {
+      "Syllable": "ï",
+      "Bytes": [
+        131,
+        203
+      ],
+      "BytesString": "ν"
+    },
+    {
+      "Syllable": "ó",
+      "Bytes": [
+        131,
+        204
+      ],
+      "BytesString": "ξ"
+    },
+    {
+      "Syllable": "ò",
+      "Bytes": [
+        131,
+        205
+      ],
+      "BytesString": "ο"
+    },
+    {
+      "Syllable": "ô",
+      "Bytes": [
+        131,
+        206
+      ],
+      "BytesString": "π"
+    },
+    {
+      "Syllable": "õ",
+      "Bytes": [
+        131,
+        207
+      ],
+      "BytesString": "ρ"
+    },
+    {
+      "Syllable": "ö",
+      "Bytes": [
+        131,
+        208
+      ],
+      "BytesString": "σ"
+    },
+    {
+      "Syllable": "ú",
+      "Bytes": [
+        131,
+        209
+      ],
+      "BytesString": "τ"
+    },
+    {
+      "Syllable": "ù",
+      "Bytes": [
+        131,
+        210
+      ],
+      "BytesString": "υ"
+    },
+    {
+      "Syllable": "û",
+      "Bytes": [
+        131,
+        211
+      ],
+      "BytesString": "φ"
+    },
+    {
+      "Syllable": "ü",
+      "Bytes": [
+        131,
+        212
+      ],
+      "BytesString": "χ"
+    },
+    {
+      "Syllable": "ç",
+      "Bytes": [
+        131,
+        213
+      ],
+      "BytesString": "ψ"
+    },
+    {
+      "Syllable": "ñ",
+      "Bytes": [
+        131,
+        214
+      ],
+      "BytesString": "ω"
+    }
+  ],
+  "FileReplacements": [
+    {
+      "PathToReplace": "/font/FONT12.bcfnt",
+      "RelativePath": "FONT12.bcfnt"
+    }
+  ]
+}
