@@ -1,0 +1,164 @@
+using Izuto.Extensions;
+using plugin_level5.N3DS.Archive;
+using System.Reflection;
+
+namespace Izuto
+{
+    public partial class MainForm : Form
+    {
+        public static string tempDir = Path.Combine(Path.GetTempPath(), "Izuto");
+        public static OptionsFileData OptionsFile = new OptionsFileData();
+
+        public enum iconTypes
+        {
+            Unknown,
+            Txt,
+            Zip
+        }
+
+        public MainForm()
+        {
+            InitializeComponent();
+            // Get the version from the assembly
+            Version version = Assembly.GetExecutingAssembly().GetName().Version;
+            // Display it in the form header
+            this.Text = $"Izuto - Version {version}";
+            // delete all temp files
+            Directory.CreateDirectory(tempDir);
+        }
+
+        /// <summary>
+        /// Opens a file browser dialog with a custom filter and title.
+        /// </summary>
+        /// <param name="filter">File filter string (e.g. "CIA files (*.cia)|*.cia").</param>
+        /// <param name="title">Dialog title (e.g. "Select a CIA file").</param>
+        /// <returns>Full path of the selected file, or empty string if cancelled.</returns>
+        public static string BrowseForFile(string filter = "All files (*.*)|*.*", string title = "Select a file")
+        {
+            string filePath = string.Empty;
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = filter;
+                openFileDialog.Title = title;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    filePath = openFileDialog.FileName;
+                }
+            }
+
+            return filePath;
+        }
+        /// <summary>
+        /// Opens a folder browser dialog with a custom description.
+        /// </summary>
+        /// <param name="description">Text shown in the dialog (e.g. "Select output directory").</param>
+        /// <returns>Full path of the selected directory, or empty string if cancelled.</returns>
+        public static string BrowseForDirectory(string description = "Select a folder")
+        {
+            string folderPath = string.Empty;
+
+            using (FolderBrowserDialog folderDialog = new FolderBrowserDialog())
+            {
+                folderDialog.Description = description;
+                folderDialog.ShowNewFolderButton = true; // Allow creating new folders
+
+                if (folderDialog.ShowDialog() == DialogResult.OK)
+                {
+                    folderPath = folderDialog.SelectedPath;
+                }
+            }
+
+            return folderPath;
+        }
+
+
+        private async void btnBrowseArchiveFA_Click(object sender, EventArgs e)
+        {
+            string ciaPath = BrowseForFile("Level 5 Archive File (*.fa)|*.fa", "Select a FA file");
+            textArchiveFaPath.Text = ciaPath;
+            await ListFiles();
+        }
+
+        List<B123ArchiveFile> archiveFiles = new List<B123ArchiveFile>();
+
+        private async Task ListFiles()
+        {
+            archiveFiles = await ArchiveFA.ListFiles(textArchiveFaPath.Text);
+            listView1.BeginUpdate();
+            listView1.Items.Clear();
+            List<B123ArchiveFile> pkb_files = archiveFiles.Where(f => f.FilePath.FullName.StartsWith("/inazuma") && f.FilePath.FullName.Contains("/script/") && f.FilePath.FullName.EndsWith(".pkb")).ToList();
+            var sortedPkbFiles = pkb_files.OrderBy(p => p.FilePath);
+            foreach (var file in sortedPkbFiles)
+            {
+                listView1.Items.Add(new ListViewItem() { Text = file.FilePath.FullName, Tag = file, ImageIndex = (int)iconTypes.Zip });
+            }
+            listView1.EndUpdate();
+        }
+
+        private async void btnExplorePKB_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count == 0) return;
+            if (listView1.SelectedItems[0].Tag == null) return;
+            if (listView1.SelectedItems[0].Tag?.GetType() != typeof(B123ArchiveFile)) return;
+            B123ArchiveFile? file = (B123ArchiveFile?)listView1.SelectedItems[0].Tag;
+            if (file == null) return;
+            PKB.FileEntry pkbFileData = await PKB.UnpackPKBFromArchiveFA_Async(textArchiveFaPath.Text, file, tempDir);
+            PKBForm pkbform = new PKBForm(this, pkbFileData, file);
+            pkbform.StartPosition = FormStartPosition.CenterParent;
+            pkbform.ShowDialog(this);
+            if (pkbform.DialogResult == DialogResult.Cancel) return;
+
+            B123ArchiveFile? pkhFile = archiveFiles.FirstOrDefault(f => f.FilePath.FullName.Equals(file.FilePath.FullName.Replace(".pkb", ".pkh")));
+
+            await ArchiveFA.ReplaceFile(textArchiveFaPath.Text, file, pkbFileData.FileData.path);
+            await ArchiveFA.ReplaceFile(textArchiveFaPath.Text, pkhFile, pkbFileData.FileData.path.Replace(".pkb", ".pkh"));
+
+            if (OptionsFile.Config != null)
+            {
+                foreach (var replaceFile in OptionsFile.Config.FileReplacements)
+                {
+                    B123ArchiveFile? fontFile = archiveFiles.FirstOrDefault(f => f.FilePath.FullName.Equals(replaceFile.PathToReplace));
+                    if(fontFile == null)
+                    {
+                        if (MessageBox.Show("The file requested to replace was not found:\n\n" + replaceFile.PathToReplace + "\n\nDo you want to continue importing any remaining files?", "Import File Error", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Cancel)
+                            return;
+                        continue;
+                    }
+                    await ArchiveFA.ReplaceFile(textArchiveFaPath.Text, fontFile, OptionsFile.GetFileActualPath(replaceFile));
+                }
+            }
+            MessageBox.Show("Archive modification completed, rebuild your rom for testing", "Completed!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OptionsForm optionsForm = new OptionsForm();
+            optionsForm.StartPosition = FormStartPosition.CenterParent;
+            optionsForm.ShowDialog(this);
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(Properties.Settings.Default.OptionsFilePath))
+            {
+                if (!File.Exists(Properties.Settings.Default.OptionsFilePath))
+                {
+                    MessageBox.Show("Failed to load options, the file no longer exists\n\n:" + Properties.Settings.Default.OptionsFilePath, "Options File Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Properties.Settings.Default.OptionsFilePath = "";
+                    Properties.Settings.Default.Save();
+                } else
+                {
+                    if(!OptionsFile.Load(Properties.Settings.Default.OptionsFilePath))
+                    {
+                        MessageBox.Show("The options file appears to be corrupted\n\n:" + Properties.Settings.Default.OptionsFilePath, "Options File Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        Properties.Settings.Default.OptionsFilePath = "";
+                        Properties.Settings.Default.Save();
+                    }
+                }
+            }
+        }
+    }
+}

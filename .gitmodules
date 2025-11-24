@@ -1,0 +1,6 @@
+[submodule "Kuriimu2"]
+	path = Kuriimu2
+	url = https://github.com/FanTranslatorsInternational/Kuriimu2
+[submodule "tinke"]
+	path = tinke
+	url = https://github.com/pleonex/tinke
