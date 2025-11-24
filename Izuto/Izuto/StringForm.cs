@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Izuto
 {
@@ -17,7 +18,7 @@ namespace Izuto
         public string ModifiedString { get; private set; } = "";
         string OriginalString;
 
-        public StringForm(string StringToMomdify)
+        public StringForm(string StringToMomdify, string searchForString = "")
         {
             InitializeComponent();
             this.OriginalString = StringToMomdify;
@@ -79,7 +80,7 @@ namespace Izuto
             if (MainForm.OptionsFile.IsLoaded())
                 ModifiedString = MainForm.OptionsFile.ConvertTextString(ModifiedString);
             ModifiedString = ModifiedString.Replace("\r\n", "\n");
-            ModifiedString = WrapText(ModifiedString, 44);
+            //ModifiedString = WrapText(ModifiedString, 44);
             ModifiedString = ModifiedString.Replace("\n", "\\n");
             byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(ModifiedString);
             int remain = ModifiedString.Length % 4;

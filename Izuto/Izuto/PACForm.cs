@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Izuto
 {
@@ -38,6 +39,7 @@ namespace Izuto
 
         private void PACForm_Shown(object sender, EventArgs e)
         {
+            string searchForString = "こっちじゃないな";
             PACData = new PAC();
             PACData.Load(PACFileInfo.FileData.path);
 
@@ -64,6 +66,11 @@ namespace Izuto
                 newItem.SubItems.Add(item.LineNumber.ToString());
                 newItem.SubItems.Add(item.Text);
                 newItem.SubItems.Add(MainForm.OptionsFile.ConvertBackTextString(item.Text));
+
+                if (!string.IsNullOrEmpty(searchForString) && (newItem.SubItems[2].Text.Contains(searchForString) || newItem.SubItems[3].Text.Contains(searchForString)) )
+                {
+                    MessageBox.Show($"Required string found at {$"Script ID#{item.ID}"} in the selected file: {Path.GetFileName(PACFileInfo.FileData.path)}");
+                }
                 newItem.Tag = i;
                 listViewFiles.Items.Add(newItem);
             }

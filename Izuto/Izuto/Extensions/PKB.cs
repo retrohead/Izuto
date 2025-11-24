@@ -5,6 +5,7 @@ using Konnect.Extensions;
 using plugin_level5.N3DS.Archive;
 using System.Text;
 using System.Threading;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 public class PKB
 {
@@ -12,6 +13,7 @@ public class PKB
     {
         public sFile FileData = new sFile();
         public sFolder FileContents = new sFolder();
+        public bool IsCompressed = false;
     }
 
     public static async Task<PKB.FileEntry> UnpackPKBFromArchiveFA_Async(string inputArchiveFAFilePath, B123ArchiveFile ArchiveFAFileToExtract, string workingDirectory)
@@ -32,8 +34,13 @@ public class PKB
         string compressedFileName = Path.Combine(outputDirectory, pkbitem.name);
 
         // open the pkb file and extract the selected file
+        string magicString = ""; 
+
         using (var br = new BinaryReader(File.OpenRead(PKBFileInfo.FileData.path)))
         {
+            br.BaseStream.Position = pkbitem.offset;
+            byte[] magicbytes = br.ReadBytes(2);
+            magicString = System.Text.Encoding.GetEncoding("shift_jis").GetString(magicbytes);
             br.BaseStream.Position = pkbitem.offset;
             File.WriteAllBytes(compressedFileName, br.ReadBytes((int)pkbitem.size));
         }
@@ -43,7 +50,8 @@ public class PKB
 
         await Task.Run(() =>
         {
-
+            if (File.Exists(PACFileInfo.FileData.path))
+                File.Delete(PACFileInfo.FileData.path);
 
             // decompress the file
             FormatCompress compressFormat = DSDecmp.Main.Get_Format(compressedFileName);
@@ -55,7 +63,8 @@ public class PKB
                     throw new Exception($"Failed to decompress file {compressedFileName}");
             } else
             {
-                throw new Exception($"Failed to decompress file {compressedFileName}");
+                // assume uncompressed PAC file
+                File.Copy(compressedFileName, PACFileInfo.FileData.path);
             }
         }
         );
@@ -131,7 +140,7 @@ public class PKB
         string path = fileToImport.FileData.path.ToString();
         path = path.Replace("_decompressed", "");
         string compressedFileName = Path.Combine(Path.GetDirectoryName(path)?.ToString() ?? "", "import", fileToImport.FileData.name.Replace("_decompressed", ""));
-        string orignalCompressedFileName = path;
+        string originalCompressedFileName = path;
         // compress
         long adjustedSize = 0;
         long padding = 0;
@@ -139,22 +148,23 @@ public class PKB
         await Task.Run(() =>
         {
             // compress the file
-            FormatCompress compressFormat = DSDecmp.Main.Get_Format(orignalCompressedFileName); // get the format from the orignal compressed file
+            FormatCompress compressFormat = DSDecmp.Main.Get_Format(originalCompressedFileName); // get the format from the orignal compressed file
 
             if (compressFormat != FormatCompress.Invalid)
             {
                 DSDecmp.Main.Compress(fileToImport.FileData.path + "_modified", compressedFileName, compressFormat);
-                // align compressed file to 16 bytes
-                adjustedSize = AlignFileTo4Bytes(compressedFileName, 0x00);
-                FileInfo newFileInfo = new FileInfo(compressedFileName);
-                newSize = newFileInfo.Length;
-                padding = AlignFileTo16Bytes(compressedFileName, 0xFF);
                 if (!File.Exists(fileToImport.FileData.path + "_modified"))
                     throw new Exception($"Failed to compress file {Path.GetFileName(compressedFileName)}");
             } else
             {
-                throw new Exception($"Unexpected compression format");
+                // assume uncompressed file
+                File.Copy(fileToImport.FileData.path + "_modified", compressedFileName, true);
             }
+            // align compressed file to 16 bytes
+            adjustedSize = AlignFileTo4Bytes(compressedFileName, 0x00);
+            FileInfo newFileInfo = new FileInfo(compressedFileName);
+            newSize = newFileInfo.Length;
+            padding = AlignFileTo16Bytes(compressedFileName, 0xFF);
         }
         );
 

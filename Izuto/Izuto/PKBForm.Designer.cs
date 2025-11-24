@@ -37,6 +37,7 @@
             btnExplorePAC = new Button();
             tableLayoutPanel1 = new TableLayoutPanel();
             btnImportPKB = new Button();
+            columnHeader4 = new ColumnHeader();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -52,7 +53,7 @@
             // 
             // listView1
             // 
-            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3 });
+            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4 });
             tableLayoutPanel1.SetColumnSpan(listView1, 3);
             listView1.Dock = DockStyle.Fill;
             listView1.FullRowSelect = true;
@@ -67,7 +68,7 @@
             // columnHeader1
             // 
             columnHeader1.Text = "File";
-            columnHeader1.Width = 650;
+            columnHeader1.Width = 600;
             // 
             // columnHeader2
             // 
@@ -119,6 +120,10 @@
             btnImportPKB.UseVisualStyleBackColor = true;
             btnImportPKB.Click += btnImportPKB_Click;
             // 
+            // columnHeader4
+            // 
+            columnHeader4.Text = "Type";
+            // 
             // PKBForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -144,5 +149,6 @@
         private ColumnHeader columnHeader2;
         private ColumnHeader columnHeader3;
         private Button btnImportPKB;
+        private ColumnHeader columnHeader4;
     }
 }

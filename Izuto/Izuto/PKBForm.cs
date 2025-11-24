@@ -40,6 +40,7 @@ namespace Izuto
                 var pkbitem = new ListViewItem() { Text = file.name, Tag = file, ImageIndex = (int)iconTypes.Zip };
                 pkbitem.SubItems.Add(file.offset.ToString());
                 pkbitem.SubItems.Add(file.size.ToString());
+                pkbitem.SubItems.Add(file.ToString());
                 listView1.Items.Add(pkbitem);
             }
 

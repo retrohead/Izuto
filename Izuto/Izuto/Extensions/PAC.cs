@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 public class PAC
 {
@@ -27,7 +28,7 @@ public class PAC
         public Int16 AssetCount;        // 0x000C – max index for entries
         public Int16 StringCount;       // 0x000E – strings are stored after binary content
         public Int32 DataSize;          // 0x0010 – size of data section
-        public byte[] Unknown = new byte[12]; // 0x0014 – unknown
+        public byte[]? Unknown = new byte[12]; // 0x0014 – unknown
     }
 
     public HeaderInfo Header = new HeaderInfo();
@@ -36,6 +37,12 @@ public class PAC
 
     public void Load(string fn)
     {
+        FileInfo fileInfo = new FileInfo(fn);
+        if(fileInfo.Length == 0)
+        {
+            return;
+        }
+
 
         using (var fs = File.OpenRead(fn))
         using (var br = new BinaryReader(fs))
@@ -45,53 +52,96 @@ public class PAC
             Header.Magic = System.Text.Encoding.GetEncoding("shift_jis").GetString(magicbytes); // "SSD\0" 4 bytes
             if (Header.Magic != "SSD\0")
             {
-
-            }
-            Header.Version = br.ReadInt16();   // 2 bytes
-            Header.Type = br.ReadInt16();      // 2 bytes
-            Header.FileSize = br.ReadInt32();  // 4 bytes
-            Header.AssetCount = br.ReadInt16();  // 2 bytes
-            Header.StringCount = br.ReadInt16(); // 2 bytes
-            Header.DataSize = br.ReadInt32();  // 4 bytes
-            Header.Unknown = br.ReadBytes(12);  // 12 bytes unknown
-
-            // --- Read entries ---
-            BinaryEntries = new List<BinaryEntry>();
-            for (int i = 0; i < Header.AssetCount; i++)
-            {
-                BinaryEntry bentry = new BinaryEntry();
-                bentry.FileId = br.ReadInt16();   // 2 bytes
-                bentry.FileSize = br.ReadInt16(); // 2 bytes
-
-                // Each entry is larger than 4 bytes, but for now we only know FileId + FileSize.
-                // Read the rest of the entry into Unknown so we preserve the data.
-                bentry.Data = br.ReadBytes(bentry.FileSize - 4); // remaining bytes of the entry
-                BinaryEntries.Add(bentry);
-            }
-
-            StringEntries = new List<ScriptEntry>();
-            if (Header.StringCount > 0)
-            {
-                // reverse back to parse strings
-                br.BaseStream.Position = 20 + Header.DataSize;
-                br.ReadBytes(12);  // 12 bytes unknown
-
-                // read strings
-                for (int i = 0; i < Header.StringCount; i++)
+                if (Header.Magic.Substring(0, 2) == "\0\0")
                 {
-                    ScriptEntry sentry = new ScriptEntry();
-                    sentry.ID = br.ReadInt16();   // 2 bytes
-                    sentry.LineNumber = br.ReadByte();   // 1 byte
-                    sentry.Size = br.ReadByte();   // 1 byte
-                    byte[] bytes = br.ReadBytes(sentry.Size - 4);
-                    sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(bytes);
-                    StringEntries.Add(sentry);
+                    // assuming uncompressed file containing strings only
+                    LoadDecompressedPAC(br);
+                    return;
                 }
+                throw new Exception("Unsupported PAC file");
             }
-            long bytesNotReadYet = Header.FileSize - br.BaseStream.Position;
-            if (bytesNotReadYet != 0)
+            // compressed file
+            LoadCompressedPAC(br);
+        }
+    }
+
+    private void LoadDecompressedPAC(BinaryReader br)
+    {
+        Header.Version = 0;      
+        Header.Type = -1; // using type -1 as decompressed indicator            
+        Header.FileSize = 0;        
+        Header.AssetCount = 0;      
+        Header.StringCount = 0;     
+        Header.DataSize = 0;        
+        Header.Unknown = null;
+
+        // --- Read entries ---
+        BinaryEntries = new List<BinaryEntry>();
+
+        StringEntries = new List<ScriptEntry>();
+
+        // reverse back to start of the stream
+        br.BaseStream.Position = 0;
+
+        // keep reading until we reach the end of the file
+        while (true)
+        {
+            br.ReadBytes(3);  // zero bytes
+
+            ScriptEntry sentry = new ScriptEntry();
+            sentry.ID = Header.StringCount;
+            sentry.LineNumber = 0;
+            sentry.Size = br.ReadByte();   // 2 bytes
+            byte[] bytes = br.ReadBytes(sentry.Size - 4);
+            sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(bytes);
+            StringEntries.Add(sentry);
+            Header.StringCount++;
+            if (br.BaseStream.Position >= br.BaseStream.Length - 1)
+                break; // finished reading, hopefully didn't go past the end of the stream :)
+        }
+    }
+
+    private void LoadCompressedPAC(BinaryReader br)
+    {
+        Header.Version = br.ReadInt16();   // 2 bytes
+        Header.Type = br.ReadInt16();      // 2 bytes
+        Header.FileSize = br.ReadInt32();  // 4 bytes
+        Header.AssetCount = br.ReadInt16();  // 2 bytes
+        Header.StringCount = br.ReadInt16(); // 2 bytes
+        Header.DataSize = br.ReadInt32();  // 4 bytes
+        Header.Unknown = br.ReadBytes(12);  // 12 bytes unknown
+
+        // --- Read entries ---
+        BinaryEntries = new List<BinaryEntry>();
+        for (int i = 0; i < Header.AssetCount; i++)
+        {
+            BinaryEntry bentry = new BinaryEntry();
+            bentry.FileId = br.ReadInt16();   // 2 bytes
+            bentry.FileSize = br.ReadInt16(); // 2 bytes
+
+            // Each entry is larger than 4 bytes, but for now we only know FileId + FileSize.
+            // Read the rest of the entry into Unknown so we preserve the data.
+            bentry.Data = br.ReadBytes(bentry.FileSize - 4); // remaining bytes of the entry
+            BinaryEntries.Add(bentry);
+        }
+
+        StringEntries = new List<ScriptEntry>();
+        if (Header.StringCount > 0)
+        {
+            // reverse back to parse strings
+            br.BaseStream.Position = 20 + Header.DataSize;
+            br.ReadBytes(12);  // 12 bytes unknown
+
+            // read strings
+            for (int i = 0; i < Header.StringCount; i++)
             {
-                bytesNotReadYet = bytesNotReadYet;
+                ScriptEntry sentry = new ScriptEntry();
+                sentry.ID = br.ReadInt16();   // 2 bytes
+                sentry.LineNumber = br.ReadByte();   // 1 byte
+                sentry.Size = br.ReadByte();   // 1 byte
+                byte[] bytes = br.ReadBytes(sentry.Size - 4);
+                sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(bytes);
+                StringEntries.Add(sentry);
             }
         }
     }
@@ -101,46 +151,72 @@ public class PAC
         using (var fs = new FileStream(fn, FileMode.Create, FileAccess.Write))
         using (var bw = new BinaryWriter(fs))
         {            
-
-            // header
-            bw.Write(Encoding.GetEncoding("shift_jis").GetBytes(Header.Magic));
-            bw.Write(Header.Version);
-            bw.Write(Header.Type);
-            bw.Write(Header.FileSize);
-            bw.Write(Header.AssetCount);
-            bw.Write((Int16)StringEntries.Count);
-            bw.Write(Header.DataSize);
-            bw.Write(Header.Unknown);
-
-            // write all binary data except the last entry as that will contain the strings which may have changed
-            foreach (var bentry in BinaryEntries)
+            if(Header.Type == -1)
             {
-                bw.Write(bentry.FileId);
-                bw.Write(bentry.FileSize);
-                bw.Write(bentry.Data);
-            }
-
-            // reverse back to overwrite the strings, 12 unknown bytes at start 
-            bw.BaseStream.Position = 20 + Header.DataSize + 12;
-
-            int sizeChange = 0;
-            foreach (var sentry in StringEntries)
+                SaveDecompressedPAC(bw);
+            } else
             {
-                bw.Write(sentry.ID);
-                bw.Write(sentry.LineNumber);
-                // update the size of the string
-                byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(sentry.Text);
-                ushort StringSize = (ushort)(text.Length + 4);
-                sizeChange += sentry.Size - StringSize;
-                sentry.Size = (byte)StringSize;
-                bw.Write(sentry.Size);
-                bw.Write(text);
+                SaveCompressedPAC(bw);
             }
+        }
+    }
 
-            // reverse back and overwrite the total file size
-            bw.BaseStream.Position = 8;
-            Header.FileSize += sizeChange;
-            bw.Write(Header.FileSize);
+    private void SaveCompressedPAC(BinaryWriter bw)
+    {
+        // header
+        bw.Write(Encoding.GetEncoding("shift_jis").GetBytes(Header.Magic));
+        bw.Write(Header.Version);
+        bw.Write(Header.Type);
+        bw.Write(Header.FileSize);
+        bw.Write(Header.AssetCount);
+        bw.Write((Int16)StringEntries.Count);
+        bw.Write(Header.DataSize);
+        bw.Write(Header.Unknown);
+
+        // write all binary data except the last entry as that will contain the strings which may have changed
+        foreach (var bentry in BinaryEntries)
+        {
+            bw.Write(bentry.FileId);
+            bw.Write(bentry.FileSize);
+            bw.Write(bentry.Data);
+        }
+
+        // reverse back to overwrite the strings, 12 unknown bytes at start 
+        bw.BaseStream.Position = 20 + Header.DataSize + 12;
+
+        int sizeChange = 0;
+        foreach (var sentry in StringEntries)
+        {
+            bw.Write(sentry.ID);
+            bw.Write(sentry.LineNumber);
+            // update the size of the string
+            byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(sentry.Text);
+            ushort StringSize = (ushort)(text.Length + 4);
+            sizeChange += sentry.Size - StringSize;
+            sentry.Size = (byte)StringSize;
+            bw.Write(sentry.Size);
+            bw.Write(text);
+        }
+
+        // reverse back and overwrite the total file size
+        bw.BaseStream.Position = 8;
+        Header.FileSize += sizeChange;
+        bw.Write(Header.FileSize);
+    }
+    private void SaveDecompressedPAC(BinaryWriter bw)
+    {
+        // seems to only contain strings
+        int sizeChange = 0;
+        foreach (var sentry in StringEntries)
+        {
+            bw.Write(new byte[3] { 0, 0, 0 });
+            // update the size of the string
+            byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(sentry.Text);
+            ushort StringSize = (ushort)(text.Length + 4);
+            sizeChange += sentry.Size - StringSize;
+            sentry.Size = (byte)StringSize;
+            bw.Write(sentry.Size);
+            bw.Write(text);
         }
     }
 }
