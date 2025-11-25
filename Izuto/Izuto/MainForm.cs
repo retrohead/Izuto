@@ -1,5 +1,6 @@
 using Izuto.Extensions;
 using plugin_level5.N3DS.Archive;
+using System.Diagnostics;
 using System.Reflection;
 
 namespace Izuto
@@ -8,6 +9,8 @@ namespace Izuto
     {
         public static string tempDir = Path.Combine(Path.GetTempPath(), "Izuto");
         public static OptionsFileData OptionsFile = new OptionsFileData();
+        public static string LoadedArchiveFilePath = "";
+        public static MainForm? Self;
 
         public enum iconTypes
         {
@@ -25,6 +28,7 @@ namespace Izuto
             this.Text = $"Izuto - Version {version}";
             // delete all temp files
             Directory.CreateDirectory(tempDir);
+            Self = this;
         }
 
         /// <summary>
@@ -77,19 +81,20 @@ namespace Izuto
 
         private async void btnBrowseArchiveFA_Click(object sender, EventArgs e)
         {
-            string ciaPath = BrowseForFile("Level 5 Archive File (*.fa)|*.fa", "Select a FA file");
-            textArchiveFaPath.Text = ciaPath;
+            LoadedArchiveFilePath = BrowseForFile("Level 5 Archive File (*.fa)|*.fa", "Select a FA file");
+            textArchiveFaPath.Text = LoadedArchiveFilePath;
+            QueuedImports = new List<OptionsFileData.FileReplacementEntry>();
             await ListFiles();
         }
 
-        List<B123ArchiveFile> archiveFiles = new List<B123ArchiveFile>();
+        public static List<B123ArchiveFile> ArchiveFiles = new List<B123ArchiveFile>();
 
         private async Task ListFiles()
         {
-            archiveFiles = await ArchiveFA.ListFiles(textArchiveFaPath.Text);
+            ArchiveFiles = await ArchiveFA.ListFiles(LoadedArchiveFilePath);
             listView1.BeginUpdate();
             listView1.Items.Clear();
-            List<B123ArchiveFile> pkb_files = archiveFiles.Where(f => f.FilePath.FullName.StartsWith("/inazuma") && f.FilePath.FullName.Contains("/script/") && f.FilePath.FullName.EndsWith(".pkb")).ToList();
+            List<B123ArchiveFile> pkb_files = ArchiveFiles.Where(f => f.FilePath.FullName.StartsWith("/inazuma") && f.FilePath.FullName.Contains("/script/") && f.FilePath.FullName.EndsWith(".pkb")).ToList();
             var sortedPkbFiles = pkb_files.OrderBy(p => p.FilePath);
             foreach (var file in sortedPkbFiles)
             {
@@ -97,6 +102,8 @@ namespace Izuto
             }
             listView1.EndUpdate();
         }
+
+        public static List<OptionsFileData.FileReplacementEntry> QueuedImports = new List<OptionsFileData.FileReplacementEntry>();
 
         private async void btnExplorePKB_Click(object sender, EventArgs e)
         {
@@ -106,12 +113,12 @@ namespace Izuto
             B123ArchiveFile? file = (B123ArchiveFile?)listView1.SelectedItems[0].Tag;
             if (file == null) return;
             PKB.FileEntry pkbFileData = await PKB.UnpackPKBFromArchiveFA_Async(textArchiveFaPath.Text, file, tempDir);
-            PKBForm pkbform = new PKBForm(this, pkbFileData, file);
+            PKBForm pkbform = new PKBForm(pkbFileData, file);
             pkbform.StartPosition = FormStartPosition.CenterParent;
             pkbform.ShowDialog(this);
             if (pkbform.DialogResult == DialogResult.Cancel) return;
 
-            B123ArchiveFile? pkhFile = archiveFiles.FirstOrDefault(f => f.FilePath.FullName.Equals(file.FilePath.FullName.Replace(".pkb", ".pkh")));
+            B123ArchiveFile? pkhFile = ArchiveFiles.FirstOrDefault(f => f.FilePath.FullName.Equals(file.FilePath.FullName.Replace(".pkb", ".pkh")));
 
             await ArchiveFA.ReplaceFile(textArchiveFaPath.Text, file, pkbFileData.FileData.path);
             await ArchiveFA.ReplaceFile(textArchiveFaPath.Text, pkhFile, pkbFileData.FileData.path.Replace(".pkb", ".pkh"));
@@ -120,18 +127,30 @@ namespace Izuto
             {
                 foreach (var replaceFile in OptionsFile.Config.FileReplacements)
                 {
-                    B123ArchiveFile? fontFile = archiveFiles.FirstOrDefault(f => f.FilePath.FullName.Equals(replaceFile.PathToReplace));
-                    if(fontFile == null)
+                    B123ArchiveFile? fileToReplace = ArchiveFiles.FirstOrDefault(f => f.FilePath.FullName.Equals(replaceFile.PathToReplace));
+                    if(fileToReplace == null)
                     {
                         if (MessageBox.Show("The file requested to replace was not found:\n\n" + replaceFile.PathToReplace + "\n\nDo you want to continue importing any remaining files?", "Import File Error", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Cancel)
                             return;
                         continue;
                     }
-                    await ArchiveFA.ReplaceFile(textArchiveFaPath.Text, fontFile, OptionsFile.GetFileActualPath(replaceFile));
+                    await ArchiveFA.ReplaceFile(textArchiveFaPath.Text, fileToReplace, OptionsFile.GetFileActualPath(replaceFile));
                 }
+            }
+            foreach (OptionsFileData.FileReplacementEntry queuedFile in QueuedImports)
+            {
+                B123ArchiveFile? fileToReplace = ArchiveFiles.FirstOrDefault(f => f.FilePath.FullName.Equals(queuedFile.RelativePath));
+                if (fileToReplace == null)
+                {
+                    if (MessageBox.Show("The file requested to replace was not found:\n\n" + queuedFile.RelativePath + "\n\nDo you want to continue importing any remaining files?", "Import File Error", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Cancel)
+                        return;
+                    continue;
+                }
+                await ArchiveFA.ReplaceFile(textArchiveFaPath.Text, fileToReplace, queuedFile.PathToReplace);
             }
             MessageBox.Show("Archive modification completed, rebuild your rom for testing", "Completed!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {

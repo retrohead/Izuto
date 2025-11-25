@@ -12,7 +12,7 @@ public class PKB
     public class FileEntry
     {
         public sFile FileData = new sFile();
-        public sFolder FileContents = new sFolder();
+        public INAZUMA11.PKB.PKBContents PKBContents = new INAZUMA11.PKB.PKBContents();
         public bool IsCompressed = false;
     }
 
@@ -20,8 +20,8 @@ public class PKB
     {
         sFile pkbFile = await ArchiveFA.ExtractFile(inputArchiveFAFilePath, ArchiveFAFileToExtract.FilePath.FullName, workingDirectory);
         sFile pkhFile = await ArchiveFA.ExtractFile(inputArchiveFAFilePath, ArchiveFAFileToExtract.FilePath.FullName.Replace(".pkb", ".pkh"), workingDirectory);
-        sFolder extractedPKBItems = INAZUMA11.PKB.Unpack(pkbFile, pkhFile);
-        return new PKB.FileEntry() { FileData = pkbFile, FileContents = extractedPKBItems };
+        INAZUMA11.PKB.PKBContents extractedPKBItems = INAZUMA11.PKB.Unpack(pkbFile, pkhFile);
+        return new PKB.FileEntry() { FileData = pkbFile, PKBContents = extractedPKBItems };
     }
 
 
@@ -29,7 +29,7 @@ public class PKB
     {
         if (!Directory.Exists(outputDirectory))
             Directory.CreateDirectory(outputDirectory);
-        var pkbitem = PKBFileInfo.FileContents.files.FirstOrDefault(f => f.name.Equals(fileToExtract.name));
+        var pkbitem = PKBFileInfo.PKBContents.FolderContents.files.FirstOrDefault(f => f.name.Equals(fileToExtract.name));
 
         string compressedFileName = Path.Combine(outputDirectory, pkbitem.name);
 
@@ -169,7 +169,7 @@ public class PKB
         );
 
         // update the file size
-        var pkbEntry = PKBFileInfo.FileContents.files.FirstOrDefault(f => f.name.Equals(fileToImport.FileData.name.Replace("_decompressed", "")));
+        var pkbEntry = PKBFileInfo.PKBContents.FolderContents.files.FirstOrDefault(f => f.name.Equals(fileToImport.FileData.name.Replace("_decompressed", "")));
 
         // get new next offset, must be aligned to 4 bytes
         long sizediff = 0;
@@ -179,7 +179,7 @@ public class PKB
         sizediff = 0;
         if (oldEnd + oldPadding != newEnd)
             sizediff += (newEnd) - (oldEnd + oldPadding);
-        var pkbEntryIndex = PKBFileInfo.FileContents.files.IndexOf(pkbEntry);
+        var pkbEntryIndex = PKBFileInfo.PKBContents.FolderContents.files.IndexOf(pkbEntry);
 
         sFile newFile = new sFile();
         newFile.name = pkbEntry.name;
@@ -187,8 +187,8 @@ public class PKB
         newFile.path = pkbEntry.path;
         newFile.size = (uint)newSize;
 
-        PKBFileInfo.FileContents.files.RemoveAt(pkbEntryIndex);
-        PKBFileInfo.FileContents.files.Insert(pkbEntryIndex, newFile);
+        PKBFileInfo.PKBContents.FolderContents.files.RemoveAt(pkbEntryIndex);
+        PKBFileInfo.PKBContents.FolderContents.files.Insert(pkbEntryIndex, newFile);
 
 
         // open the pkb file so we can read from it writing to a new file
@@ -216,9 +216,9 @@ public class PKB
                     }
                 }
                 // write everything after the file entry
-                if (pkbEntryIndex + 1 < PKBFileInfo.FileContents.files.Count())
+                if (pkbEntryIndex + 1 < PKBFileInfo.PKBContents.FolderContents.files.Count())
                 {
-                    br.BaseStream.Position = PKBFileInfo.FileContents.files[pkbEntryIndex + 1].offset;
+                    br.BaseStream.Position = PKBFileInfo.PKBContents.FolderContents.files[pkbEntryIndex + 1].offset;
 
                     const int bufferSize = 81920; // 80 KB buffer
                     byte[] buffer2 = new byte[bufferSize];
@@ -234,11 +234,11 @@ public class PKB
         // update the offsets for all files past this one
         if (sizediff != 0)
         {
-            var files = PKBFileInfo.FileContents.files.FindAll(f => f.offset > pkbEntry.offset);
+            var files = PKBFileInfo.PKBContents.FolderContents.files.FindAll(f => f.offset > pkbEntry.offset);
             for (int i = 0; i < files.Count; i++)
             {
-                var file = PKBFileInfo.FileContents.files.FirstOrDefault(f => f.path.Equals(files[i].path));
-                var index = PKBFileInfo.FileContents.files.IndexOf(file);
+                var file = PKBFileInfo.PKBContents.FolderContents.files.FirstOrDefault(f => f.path.Equals(files[i].path));
+                var index = PKBFileInfo.PKBContents.FolderContents.files.IndexOf(file);
 
                 sFile newFile2 = new sFile();
                 newFile2.name = file.name;
@@ -246,8 +246,8 @@ public class PKB
                 newFile2.path = pkbEntry.path;
                 newFile2.size = file.size;
 
-                PKBFileInfo.FileContents.files.RemoveAt(index);
-                PKBFileInfo.FileContents.files.Insert(index, newFile2);
+                PKBFileInfo.PKBContents.FolderContents.files.RemoveAt(index);
+                PKBFileInfo.PKBContents.FolderContents.files.Insert(index, newFile2);
             }
         }
 
@@ -259,7 +259,7 @@ public class PKB
             pkh.path,
             pkh.path + "_modified",
             PKBFileInfo.FileData.path + "_modified",
-            PKBFileInfo.FileContents
+            PKBFileInfo.PKBContents.FolderContents
         );
 
         Directory.Delete(tempDir, true);

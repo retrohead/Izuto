@@ -34,10 +34,12 @@
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
             columnHeader3 = new ColumnHeader();
+            columnHeader5 = new ColumnHeader();
+            columnHeader4 = new ColumnHeader();
             btnExplorePAC = new Button();
             tableLayoutPanel1 = new TableLayoutPanel();
             btnImportPKB = new Button();
-            columnHeader4 = new ColumnHeader();
+            columnHeader6 = new ColumnHeader();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -53,7 +55,7 @@
             // 
             // listView1
             // 
-            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4 });
+            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader5, columnHeader4, columnHeader6 });
             tableLayoutPanel1.SetColumnSpan(listView1, 3);
             listView1.Dock = DockStyle.Fill;
             listView1.FullRowSelect = true;
@@ -68,7 +70,7 @@
             // columnHeader1
             // 
             columnHeader1.Text = "File";
-            columnHeader1.Width = 600;
+            columnHeader1.Width = 400;
             // 
             // columnHeader2
             // 
@@ -76,7 +78,17 @@
             // 
             // columnHeader3
             // 
-            columnHeader3.Text = "Size";
+            columnHeader3.Text = "Offset (Hex)";
+            columnHeader3.Width = 100;
+            // 
+            // columnHeader5
+            // 
+            columnHeader5.Text = "Size";
+            // 
+            // columnHeader4
+            // 
+            columnHeader4.Text = "ID";
+            columnHeader4.Width = 100;
             // 
             // btnExplorePAC
             // 
@@ -120,9 +132,9 @@
             btnImportPKB.UseVisualStyleBackColor = true;
             btnImportPKB.Click += btnImportPKB_Click;
             // 
-            // columnHeader4
+            // columnHeader6
             // 
-            columnHeader4.Text = "Type";
+            columnHeader6.Text = "Sub ID";
             // 
             // PKBForm
             // 
@@ -149,6 +161,8 @@
         private ColumnHeader columnHeader2;
         private ColumnHeader columnHeader3;
         private Button btnImportPKB;
+        private ColumnHeader columnHeader5;
         private ColumnHeader columnHeader4;
+        private ColumnHeader columnHeader6;
     }
 }

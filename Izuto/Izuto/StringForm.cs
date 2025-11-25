@@ -93,10 +93,5 @@ namespace Izuto
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
-
-        private void checkConvertText_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateText();
-        }
     }
 }

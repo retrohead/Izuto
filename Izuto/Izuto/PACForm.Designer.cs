@@ -34,20 +34,33 @@
             btnAccept = new Button();
             button2 = new Button();
             tabControl1 = new TabControl();
+            tabPageLinkedTextScripts = new TabPage();
+            tableLayoutPanel3 = new TableLayoutPanel();
+            listViewLinkedScripts = new ListView();
+            columnHeader9 = new ColumnHeader();
+            columnHeader10 = new ColumnHeader();
+            columnHeader11 = new ColumnHeader();
+            columnHeader12 = new ColumnHeader();
+            columnHeader13 = new ColumnHeader();
+            btnModifyLinkedScript = new Button();
             tabPageTextScripts = new TabPage();
             tableLayoutPanel2 = new TableLayoutPanel();
             btnModifyString = new Button();
-            listViewFiles = new ListView();
+            listViewTextScripts = new ListView();
             columnHeader3 = new ColumnHeader();
             columnHeader4 = new ColumnHeader();
             columnHeader5 = new ColumnHeader();
             columnHeader6 = new ColumnHeader();
+            columnHeader7 = new ColumnHeader();
+            columnHeader8 = new ColumnHeader();
             tabPageObjects = new TabPage();
             listView1 = new ListView();
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
             tableLayoutPanel1.SuspendLayout();
             tabControl1.SuspendLayout();
+            tabPageLinkedTextScripts.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
             tabPageTextScripts.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tabPageObjects.SuspendLayout();
@@ -110,6 +123,7 @@
             // tabControl1
             // 
             tableLayoutPanel1.SetColumnSpan(tabControl1, 3);
+            tabControl1.Controls.Add(tabPageLinkedTextScripts);
             tabControl1.Controls.Add(tabPageTextScripts);
             tabControl1.Controls.Add(tabPageObjects);
             tabControl1.Dock = DockStyle.Fill;
@@ -118,6 +132,80 @@
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(794, 380);
             tabControl1.TabIndex = 7;
+            // 
+            // tabPageLinkedTextScripts
+            // 
+            tabPageLinkedTextScripts.Controls.Add(tableLayoutPanel3);
+            tabPageLinkedTextScripts.Location = new Point(4, 24);
+            tabPageLinkedTextScripts.Name = "tabPageLinkedTextScripts";
+            tabPageLinkedTextScripts.Size = new Size(786, 352);
+            tabPageLinkedTextScripts.TabIndex = 3;
+            tabPageLinkedTextScripts.Text = "Linked Scripts";
+            tabPageLinkedTextScripts.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel3
+            // 
+            tableLayoutPanel3.ColumnCount = 2;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.Controls.Add(listViewLinkedScripts, 0, 0);
+            tableLayoutPanel3.Controls.Add(btnModifyLinkedScript, 0, 1);
+            tableLayoutPanel3.Dock = DockStyle.Fill;
+            tableLayoutPanel3.Location = new Point(0, 0);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 2;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
+            tableLayoutPanel3.Size = new Size(786, 352);
+            tableLayoutPanel3.TabIndex = 0;
+            // 
+            // listViewLinkedScripts
+            // 
+            listViewLinkedScripts.Columns.AddRange(new ColumnHeader[] { columnHeader9, columnHeader10, columnHeader11, columnHeader12, columnHeader13 });
+            tableLayoutPanel3.SetColumnSpan(listViewLinkedScripts, 2);
+            listViewLinkedScripts.Dock = DockStyle.Fill;
+            listViewLinkedScripts.FullRowSelect = true;
+            listViewLinkedScripts.Location = new Point(3, 3);
+            listViewLinkedScripts.Name = "listViewLinkedScripts";
+            listViewLinkedScripts.Size = new Size(780, 314);
+            listViewLinkedScripts.TabIndex = 7;
+            listViewLinkedScripts.UseCompatibleStateImageBehavior = false;
+            listViewLinkedScripts.View = View.Details;
+            // 
+            // columnHeader9
+            // 
+            columnHeader9.Text = "Script ID";
+            columnHeader9.Width = 100;
+            // 
+            // columnHeader10
+            // 
+            columnHeader10.Text = "Script Line #";
+            columnHeader10.Width = 100;
+            // 
+            // columnHeader11
+            // 
+            columnHeader11.Text = "Text (Shift-JIS)";
+            columnHeader11.Width = 250;
+            // 
+            // columnHeader12
+            // 
+            columnHeader12.Text = "Extra Data (Hex)";
+            columnHeader12.Width = 250;
+            // 
+            // columnHeader13
+            // 
+            columnHeader13.Text = "Size";
+            // 
+            // btnModifyLinkedScript
+            // 
+            btnModifyLinkedScript.Dock = DockStyle.Fill;
+            btnModifyLinkedScript.Location = new Point(3, 323);
+            btnModifyLinkedScript.Name = "btnModifyLinkedScript";
+            btnModifyLinkedScript.Size = new Size(144, 26);
+            btnModifyLinkedScript.TabIndex = 8;
+            btnModifyLinkedScript.Text = "Modify Linked Script";
+            btnModifyLinkedScript.UseVisualStyleBackColor = true;
+            btnModifyLinkedScript.Click += btnModifyLinkedScript_Click;
             // 
             // tabPageTextScripts
             // 
@@ -136,7 +224,7 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.Controls.Add(btnModifyString, 0, 1);
-            tableLayoutPanel2.Controls.Add(listViewFiles, 0, 0);
+            tableLayoutPanel2.Controls.Add(listViewTextScripts, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(3, 3);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -157,23 +245,23 @@
             btnModifyString.UseVisualStyleBackColor = true;
             btnModifyString.Click += btnModifyString_Click;
             // 
-            // listViewFiles
+            // listViewTextScripts
             // 
-            listViewFiles.Columns.AddRange(new ColumnHeader[] { columnHeader3, columnHeader4, columnHeader5, columnHeader6 });
-            tableLayoutPanel2.SetColumnSpan(listViewFiles, 2);
-            listViewFiles.Dock = DockStyle.Fill;
-            listViewFiles.FullRowSelect = true;
-            listViewFiles.Location = new Point(3, 3);
-            listViewFiles.Name = "listViewFiles";
-            listViewFiles.Size = new Size(774, 308);
-            listViewFiles.TabIndex = 5;
-            listViewFiles.UseCompatibleStateImageBehavior = false;
-            listViewFiles.View = View.Details;
+            listViewTextScripts.Columns.AddRange(new ColumnHeader[] { columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7, columnHeader8 });
+            tableLayoutPanel2.SetColumnSpan(listViewTextScripts, 2);
+            listViewTextScripts.Dock = DockStyle.Fill;
+            listViewTextScripts.FullRowSelect = true;
+            listViewTextScripts.Location = new Point(3, 3);
+            listViewTextScripts.Name = "listViewTextScripts";
+            listViewTextScripts.Size = new Size(774, 308);
+            listViewTextScripts.TabIndex = 5;
+            listViewTextScripts.UseCompatibleStateImageBehavior = false;
+            listViewTextScripts.View = View.Details;
             // 
             // columnHeader3
             // 
-            columnHeader3.Text = "Script Sequence ID";
-            columnHeader3.Width = 150;
+            columnHeader3.Text = "Script ID";
+            columnHeader3.Width = 100;
             // 
             // columnHeader4
             // 
@@ -189,6 +277,14 @@
             // 
             columnHeader6.Text = "Text (Unicode Conversion)";
             columnHeader6.Width = 250;
+            // 
+            // columnHeader7
+            // 
+            columnHeader7.Text = "Size";
+            // 
+            // columnHeader8
+            // 
+            columnHeader8.Text = "Hex";
             // 
             // tabPageObjects
             // 
@@ -236,6 +332,8 @@
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             tabControl1.ResumeLayout(false);
+            tabPageLinkedTextScripts.ResumeLayout(false);
+            tableLayoutPanel3.ResumeLayout(false);
             tabPageTextScripts.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             tabPageObjects.ResumeLayout(false);
@@ -255,11 +353,22 @@
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
         private TableLayoutPanel tableLayoutPanel2;
-        private ListView listViewFiles;
+        private ListView listViewTextScripts;
         private ColumnHeader columnHeader3;
         private ColumnHeader columnHeader4;
         private ColumnHeader columnHeader5;
         private Button btnModifyString;
         private ColumnHeader columnHeader6;
+        private ColumnHeader columnHeader7;
+        private ColumnHeader columnHeader8;
+        private TabPage tabPageLinkedTextScripts;
+        private TableLayoutPanel tableLayoutPanel3;
+        private ListView listViewLinkedScripts;
+        private ColumnHeader columnHeader9;
+        private ColumnHeader columnHeader10;
+        private ColumnHeader columnHeader11;
+        private ColumnHeader columnHeader12;
+        private ColumnHeader columnHeader13;
+        private Button btnModifyLinkedScript;
     }
 }

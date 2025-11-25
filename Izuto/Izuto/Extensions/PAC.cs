@@ -16,6 +16,20 @@ public class PAC
         public byte LineNumber;
         public byte Size;
         public string Text = "";
+        public byte[]? TextBytes = null;
+        public bool IsLinked = false;
+        public byte[]? Data = null; // rest of entry, added in later versions for linking text scripts
+    }
+    public class LinkedScriptEntry
+    {
+        public int Offset;
+        public int Size;
+
+        public LinkedScriptEntry(string LinkText)
+        {
+            Offset = int.Parse(LinkText.Replace("@", "").Split(',')[0]);
+            Size = int.Parse(LinkText.Replace("@", "").Split(',')[1]);
+        }
     }
     public class HeaderInfo
     {
@@ -55,20 +69,20 @@ public class PAC
                 if (Header.Magic.Substring(0, 2) == "\0\0")
                 {
                     // assuming uncompressed file containing strings only
-                    LoadDecompressedPAC(br);
+                    LoadPACV2(br);
                     return;
                 }
                 throw new Exception("Unsupported PAC file");
             }
             // compressed file
-            LoadCompressedPAC(br);
+            LoadPACV1(br);
         }
     }
 
-    private void LoadDecompressedPAC(BinaryReader br)
+    private void LoadPACV2(BinaryReader br)
     {
         Header.Version = 0;      
-        Header.Type = -1; // using type -1 as decompressed indicator            
+        Header.Type = -1; // using type -1 as v2 indicator            
         Header.FileSize = 0;        
         Header.AssetCount = 0;      
         Header.StringCount = 0;     
@@ -87,13 +101,28 @@ public class PAC
         while (true)
         {
             br.ReadBytes(3);  // zero bytes
-
+            if (br.BaseStream.Position == br.BaseStream.Length)
+                break;
             ScriptEntry sentry = new ScriptEntry();
             sentry.ID = Header.StringCount;
             sentry.LineNumber = 0;
-            sentry.Size = br.ReadByte();   // 2 bytes
-            byte[] bytes = br.ReadBytes(sentry.Size - 4);
-            sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(bytes);
+            sentry.Size = br.ReadByte();   // 1 byte
+            sentry.TextBytes = br.ReadBytes(sentry.Size - 4);
+            sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(sentry.TextBytes);
+            sentry.Data = null;
+            sentry.IsLinked = false;
+            if (sentry.Text.StartsWith("@"))
+            {
+                // reverse back and scan the string again leaving the last 4 bytes
+                br.BaseStream.Position -= sentry.Size - 4;
+
+                byte[] bytes = br.ReadBytes(sentry.Size - 8);
+                sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(bytes);
+                sentry.IsLinked = true;
+
+                // scan the last 4 bytes into data
+                sentry.Data = br.ReadBytes(4);
+            }
             StringEntries.Add(sentry);
             Header.StringCount++;
             if (br.BaseStream.Position >= br.BaseStream.Length - 1)
@@ -101,7 +130,7 @@ public class PAC
         }
     }
 
-    private void LoadCompressedPAC(BinaryReader br)
+    private void LoadPACV1(BinaryReader br)
     {
         Header.Version = br.ReadInt16();   // 2 bytes
         Header.Type = br.ReadInt16();      // 2 bytes
@@ -139,10 +168,33 @@ public class PAC
                 sentry.ID = br.ReadInt16();   // 2 bytes
                 sentry.LineNumber = br.ReadByte();   // 1 byte
                 sentry.Size = br.ReadByte();   // 1 byte
-                byte[] bytes = br.ReadBytes(sentry.Size - 4);
-                sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(bytes);
+                sentry.TextBytes = br.ReadBytes(sentry.Size - 4);
+                sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(sentry.TextBytes);
+                sentry.Data = null;
+                sentry.IsLinked = false;
+                if (sentry.Text.StartsWith("@"))
+                {
+                    // reverse back and scan the string again, storing the remaining part for analysis
+                    br.BaseStream.Position -= sentry.Size - 4;
+
+                    sentry.Text = sentry.Text.Split('\0')[0];
+                    byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(sentry.Text);
+                    int len = text.Count();
+                    sentry.IsLinked = true;
+
+                    byte[] bytes = br.ReadBytes(len); // including null terminator
+                    sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(bytes);
+
+                    // scan the remaining bytes into data
+                    if(sentry.Size - (len) - 4 > 0)
+                        sentry.Data = br.ReadBytes(sentry.Size - (len) - 4);
+                }
                 StringEntries.Add(sentry);
             }
+        }
+        if (br.BaseStream.Position != br.BaseStream.Length)
+        {
+            MessageBox.Show("remaining bytes unread");
         }
     }
 
@@ -153,15 +205,15 @@ public class PAC
         {            
             if(Header.Type == -1)
             {
-                SaveDecompressedPAC(bw);
+                SavePACV2(bw);
             } else
             {
-                SaveCompressedPAC(bw);
+                SavePACV1(bw);
             }
         }
     }
 
-    private void SaveCompressedPAC(BinaryWriter bw)
+    private void SavePACV1(BinaryWriter bw)
     {
         // header
         bw.Write(Encoding.GetEncoding("shift_jis").GetBytes(Header.Magic));
@@ -191,8 +243,15 @@ public class PAC
             bw.Write(sentry.LineNumber);
             // update the size of the string
             byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(sentry.Text);
-            ushort StringSize = (ushort)(text.Length + 4);
-            sizeChange += sentry.Size - StringSize;
+            ushort StringSize = (ushort)(text.Count() + 4);
+            while(StringSize % 4 > 0)
+            {
+                StringSize++;
+                sentry.Text += "\0";
+            }
+            text = Encoding.GetEncoding("shift_jis").GetBytes(sentry.Text);
+
+            sizeChange += StringSize - sentry.Size;
             sentry.Size = (byte)StringSize;
             bw.Write(sentry.Size);
             bw.Write(text);
@@ -203,7 +262,7 @@ public class PAC
         Header.FileSize += sizeChange;
         bw.Write(Header.FileSize);
     }
-    private void SaveDecompressedPAC(BinaryWriter bw)
+    private void SavePACV2(BinaryWriter bw)
     {
         // seems to only contain strings
         int sizeChange = 0;
@@ -212,11 +271,12 @@ public class PAC
             bw.Write(new byte[3] { 0, 0, 0 });
             // update the size of the string
             byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(sentry.Text);
-            ushort StringSize = (ushort)(text.Length + 4);
-            sizeChange += sentry.Size - StringSize;
+            ushort StringSize = (ushort)(text.Count() + 4);
+            sizeChange += StringSize - sentry.Size;
             sentry.Size = (byte)StringSize;
             bw.Write(sentry.Size);
             bw.Write(text);
+
         }
     }
 }

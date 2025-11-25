@@ -19,15 +19,14 @@ namespace Izuto
         PKB.FileEntry PKBFileInfo;
         B123ArchiveFile SourceArchiveFile;
         PACForm? pacform;
-        MainForm mainForm;
 
-        public PKBForm(MainForm mainForm, PKB.FileEntry PKBFileInfo, B123ArchiveFile SourceArchiveFile)
+        public PKBForm(PKB.FileEntry PKBFileInfo, B123ArchiveFile SourceArchiveFile)
         {
             InitializeComponent();
             this.PKBFileInfo = PKBFileInfo;
             this.SourceArchiveFile = SourceArchiveFile;
-            this.mainForm = mainForm;
-            listView1.SmallImageList = mainForm.imgListFiles;
+            listView1.SmallImageList = MainForm.Self?.imgListFiles;
+            MainForm.QueuedImports.Clear();
         }
 
         private void PKBForm_Shown(object sender, EventArgs e)
@@ -35,12 +34,20 @@ namespace Izuto
             textBox1.Text = SourceArchiveFile.FilePath.FullName;
             listView1.BeginUpdate();
             listView1.Items.Clear();
-            foreach (var file in PKBFileInfo.FileContents.files)
+            for(int i = 0; i < PKBFileInfo.PKBContents.FolderContents.files.Count; i++)
             {
+                var file = PKBFileInfo.PKBContents.FolderContents.files[i];
                 var pkbitem = new ListViewItem() { Text = file.name, Tag = file, ImageIndex = (int)iconTypes.Zip };
                 pkbitem.SubItems.Add(file.offset.ToString());
+                pkbitem.SubItems.Add("0x" + file.offset.ToString("X8"));
                 pkbitem.SubItems.Add(file.size.ToString());
-                pkbitem.SubItems.Add(file.ToString());
+
+                string hex = "";
+                for(int j=0;j<4;j++)
+                    hex += PKBFileInfo.PKBContents.Identifiers[i].ID[j].ToString("X2");
+
+                pkbitem.SubItems.Add(hex);
+                pkbitem.SubItems.Add(PKBFileInfo.PKBContents.Identifiers[i].subID.ToString());
                 listView1.Items.Add(pkbitem);
             }
 
@@ -70,7 +77,7 @@ namespace Izuto
                 top = pacform.Top;
                 pacform.Close();
             }
-            pacform = new PACForm(mainForm, this, PKBFileInfo, PACFileInfo, SourceArchiveFile);
+            pacform = new PACForm(this, PKBFileInfo, PACFileInfo, SourceArchiveFile);
             if (left != -1)
             {
                 pacform.StartPosition = FormStartPosition.Manual;
@@ -100,7 +107,7 @@ namespace Izuto
             sFile pkbFile = new sFile() { path = PKBFileInfo.FileData.path, name = Path.GetFileName(PKBFileInfo.FileData.path) };
             sFile pkhFile = new sFile() { path = PKBFileInfo.FileData.path.Replace(".pkb", ".pkh"), name = Path.GetFileName(PKBFileInfo.FileData.path.Replace(".pkb", ".pkh")) };
 
-            PKBFileInfo.FileContents = INAZUMA11.PKB.Unpack(pkbFile, pkhFile);
+            PKBFileInfo.PKBContents = INAZUMA11.PKB.Unpack(pkbFile, pkhFile);
 
             PKBForm_Shown(this, EventArgs.Empty);
         }
