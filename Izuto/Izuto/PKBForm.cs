@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Izuto.MainForm;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Izuto
 {
@@ -34,7 +35,7 @@ namespace Izuto
             textBox1.Text = SourceArchiveFile.FilePath.FullName;
             listView1.BeginUpdate();
             listView1.Items.Clear();
-            for(int i = 0; i < PKBFileInfo.PKBContents.FolderContents.files.Count; i++)
+            for (int i = 0; i < PKBFileInfo.PKBContents.FolderContents.files.Count; i++)
             {
                 var file = PKBFileInfo.PKBContents.FolderContents.files[i];
                 var pkbitem = new ListViewItem() { Text = file.name, Tag = file, ImageIndex = (int)iconTypes.Zip };
@@ -43,7 +44,7 @@ namespace Izuto
                 pkbitem.SubItems.Add(file.size.ToString());
 
                 string hex = "";
-                for(int j=0;j<4;j++)
+                for (int j = 0; j < 4; j++)
                     hex += PKBFileInfo.PKBContents.Identifiers[i].ID[j].ToString("X2");
 
                 pkbitem.SubItems.Add(hex);
@@ -126,6 +127,47 @@ namespace Izuto
         private void listView1_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
             exploreSelectedPKB();
+        }
+
+        Color? previousColour;
+        private void textBox2_Enter(object sender, EventArgs e)
+        {
+
+            previousColour = textBox2.ForeColor;
+            textBox2.ForeColor = SystemColors.ControlText;
+            if (textBox2.Text == "Search By ID....")
+                textBox2.Text = "";
+        }
+
+        private void textBox2_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                listView1.Focus();
+        }
+
+        private void textBox2_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBox2.Text) && previousColour != null)
+            {
+                textBox2.ForeColor = (Color)previousColour;
+                textBox2.Text = "Search By ID....";
+            } else
+            {
+                // search for the ID in the list items
+                foreach(ListViewItem item in listView1.Items)
+                {
+                    if (item.SubItems[4].Text.ToLower().Contains(textBox2.Text.ToLower()))
+                    {
+                        item.Selected = false;
+                        item.Selected = true;
+                        listView1.Focus();
+                        item.EnsureVisible();
+                        MessageBox.Show($"A package was found with the ID {item.SubItems[4].Text}", "Package Found!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+                MessageBox.Show($"A package with a simialar ID to {textBox2.Text} could not be found", "No Package Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

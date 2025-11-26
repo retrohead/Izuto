@@ -107,6 +107,10 @@ namespace Izuto
             if (listViewTextTranslation.SelectedItems[0].Tag?.GetType() != typeof(TranslationEntry)) return;
             TranslationEntry entry = ((TranslationEntry?)listViewTextTranslation.SelectedItems[0].Tag) ?? new TranslationEntry();
             if (entry.Syllable == "") return;
+
+            if (MessageBox.Show("Are you sure you want to remove the selected translation?", "Confirm Removal", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+
             int thisPos = MainForm.OptionsFile.Config.TranslationTable.IndexOf(entry);
             if (thisPos < MainForm.OptionsFile.Config.TranslationTable.Count - 1)
             {
@@ -141,7 +145,25 @@ namespace Izuto
 
         private void btnAddFileReplacement_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Not implemented yet");
+            if (string.IsNullOrEmpty(MainForm.LoadedArchiveFilePath))
+            {
+                MessageBox.Show("You must load an archive file before you can add file replacements", "No Archive Loaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (MainForm.OptionsFile.Config == null || !File.Exists(MainForm.OptionsFile.FilePath))
+            {
+                MessageBox.Show("You must save or load an existing options file before you can add file replacements", "No Options File Loaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            ReplaceFileForm f = new ReplaceFileForm(new FileReplacementEntry());
+            f.ShowDialog();
+            if (f.DialogResult == DialogResult.Cancel) return;
+            if(f.FileReplacement == null) return;
+
+            MainForm.OptionsFile.Config.FileReplacements.Add(f.FileReplacement);
+            selectedFileReplacementIndex = MainForm.OptionsFile.Config.FileReplacements.IndexOf(f.FileReplacement);
+            FontForm_Shown(this, EventArgs.Empty);
+            listViewTextTranslation.Focus();
         }
 
         private void btnRemoveFileReplacement_Click(object sender, EventArgs e)
@@ -151,6 +173,8 @@ namespace Izuto
             if (listViewFileReplacements.SelectedItems[0].Tag?.GetType() != typeof(FileReplacementEntry)) return;
             FileReplacementEntry entry = ((FileReplacementEntry?)listViewFileReplacements.SelectedItems[0].Tag) ?? new FileReplacementEntry();
             if (entry.PathToReplace == "") return;
+            if (MessageBox.Show("Are you sure you want to remove the selected file replacement?", "Confirm Removal", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
             int thisPos = MainForm.OptionsFile.Config.FileReplacements.IndexOf(entry);
             if (thisPos < MainForm.OptionsFile.Config.FileReplacements.Count - 1)
             {

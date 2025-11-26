@@ -252,7 +252,6 @@ public class PKB
         }
 
         // create new pkh
-        PluginHost host = new PluginHost();
         sFile pkh = new sFile();
         pkh.path = PKBFileInfo.FileData.path.Replace(".pkb", ".pkh");
         createPKH(

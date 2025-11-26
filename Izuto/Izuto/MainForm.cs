@@ -1,7 +1,8 @@
-using Izuto.Extensions;
+﻿using Izuto.Extensions;
 using plugin_level5.N3DS.Archive;
 using System.Diagnostics;
 using System.Reflection;
+using System.Text;
 
 namespace Izuto
 {
@@ -11,6 +12,8 @@ namespace Izuto
         public static OptionsFileData OptionsFile = new OptionsFileData();
         public static string LoadedArchiveFilePath = "";
         public static MainForm? Self;
+        public static List<OptionsFileData.FileReplacementEntry> QueuedImports = new List<OptionsFileData.FileReplacementEntry>();
+        private ProgressPanel progressPanel = new ProgressPanel();
 
         public enum iconTypes
         {
@@ -84,7 +87,9 @@ namespace Izuto
             LoadedArchiveFilePath = BrowseForFile("Level 5 Archive File (*.fa)|*.fa", "Select a FA file");
             textArchiveFaPath.Text = LoadedArchiveFilePath;
             QueuedImports = new List<OptionsFileData.FileReplacementEntry>();
+            UpdateProgress("Reading Archive", 0, 1);
             await ListFiles();
+            EndProgressUpdates();
         }
 
         public static List<B123ArchiveFile> ArchiveFiles = new List<B123ArchiveFile>();
@@ -94,7 +99,7 @@ namespace Izuto
             ArchiveFiles = await ArchiveFA.ListFiles(LoadedArchiveFilePath);
             listView1.BeginUpdate();
             listView1.Items.Clear();
-            List<B123ArchiveFile> pkb_files = ArchiveFiles.Where(f => f.FilePath.FullName.StartsWith("/inazuma") && f.FilePath.FullName.Contains("/script/") && f.FilePath.FullName.EndsWith(".pkb")).ToList();
+            List<B123ArchiveFile> pkb_files = ArchiveFiles.Where(f => f.FilePath.FullName.EndsWith(".pkb") && f.FilePath.FullName.Contains("script/") && !f.FilePath.FullName.Contains("pic3d/")).ToList();
             var sortedPkbFiles = pkb_files.OrderBy(p => p.FilePath);
             foreach (var file in sortedPkbFiles)
             {
@@ -103,8 +108,6 @@ namespace Izuto
             listView1.EndUpdate();
         }
 
-        public static List<OptionsFileData.FileReplacementEntry> QueuedImports = new List<OptionsFileData.FileReplacementEntry>();
-
         private async void btnExplorePKB_Click(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count == 0) return;
@@ -112,33 +115,56 @@ namespace Izuto
             if (listView1.SelectedItems[0].Tag?.GetType() != typeof(B123ArchiveFile)) return;
             B123ArchiveFile? file = (B123ArchiveFile?)listView1.SelectedItems[0].Tag;
             if (file == null) return;
+            // check whether this is a linked package
+
+            bool doNotSave = false;
+            if (file.FilePath.FullName.Contains("t.pkb") && ArchiveFiles.FirstOrDefault(p => p.FilePath.FullName.Equals(file.FilePath.FullName.Replace("t.pkb", ".pkb"))) != null)
+            {
+                if(MessageBox.Show($"You appear to be loading a linked text script package. To modify the strings in this package you should open\n\n{file.FilePath.FullName.Replace("t.pkb", ".pkb")}\n\nDo you want to view the package anyway without saving changes", "Linked Package Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                    return;
+                doNotSave = true;
+            }
+            UpdateProgress("Unpacking Archive", 0, 1);
             PKB.FileEntry pkbFileData = await PKB.UnpackPKBFromArchiveFA_Async(textArchiveFaPath.Text, file, tempDir);
+            EndProgressUpdates();
             PKBForm pkbform = new PKBForm(pkbFileData, file);
             pkbform.StartPosition = FormStartPosition.CenterParent;
             pkbform.ShowDialog(this);
-            if (pkbform.DialogResult == DialogResult.Cancel) return;
+            if (pkbform.DialogResult == DialogResult.Cancel || doNotSave) return;
 
+            int filesToPack = 2 + QueuedImports.Count + (OptionsFile.Config == null ? 0 : OptionsFile.Config.FileReplacements.Count);
+
+
+            UpdateProgress("Listing Archive Contents", 0, 1);
             B123ArchiveFile? pkhFile = ArchiveFiles.FirstOrDefault(f => f.FilePath.FullName.Equals(file.FilePath.FullName.Replace(".pkb", ".pkh")));
 
-            await ArchiveFA.ReplaceFile(textArchiveFaPath.Text, file, pkbFileData.FileData.path);
-            await ArchiveFA.ReplaceFile(textArchiveFaPath.Text, pkhFile, pkbFileData.FileData.path.Replace(".pkb", ".pkh"));
+            int filesToReplaceCount = 2;
+            UpdateProgress("Queuing Files", 0, filesToPack);
+            // add main pkb and pkh 
+            await ArchiveFA.QueueReplaceFile(textArchiveFaPath.Text, file, pkbFileData.FileData.path);
+            UpdateProgress("Queuing Files", 1, filesToPack);
+            await ArchiveFA.QueueReplaceFile(textArchiveFaPath.Text, pkhFile, pkbFileData.FileData.path.Replace(".pkb", ".pkh"));
 
             if (OptionsFile.Config != null)
             {
                 foreach (var replaceFile in OptionsFile.Config.FileReplacements)
                 {
+                    UpdateProgress("Queuing Files", filesToReplaceCount, filesToPack);
+                    filesToReplaceCount++;
                     B123ArchiveFile? fileToReplace = ArchiveFiles.FirstOrDefault(f => f.FilePath.FullName.Equals(replaceFile.PathToReplace));
-                    if(fileToReplace == null)
+                    if (fileToReplace == null)
                     {
                         if (MessageBox.Show("The file requested to replace was not found:\n\n" + replaceFile.PathToReplace + "\n\nDo you want to continue importing any remaining files?", "Import File Error", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Cancel)
                             return;
                         continue;
                     }
-                    await ArchiveFA.ReplaceFile(textArchiveFaPath.Text, fileToReplace, OptionsFile.GetFileActualPath(replaceFile));
+                    await ArchiveFA.QueueReplaceFile(textArchiveFaPath.Text, fileToReplace, OptionsFile.GetFileActualPath(replaceFile));
                 }
             }
             foreach (OptionsFileData.FileReplacementEntry queuedFile in QueuedImports)
             {
+                UpdateProgress("Queuing Files", filesToReplaceCount, filesToPack);
+                filesToReplaceCount++;
                 B123ArchiveFile? fileToReplace = ArchiveFiles.FirstOrDefault(f => f.FilePath.FullName.Equals(queuedFile.RelativePath));
                 if (fileToReplace == null)
                 {
@@ -146,9 +172,30 @@ namespace Izuto
                         return;
                     continue;
                 }
-                await ArchiveFA.ReplaceFile(textArchiveFaPath.Text, fileToReplace, queuedFile.PathToReplace);
+                await ArchiveFA.QueueReplaceFile(textArchiveFaPath.Text, fileToReplace, queuedFile.PathToReplace);
             }
+            await ArchiveFA.ReplaceQueuedFiles(textArchiveFaPath.Text);
+            EndProgressUpdates();
             MessageBox.Show("Archive modification completed, rebuild your rom for testing", "Completed!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        
+        public void UpdateProgress(string text, int value, int maxValue)
+        {
+            tableLayoutPanel1.Enabled = false;
+            if (!Controls.Contains(progressPanel))
+            {
+                progressPanel.Dock = DockStyle.Fill;
+                Controls.Add(progressPanel);
+                progressPanel.BringToFront();
+            }
+            progressPanel.UpdateProgress(text, value, maxValue);
+        }
+
+        public void EndProgressUpdates()
+        {
+            Controls.Remove(progressPanel);
+            tableLayoutPanel1.Enabled = true;
+            progressPanel.EndProgressUpdates();
         }
 
 
@@ -161,16 +208,17 @@ namespace Izuto
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(Properties.Settings.Default.OptionsFilePath))
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.OptionsFilePath))
             {
                 if (!File.Exists(Properties.Settings.Default.OptionsFilePath))
                 {
                     MessageBox.Show("Failed to load options, the file no longer exists\n\n:" + Properties.Settings.Default.OptionsFilePath, "Options File Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     Properties.Settings.Default.OptionsFilePath = "";
                     Properties.Settings.Default.Save();
-                } else
+                }
+                else
                 {
-                    if(!OptionsFile.Load(Properties.Settings.Default.OptionsFilePath))
+                    if (!OptionsFile.Load(Properties.Settings.Default.OptionsFilePath))
                     {
                         MessageBox.Show("The options file appears to be corrupted\n\n:" + Properties.Settings.Default.OptionsFilePath, "Options File Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         Properties.Settings.Default.OptionsFilePath = "";

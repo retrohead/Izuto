@@ -63,9 +63,9 @@ namespace Izuto.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _121_1213709_inazuma_eleven_logo_inazuma_eleven_logo {
+        internal static System.Drawing.Bitmap IzutoLogo {
             get {
-                object obj = ResourceManager.GetObject("121-1213709_inazuma-eleven-logo-inazuma-eleven-logo", resourceCulture);
+                object obj = ResourceManager.GetObject("IzutoLogo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -316,6 +316,7 @@
             Controls.Add(tableLayoutPanel1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MinimumSize = new Size(500, 300);
             Name = "OptionsForm";
             Text = "Izuto Options";
             Shown += FontForm_Shown;

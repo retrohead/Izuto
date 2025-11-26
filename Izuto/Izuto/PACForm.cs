@@ -50,8 +50,11 @@ namespace Izuto
             string searchForHex = "30 46";
             string searchForHex2 = "46 30";
             PACData = new PAC();
-            PACData.Load(PACFileInfo.FileData.path);
-
+            if (!PACData.Load(PACFileInfo.FileData.path))
+            {
+                Close();
+                return;
+            }
             txtPACFilePath.Text = SourceArchiveFile.FilePath.FullName + ":" + PACFileInfo.FileData.name.Replace("_decompressed", "");
 
             listView1.BeginUpdate();
@@ -121,14 +124,17 @@ namespace Izuto
                 newItem.SubItems.Add(StringSize.ToString());
                 newItem.Tag = i;
 
-                if (!item.Text.StartsWith("@"))
+                if (!item.IsLinked)
                 {
                     string hex = "";
-                    for (int j = 0; j < item.TextBytes.Count(); j++)
+                    if (item.TextBytes != null)
                     {
-                        if (j > 0)
-                            hex += " ";
-                        hex += item.TextBytes[j].ToString("X2");
+                        for (int j = 0; j < item.TextBytes.Count(); j++)
+                        {
+                            if (j > 0)
+                                hex += " ";
+                            hex += item.TextBytes[j].ToString("X2");
+                        }
                     }
                     newItem.SubItems.Add(hex);
 

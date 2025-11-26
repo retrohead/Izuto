@@ -168,6 +168,8 @@ namespace Izuto
             ClientSize = new Size(613, 98);
             Controls.Add(tableLayoutPanel1);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximumSize = new Size(629, 137);
+            MinimumSize = new Size(629, 137);
             Name = "TextTranslationForm";
             Text = "Izuto Text Translation Configuration";
             tableLayoutPanel1.ResumeLayout(false);

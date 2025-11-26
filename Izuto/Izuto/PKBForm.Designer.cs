@@ -36,10 +36,11 @@
             columnHeader3 = new ColumnHeader();
             columnHeader5 = new ColumnHeader();
             columnHeader4 = new ColumnHeader();
+            columnHeader6 = new ColumnHeader();
             btnExplorePAC = new Button();
             tableLayoutPanel1 = new TableLayoutPanel();
             btnImportPKB = new Button();
-            columnHeader6 = new ColumnHeader();
+            textBox2 = new TextBox();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -90,6 +91,10 @@
             columnHeader4.Text = "ID";
             columnHeader4.Width = 100;
             // 
+            // columnHeader6
+            // 
+            columnHeader6.Text = "Sub ID";
+            // 
             // btnExplorePAC
             // 
             btnExplorePAC.Dock = DockStyle.Fill;
@@ -111,6 +116,7 @@
             tableLayoutPanel1.Controls.Add(textBox1, 0, 0);
             tableLayoutPanel1.Controls.Add(btnImportPKB, 0, 2);
             tableLayoutPanel1.Controls.Add(btnExplorePAC, 1, 2);
+            tableLayoutPanel1.Controls.Add(textBox2, 2, 2);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -132,9 +138,18 @@
             btnImportPKB.UseVisualStyleBackColor = true;
             btnImportPKB.Click += btnImportPKB_Click;
             // 
-            // columnHeader6
+            // textBox2
             // 
-            columnHeader6.Text = "Sub ID";
+            textBox2.Dock = DockStyle.Fill;
+            textBox2.ForeColor = SystemColors.ControlDark;
+            textBox2.Location = new Point(303, 421);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(494, 23);
+            textBox2.TabIndex = 4;
+            textBox2.Text = "Search By ID....";
+            textBox2.Enter += textBox2_Enter;
+            textBox2.KeyUp += textBox2_KeyUp;
+            textBox2.Leave += textBox2_Leave;
             // 
             // PKBForm
             // 
@@ -164,5 +179,6 @@
         private ColumnHeader columnHeader5;
         private ColumnHeader columnHeader4;
         private ColumnHeader columnHeader6;
+        private TextBox textBox2;
     }
 }

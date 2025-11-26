@@ -1,0 +1,430 @@
+﻿{
+  "Name": "Русский",
+
+  // ImGui (Does not affect windows-native dialogs)
+  "ImGui.Button.Ok": "ОК",
+  "ImGui.Button.Cancel": "Отмена",
+  "ImGui.Button.Yes": "Да",
+  "ImGui.Button.No": "Нет",
+  "ImGui.Button.Save": "Сохранить",
+  "ImGui.FileDialog.Search": "Поиск...",
+  "ImGui.FileDialog.Name": "Имя",
+  "ImGui.FileDialog.Type": "Тип",
+  "ImGui.FileDialog.DateModified": "Дата изменения",
+  "ImGui.FileDialog.SelectedFile": "Название файла:",
+  "ImGui.FileDialog.ReplaceFile.Caption": "Файл существует",
+  "ImGui.FileDialog.ReplaceFile.Text": "Вы хотите перезаписать файл {0}?",
+  "ImGui.FileDialog.CreateFolder.Caption": "Создать папку",
+  "ImGui.FileDialog.CreateFolder.Text": "Название новой папки:",
+
+  // Kuriimu2
+  "Application.Name": "Kuriimu2",
+
+  // Menu
+  "Menu.File": "Файл",
+  "Menu.Tools": "Инструменты",
+  "Menu.Settings": "Настройки",
+  "Menu.Help": "Помощь",
+
+  // File Menu
+  "Menu.File.Open": "Открыть",
+  "Menu.File.Open.Shortcut": "Ctrl + O",
+  "Menu.File.OpenWith": "Открыть с помощью...",
+  "Menu.File.OpenWith.Shortcut": "Ctrl + Shift + O",
+  "Menu.File.Save": "Сохранить",
+  "Menu.File.Save.Shortcut": "Ctrl + S",
+  "Menu.File.SaveAs": "Сохранить как...",
+  "Menu.File.SaveAs.Shortcut": "F12",
+  "Menu.File.SaveAll": "Сохранить всё",
+  "Menu.File.SaveAll.Shortcut": "Ctrl + Shift + S",
+  "Menu.File.Close": "Закрыть",
+
+  // Tools Menu
+  "Menu.Tools.Ciphers": "Шифры",
+  "Menu.Tools.Compressions": "Сжатия",
+  "Menu.Tools.ImageTranscoder": "Транскодер изображений",
+  "Menu.Tools.RawImageViewer": "Просмотрщик RAW-изображений",
+  "Menu.Tools.TextSequenceSearcher": "Поиск текста",
+  "Menu.Tools.BatchExtractor": "Извлечь всё",
+  "Menu.Tools.BatchInjector": "Заменить всё",
+  "Menu.Tools.Hashes": "Хеши",
+
+  // Settings Menu
+  "Menu.Settings.IncludeDevBuilds": "Включить сборки для разработчиков",
+  "Menu.Settings.ChangeLanguage": "Сменить язык",
+  "Menu.Settings.ChangeTheme": "Сменить тему",
+
+  // Theme Menu
+  "Menu.Settings.ChangeTheme.Dark": "Тёмная",
+  "Menu.Settings.ChangeTheme.Light": "Светлая",
+
+  // Ciphers Menu
+  "Menu.Tools.Ciphers.Caption": "Шифры",
+  "Menu.Tools.Ciphers.Encrypt": "Зашифровать",
+  "Menu.Tools.Ciphers.Decrypt": "Расшифровать",
+  "Menu.Tools.Ciphers.Execute": "Исполнить",
+  "Menu.Tools.Ciphers.Input.Folder": "Выберите папку",
+  "Menu.Tools.Ciphers.Input.File": "Выберите файл",
+  "Menu.Tools.Ciphers.Input.SubDirectories": "Подпапки",
+  "Menu.Tools.Ciphers.Input.Parameters": "Параметры",
+  "Menu.Tools.Ciphers.Log.Process": "Обработка файла {0}.",
+  "Menu.Tools.Ciphers.Log.Error": "Ошибка при обработке файла {0}.",
+  "Menu.Tools.Ciphers.Progress": "Процесс",
+
+  // Compressions Menu
+  "Menu.Tools.Compressions.Caption": "Сжатия",
+  "Menu.Tools.Compressions.Decompress": "Разжать",
+  "Menu.Tools.Compressions.Compress": "Сжать",
+  "Menu.Tools.Compressions.Execute": "Исполнить",
+  "Menu.Tools.Compressions.Input.Folder": "Выберите папку",
+  "Menu.Tools.Compressions.Input.File": "Выберите файл",
+  "Menu.Tools.Compressions.Input.SubDirectories": "Подпапки",
+  "Menu.Tools.Compressions.Log.Process": "Обработка файла {0}.",
+  "Menu.Tools.Compressions.Log.Error": "Ошибка при обработке файла {0}.",
+  "Menu.Tools.Compressions.Progress": "Процесс",
+
+  // Image Transcoder
+  "Menu.Tools.ImageTranscoder.Caption": "Транскодер изображений",
+  "Menu.Tools.ImageTranscoder.File": "Файл",
+  "Menu.Tools.ImageTranscoder.File.Open": "Открыть",
+  "Menu.Tools.ImageTranscoder.File.Open.Shortcut": "Ctrl + O",
+  "Menu.Tools.ImageTranscoder.Encoding": "Кодировка",
+  "Menu.Tools.ImageTranscoder.PaletteEncoding": "Кодировка палитры",
+  "Menu.Tools.ImageTranscoder.Quantizer": "Квантизатор",
+  "Menu.Tools.ImageTranscoder.ColorCache": "Кеш цвета",
+  "Menu.Tools.ImageTranscoder.Ditherer": "Дизерер",
+  "Menu.Tools.ImageTranscoder.NoDitherer": "Нет",
+  "Menu.Tools.ImageTranscoder.ColorCount": "Счётчик цвета",
+
+  // Raw Image Viewer
+  "Menu.Tools.RawImageViewer.Caption": "Просмотрщик RAW-изображений",
+  "Menu.Tools.RawImageViewer.File": "Файл",
+  "Menu.Tools.RawImageViewer.File.Open": "Открыть",
+  "Menu.Tools.RawImageViewer.File.Open.Shortcut": "Ctrl + O",
+  "Menu.Tools.RawImageViewer.Placeholder": "Значение: 128, 0x80",
+  "Menu.Tools.RawImageViewer.Width": "Ширина",
+  "Menu.Tools.RawImageViewer.Height": "Высота",
+  "Menu.Tools.RawImageViewer.Offset": "Сдвиг",
+  "Menu.Tools.RawImageViewer.PaletteOffset": "Сдвиг палитры",
+  "Menu.Tools.RawImageViewer.Encoding": "Кодировка",
+  "Menu.Tools.RawImageViewer.PaletteEncoding": "Кодировка палитры",
+  "Menu.Tools.RawImageViewer.EncodingComponentOrder": "Компоненты",
+  "Menu.Tools.RawImageViewer.PaletteEncodingComponentOrder": "Компоненты палитры",
+  "Menu.Tools.RawImageViewer.Swizzle": "Свизлы",
+  "Menu.Tools.RawImageViewer.NoSwizzle": "Нет",
+  "Menu.Tools.RawImageViewer.CustomSwizzle": "Пользовательский",
+  "Menu.Tools.RawImageViewer.RenderSwizzle": "Отрендерить свизл",
+  "Menu.Tools.RawImageViewer.SwizzleEditor.AddControl": "Добавить: ЛКМ",
+  "Menu.Tools.RawImageViewer.SwizzleEditor.RemoveControl": "Удалить: ЛКМ",
+  "Menu.Tools.RawImageViewer.SwizzleEditor.MoveControl": "Переместить: ЛКМ и перетащить",
+  "Menu.Tools.RawImageViewer.SwizzleEditor.CopyControl": "Скопировать: Alt + C",
+
+  // Plugins Dialog
+  "Menu.Plugins.Title": "Установленные плагины",
+  "Menu.Plugins.Name": "Название",
+  "Menu.Plugins.Publisher": "Издатель",
+  "Menu.Plugins.Developer": "Разработчик",
+  "Menu.Plugins.Authors": "Авторы",
+  "Menu.Plugins.Platforms": "Платформы",
+  "Menu.Plugins.Archive": "Архив",
+  "Menu.Plugins.Image": "Изображение",
+  "Menu.Plugins.Font": "Шрифт",
+  "Menu.Plugins.Text": "Текст",
+
+  // About Dialog
+  "Menu.About.Title": "О Kuriimu2",
+  "Menu.About.Version": "Версия {0}",
+  "Menu.About.Description": "Kuriimu2 — универсальный менеджер переводов игр и набор утилит для переводчиков и моддеров.",
+
+  // Update Available Dialog
+  "Dialog.UpdateAvailable.Caption": "Доступно обновление",
+  "Dialog.UpdateAvailable.Text": "Вы хотите обновиться с {0}-{1} до {2}-{3}?",
+
+  // Exception Dialog
+  "Dialog.ExceptionCatched.Caption": "Обнаружена ошибка",
+
+  // Plugins Not Available Dialog
+  "Dialog.PluginsNotAvailable.Caption": "Плагины недоступны",
+  "Dialog.PluginsNotAvailable.Text": "Не получилось загрузить следующие плагины:",
+
+  // Unsaved Changes Dialog
+  "Dialog.UnsavedChanges.Caption": "Несохранённые изменения",
+  "Dialog.UnsavedChanges.Text.Specific": "Были внесены изменения в {0} или в его подфайлы. Вы хотите сохранить данные изменения?",
+  "Dialog.UnsavedChanges.Text.Generic": "Были внесены изменения в один или несколько файлов. Вы хотите сохранить данные изменения?",
+
+  // Dependant Files Dialog
+  "Dialog.DependantFiles.Caption": "Зависимые файлы",
+  "Dialog.DependantFiles.Text": "Все файлы, открытые из этого файла и его подфайлов, будут закрыты. Продолжить?",
+
+  // Deprecated Info Dialog
+  // "Dialog.Deprecated.Caption": "Deprecated plugin", // TODO
+  // "Dialog.Deprecated.Text.General": "Kuriimu2 no longer supports this file format with plugin '{0}'.", // TODO
+  // "Dialog.Deprecated.Text.Alternatives": "Consider using one of the following alternative(s) instead:", // TODO
+
+  // Remove Font Characters Dialog
+  // "Dialog.Font.Remove.Caption": "Remove Characters", // TODO
+  // "Dialog.Font.Remove.Text": "Do you want to remove the selected font characters?", // TODO
+
+  // Remap Font Characters Dialog
+  // "Dialog.Font.Remapping.Caption": "Remap Characters", // TODO
+  // "Dialog.Font.Remapping.Text": "Choose a continuous range of characters to remap with:", // TODO
+  // "Dialog.Font.Remapping.Remap": "Remap", // TODO
+
+  // Status
+  "Status.Plugin.Select.None": "Плагин не выбран.",
+  "Status.Plugin.Select.Unknown": "Неизвестный тип плагина {0}.",
+  // "Status.Plugin.Load.Deprecated": "The plugin is deprecated.", // TODO
+  "Status.Plugin.Load.None": "Ни один плагин не смог открыть файл.",
+  "Status.Plugin.Load.NoArchive": "Плагин не представляет собой архив.",
+  "Status.Plugin.State.Init.Error": "Не удалось инициализировать плагин.",
+  "Status.Plugin.State.Load.None": "Плагин не может загружать файлы.",
+  "Status.Plugin.State.Load.Error": "Не удалось загрузить файл.",
+  "Status.File.Select.None": "Файл не выбран.",
+  "Status.File.Select.Invalid": "Выбранный файл некорректен.",
+  "Status.File.Load.Start": "Загрузка файла {0}",
+  "Status.File.Load.Cancel": "Загрузка отменена.",
+  "Status.File.Load.Opening": "{0} уже открывается.",
+  "Status.File.Load.Saving": "{0} уже сохраняется.",
+  "Status.File.Load.Success": "Файл успешно загружен.",
+  "Status.File.Load.Error": "Файл не был успешно загружен.",
+  "Status.File.Load.Error.Plugin": "Файл не был успешно загружен с помощью плагина {0}.",
+  "Status.File.Save.Start": "Сохранение файла {0}",
+  "Status.File.Save.Closed": "Данный файл уже закрыт.",
+  "Status.File.Save.Saving": "Файл {0} уже сохраняется.",
+  "Status.File.Save.Closing": "Файл {0} уже закрывается.",
+  "Status.File.Save.NotLoaded": "Данный файл больше не загружен.",
+  "Status.File.Save.NoChanges": "В файле не было изменений, и он не был сохранён.",
+  "Status.File.Save.NotSupported": "Плагин не поддерживает сохранение.",
+  "Status.File.Save.State.Error": "Не удалось сохранить файл.",
+  "Status.File.Save.State.Reload.Error": "Не удалось заново загрузить файл после сохранения.",
+  "Status.File.Save.Replace.Error": "Не удалось заменить некоторые файлы.",
+  "Status.File.Save.Copy.Error": "Не удалось скопировать некоторые файлы.",
+  "Status.File.Save.DestinationNotExist": "Во время сохранения нельзя создавать новые файлы.",
+  "Status.File.Save.Success": "Файл успешно сохранён.",
+  "Status.File.Save.Error": "Файл не был успешно сохранён.",
+  "Status.File.Close.Start": "Закрытие файла {0}.",
+  "Status.File.Close.Cancel": "Закрытие отменено.",
+  "Status.File.Close.Saving": "Файл {0} сейчас сохраняется.",
+  "Status.File.Close.Closing": "Файл {0} сейчас закрывается.",
+  "Status.File.Close.NotLoaded": "Данный файл больше не загружен.",
+  "Status.File.Close.Success": "Файл успешно закрыт.",
+  "Status.Operation.Running": "Всё ещё проводятся операции: файл не может быть закрыт.",
+
+  // Errors
+  "Error.Unsupported.OperatingSystem": "Неподдерживаемая операционная система: {0}.",
+
+  // File Filters
+  "Filter.All": "Все файлы",
+  "Filter.Png": "Portable Network Graphics (.PNG)",
+  "Filter.Po": "Gettext Portable Object (.PO)",
+  "Filter.Kup": "Kuriimu Translation Object (.KUP)",
+
+  // Archive Form
+
+  // File Operations
+  "Archive.File.Open": "Открыть",
+  "Archive.File.OpenWith": "Открыть с помощью...",
+  "Archive.File.Extract": "Извлечь",
+  "Archive.File.Replace": "Заменить",
+  "Archive.File.Rename": "Переименовать",
+  "Archive.File.Delete": "Удалить",
+  "Archive.File.Delete.Shortcut": "Del",
+
+  // Folder Operations
+  "Archive.Directory.Extract": "Извлечь",
+  "Archive.Directory.Replace": "Заменить",
+  "Archive.Directory.Rename": "Переименовать",
+  "Archive.Directory.Delete": "Удалить",
+  "Archive.Directory.Delete.Shortcut": "Del",
+  "Archive.Directory.Add": "Добавить",
+
+  // Status
+  "Archive.Status.Extract.Cancel": "Извлечение файла отменено.",
+  "Archive.Status.Replace.Cancel": "Замена файла отменена.",
+  "Archive.Status.Rename.Cancel": "Переименование файла отменено.",
+  "Archive.Status.Delete.Cancel": "Удаление файла отменено.",
+  "Archive.Status.Add.Cancel": "Добавление файла удалено.",
+
+  "Archive.Status.Extract.Success": "Извлечение файла(-ов) прошло успешно.",
+  "Archive.Status.Replace.Success": "Замена файла(-ов) прошла успешно.",
+  "Archive.Status.Rename.Success": "Переименование файла(-ов) прошло успешно.",
+  "Archive.Status.Delete.Success": "Удаление файла(-ов) прошло успешно.",
+  "Archive.Status.Add.Success": "Добавление файла(-ов) прошло успешно.",
+
+  "Archive.Status.Rename.Error.NoName": "Нет нового названия файла.",
+  "Archive.Status.Add.Error": "Не удалось добавить некоторые файлы. Подробные сведения находятся в логе.",
+
+  "Archive.Status.Select.None": "Ничего не выбрано.",
+  "Archive.Status.Extract.None": "Нечего извлекать.",
+  "Archive.Status.Replace.None": "Нечего заменять.",
+  "Archive.Status.Rename.None": "Нечего переименовывать.",
+  "Archive.Status.Delete.None": "Нечего удалять.",
+  "Archive.Status.Add.None": "Нечего добавлять.",
+
+  // Archive Progress
+  "Archive.Progress.Extract": "Извлечение файлов",
+  "Archive.Progress.Replace": "Замена файлов",
+  "Archive.Progress.Rename": "Переименование файлов",
+  "Archive.Progress.Delete": "Удаление файлов",
+  "Archive.Progress.Add": "Добавление файлов",
+
+  // Archive Rename Dialog
+  "Archive.Dialog.Rename.File.Caption": "Переименовать файл",
+  "Archive.Dialog.Rename.Directory.Caption": "Переименовать директорию",
+  "Archive.Dialog.Rename.Text": "Выберите новое имя {0}:",
+
+  // Archive File Headers
+  "Archive.Table.Files.Name": "Название",
+  "Archive.Table.Files.Size": "Размер",
+
+  // Archive Search Bar
+  "Archive.Search.Placeholder": "Поиск...",
+  "Archive.Search.Clear": "Очистить",
+
+  // Misc
+  "Archive.FileCount": "Файлов: {0}",
+  "Archive.CancelOperation": "Отмена",
+
+  // Image Form
+
+  // Menu
+  "Image.Menu.Export": "Экспортировать изображение",
+  "Image.Menu.Import": "Импортировать изображения",
+  "Image.Menu.Export.Batch": "Экспортировать все изображения",
+  "Image.Menu.Import.Batch": "Импортировать все изображения",
+  "Image.Menu.Export.Png": "Экспортировать PNG...",
+  "Image.Menu.Import.Png": "Импортировать PNG...",
+
+  // Labels
+  "Image.Label.Width": "Ширина:",
+  "Image.Label.Height": "Высота:",
+  "Image.Label.Format": "Формат:",
+  "Image.Label.Palette": "Палитра:",
+
+  // Image Status
+  "Image.Status.Export.Start": "Экспорт изображения {0}.",
+  "Image.Status.Export.Cancel": "Экспорт изображения отменён.",
+  "Image.Status.Export.Success": "Экспорт изображения прошёл успешно.",
+  "Image.Status.Export.Failure": "Не удалось экспортировать изображение.",
+  "Image.Status.Import.Start": "Импорт в изображение {0}.",
+  "Image.Status.Import.Cancel": "Импорт изображения отменён.",
+  "Image.Status.Import.Success": "Импорт изображения прошёл успешно.",
+  "Image.Status.Import.Failure": "Не удалось импортировать изображение.",
+
+  // Image Progress
+  "Image.Progress.Decode": "Раскодировать изображение(-я)",
+
+  // Indexed PictureBox
+  "Image.PictureBox.Index.SelectColorControl": "Выбрать цвет палитры: Ctrl + ЛКМ",
+  "Image.PictureBox.Index.SetColorControl": "Установить цвет палитры: Alt + ЛКМ",
+
+  // Font Form
+
+  // Labels
+  "Font.Search.Placeholder": "Поиск: ¥, \\uFFE3",
+
+  // Preview
+  "Font.Preview.Placeholder": "Предпросмотр",
+  "Font.Preview.Export": "Экспортировать предпросмотр",
+  "Font.Preview.Settings": "Настройки",
+
+  // Settings
+  "Font.Preview.Settings.Caption": "Настройки предпросмотра",
+  "Font.Preview.Settings.ShowDebug": "Показывать боксы для отладки",
+  "Font.Preview.Settings.Spacing": "Межбуквенный интервал",
+  "Font.Preview.Settings.LineHeight": "Высота линии",
+  "Font.Preview.Settings.Alignment": "Расположение",
+  "Font.Preview.Settings.Alignment.Left": "Слева",
+  "Font.Preview.Settings.Alignment.Center": "По центру",
+  "Font.Preview.Settings.Alignment.Right": "Справа",
+
+  // Generate
+  "Font.Generate.Caption": "Сгенерировать шрифт",
+  // "Font.Generate.Edit.Caption": "Edit Characters", // TODO
+  // "Font.Generate.Remove.Caption": "Remove Characters", // TODO
+  // "Font.Generate.Remapping.Caption": "Remap Characters", // TODO
+  "Font.Generate.DefaultCharacters": "abcdefghijklmnopqrstuvwxyz\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n0123456789",
+
+  // Text Form
+
+  // Menu
+  "Text.Menu.Export.Po": "Экспортировать PO...",
+  "Text.Menu.Import.Po": "Импортировать PO...",
+  "Text.Menu.Export.Kup": "Экспортировать KUP...",
+  "Text.Menu.Import.Kup": "Импортировать KUP...",
+
+  // Labels
+  "Text.Content.Original": "Оригинал:",
+  "Text.Content.Edited": "Изменённый текст:",
+  "Text.Content.NoCodes": "Нет контрольных кодов:",
+
+  // Previews
+  "Text.Preview.Default": "По умолчанию",
+  "Text.Preview.TextChanged": "Изменение плагина предпросмотра приведёт к потере несохранённых изменений. Продолжить?",
+
+  // Context
+  "Text.Context.Rename": "Переименовать",
+  "Text.Context.Add": "Добавить",
+  "Text.Context.Delete": "Удалить",
+  "Text.Context.Delete.Shortcut": "Del",
+
+  // Rename
+  "Text.Rename.Caption": "Переименовать",
+  "Text.Rename.Text": "Введите новое имя",
+
+  // Text Status
+  "Text.Status.Rename.Success": "Переименование текстовой записи прошло успешно.",
+  "Text.Status.Rename.Failure": "Не удалось переименовать текстовую запись.",
+  "Text.Status.Add.Success": "Добавление текстовой записи прошло успешно.",
+  "Text.Status.Add.Failure": "Не удалось добавить текстовую запись.",
+  "Text.Status.Delete.Success": "Удаление текстовой записи прошло успешно.",
+  "Text.Status.Delete.Failure": "Не удалось удалить текстовую запись.",
+  "Text.Status.Export.Success": "Экспорт текстов прошёл успешно.",
+  "Text.Status.Import.Success": "Импорт текстов прошёл успешно.",
+
+  // Dialogs
+
+  // Dialog Manager
+  "Dialog.Manager.Button.Ok": "ОК",
+
+  // Choose Plugin Dialog
+  "Dialog.ChoosePlugin.Caption": "Выберите плагин",
+
+  "Dialog.ChoosePlugin.Header.Generic": "Выберите плагин, чтобы открыть файл:",
+  "Dialog.ChoosePlugin.Header.Identification.None": "Не удалось автоматически определить плагин для этого файла.\nПожалуйста, выберите плагин вручную:",
+  "Dialog.ChoosePlugin.Header.Identification.Multiple": "Данный файл поддерживается сразу несколькими плагинами. Пожалуйста, выберите один из них:",
+  "Dialog.ChoosePlugin.Header.Identification.Note": "По умолчанию отображаются только те плагины, которые не могут автоматически определить поддержку файла.",
+
+  "Dialog.ChoosePlugin.Plugins.Table.Name": "Название",
+  "Dialog.ChoosePlugin.Plugins.Table.Type": "Тип",
+  "Dialog.ChoosePlugin.Plugins.Table.Description": "Описание",
+  "Dialog.ChoosePlugin.Plugins.Table.ID": "GUID",
+
+  "Dialog.ChoosePlugin.Continue": "Продолжить",
+  "Dialog.ChoosePlugin.ViewRaw": "Просмотреть RAW-байты",
+  "Dialog.ChoosePlugin.Cancel": "Отмена",
+  "Dialog.ChoosePlugin.ShowAll": "Показать все плагины",
+
+  // Font Generation Dialog
+  "Dialog.Font.Generate.Caption": "Генерация шрифта",
+  // "Dialog.Font.Edit.Caption": "Edit Characters", // TODO
+  "Dialog.Font.Generate.Family": "Семейство шрифтов",
+  "Dialog.Font.Generate.Style": "Стиль шрифта",
+  "Dialog.Font.Generate.Size": "Размер шрифта",
+  "Dialog.Font.Generate.Baseline": "Линия основания",
+  "Dialog.Font.Generate.GlyphHeight": "Высота глифа",
+  "Dialog.Font.Generate.SpaceWidth": "Ширина пробела",
+  "Dialog.Font.Generate.Characters": "Символы",
+  // "Dialog.Font.Generate.Characters.Replace": "Replace characters when loading profile", // TODO
+  "Dialog.Font.Generate.Style.Bold": "Полужирный",
+  "Dialog.Font.Generate.Style.Italic": "Курсивный",
+  "Dialog.Font.Generate.Load": "Загрузить",
+  "Dialog.Font.Generate.Load.Caption": "Загрузка шаблона шрифта...",
+  "Dialog.Font.Generate.Save": "Сохранить",
+  "Dialog.Font.Generate.Save.Caption": "Сохранение шаблона шрифта...",
+  "Dialog.Font.Generate.Profile": "Шаблон шрифта",
+  "Dialog.Font.Generate.Generate": "Сгенерировать",
+  // "Dialog.Font.Edit.Edit": "Edit", // TODO
+  "Dialog.Font.Generate.Padding.Left": "Отступ слева",
+  "Dialog.Font.Generate.Padding.Right": "Отступ справа"
+}

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\..\dist\Debug\net8.0\plugins</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\lib\Kaligraphy\Kaligraphy.csproj" />
+    <ProjectReference Include="..\..\..\src\lib\Konnect\Konnect.csproj" />
+    <ProjectReference Include="..\..\..\src\lib\Kryptography\Kryptography.csproj" />
+  </ItemGroup>
+
+</Project>

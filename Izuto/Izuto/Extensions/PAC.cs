@@ -49,12 +49,12 @@ public class PAC
     public List<BinaryEntry> BinaryEntries = new List<BinaryEntry>(); //0x0020
     public List<ScriptEntry> StringEntries = new List<ScriptEntry>(); //0x0020 + DataSize
 
-    public void Load(string fn)
+    public bool Load(string fn)
     {
         FileInfo fileInfo = new FileInfo(fn);
         if(fileInfo.Length == 0)
         {
-            return;
+            return false;
         }
 
 
@@ -64,19 +64,21 @@ public class PAC
             // --- Read header ---
             byte[] magicbytes = br.ReadBytes(4);
             Header.Magic = System.Text.Encoding.GetEncoding("shift_jis").GetString(magicbytes); // "SSD\0" 4 bytes
-            if (Header.Magic != "SSD\0")
+            if (Header.Magic != "SSD\0" && Header.Magic != "\0\0\0\0")
             {
-                if (Header.Magic.Substring(0, 2) == "\0\0")
+                if (Header.Magic == "\0\0\0\u001c")
                 {
-                    // assuming uncompressed file containing strings only
+                    // uncompressed file containing strings only
                     LoadPACV2(br);
-                    return;
+                    return true;
                 }
-                throw new Exception("Unsupported PAC file");
+                MessageBox.Show("PAC file not currently supported", "PAC File Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
             }
             // compressed file
             LoadPACV1(br);
         }
+        return true;
     }
 
     private void LoadPACV2(BinaryReader br)
@@ -107,8 +109,11 @@ public class PAC
             sentry.ID = Header.StringCount;
             sentry.LineNumber = 0;
             sentry.Size = br.ReadByte();   // 1 byte
-            sentry.TextBytes = br.ReadBytes(sentry.Size - 4);
-            sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(sentry.TextBytes);
+            if (sentry.Size > 1)
+            {
+                sentry.TextBytes = br.ReadBytes(sentry.Size - 4);
+                sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(sentry.TextBytes);
+            }
             sentry.Data = null;
             sentry.IsLinked = false;
             if (sentry.Text.StartsWith("@"))

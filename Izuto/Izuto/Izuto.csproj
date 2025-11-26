@@ -9,17 +9,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Extensions\Level5_PAC.cs" />
+    <Compile Remove="Extensions\PluginHost.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Kuriimu2\plugins\Level5\plugin_level5\plugin_level5.csproj" />
-    <ProjectReference Include="..\..\Kuriimu2\plugins\Level5\plugin_level5_preview\plugin_level5_preview.csproj" />
-    <ProjectReference Include="..\..\Kuriimu2\plugins\Nintendo\plugin_nintendo\plugin_nintendo.csproj" />
-    <ProjectReference Include="..\..\Tinke\Ekona\Ekona.csproj" />
-    <ProjectReference Include="..\..\Tinke\Plugins\DSDecmp\DSDecmp\DSDecmp.csproj" />
-    <ProjectReference Include="..\..\Tinke\Plugins\INAZUMA11\INAZUMA11\INAZUMA11.csproj" />
-    <ProjectReference Include="..\..\Tinke\Plugins\Pack\Pack\Pack.csproj" />
+    <ProjectReference Include="..\Kuriimu2\plugins\Level5\plugin_level5\plugin_level5.csproj" />
+    <ProjectReference Include="..\Kuriimu2\plugins\Level5\plugin_level5_preview\plugin_level5_preview.csproj" />
+    <ProjectReference Include="..\Kuriimu2\plugins\Nintendo\plugin_nintendo\plugin_nintendo.csproj" />
+    <ProjectReference Include="..\Tinke\Ekona\Ekona.csproj" />
+    <ProjectReference Include="..\Tinke\Plugins\DSDecmp\DSDecmp\DSDecmp.csproj" />
+    <ProjectReference Include="..\Tinke\Plugins\INAZUMA11\INAZUMA11\INAZUMA11.csproj" />
+    <ProjectReference Include="..\Tinke\Plugins\Pack\Pack\Pack.csproj" />
   </ItemGroup>
 
   <ItemGroup>
