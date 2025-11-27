@@ -331,6 +331,7 @@ namespace Izuto
             btnApply.TabIndex = 5;
             btnApply.Text = "Apply Changes";
             btnApply.UseVisualStyleBackColor = true;
+            btnApply.Click += btnApply_Click;
             // 
             // TextTranslationForm
             // 

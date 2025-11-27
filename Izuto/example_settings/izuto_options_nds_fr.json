@@ -1,0 +1,52 @@
+{
+  "TranslationTable": [
+    {
+      "Syllable": "é",
+      "Bytes": [
+        186
+      ],
+      "BytesString": "ｺ"
+    },
+    {
+      "Syllable": "ù",
+      "Bytes": [
+        201
+      ],
+      "BytesString": "ﾉ"
+    },
+    {
+      "Syllable": "ç",
+      "Bytes": [
+        184
+      ],
+      "BytesString": "ｸ"
+    },
+    {
+      "Syllable": "è",
+      "Bytes": [
+        185
+      ],
+      "BytesString": "ｹ"
+    },
+    {
+      "Syllable": "û",
+      "Bytes": [
+        203
+      ],
+      "BytesString": "ﾋ"
+    },
+    {
+      "Syllable": "à",
+      "Bytes": [
+        177
+      ],
+      "BytesString": "ｱ"
+    }
+  ],
+  "FileReplacements": [
+    {
+      "PathToReplace": "/font/FONT12.bcfnt",
+      "RelativePath": "FONT12.bcfnt"
+    }
+  ]
+}

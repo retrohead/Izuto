@@ -235,43 +235,12 @@ namespace Izuto.Extensions
             if (!IsLoaded())
                 return text;
 
-            // Decode the Shift-JIS string into raw bytes
-            byte[] inputBytes = Encoding.GetEncoding("shift_jis").GetBytes(text);
-
-            // Build reverse lookup: byte[] → syllable
-            var reverseTable = Config.TranslationTable.ToDictionary(
-                entry => BitConverter.ToString(entry.GetBytes()),
-                entry => entry.Syllable
-            );
-
-            StringBuilder output = new StringBuilder();
-
-            int i = 0;
-            while (i < inputBytes.Length)
+            string newText = text;
+            foreach (var t in Config.TranslationTable)
             {
-                bool matched = false;
-
-                // Try to match 2-byte sequences first
-                if (i + 1 < inputBytes.Length)
-                {
-                    string key = $"{inputBytes[i]:X2}-{inputBytes[i + 1]:X2}";
-                    if (reverseTable.TryGetValue(key, out string syllable))
-                    {
-                        output.Append(syllable);
-                        i += 2;
-                        matched = true;
-                    }
-                }
-
-                if (!matched)
-                {
-                    // Fallback: treat as single ASCII char
-                    output.Append((char)inputBytes[i]);
-                    i++;
-                }
+                newText = newText.Replace(t.BytesString, t.Syllable);
             }
-
-            return output.ToString();
+            return newText;
         }
 
     }
