@@ -91,6 +91,7 @@ public class PAC
         return true;
     }
 
+    // string pac to go with V1 DS pacs
     private void LoadPACV0(BinaryReader br)
     {
         Header.Version = 0;
@@ -148,65 +149,7 @@ public class PAC
         }
     }
 
-    private void LoadPACV2(BinaryReader br)
-    {
-        Header.Version = 0;      
-        Header.Type = -1; // using type -1 as v2 indicator            
-        Header.FileSize = 0;        
-        Header.AssetCount = 0;      
-        Header.StringCount = 0;     
-        Header.DataSize = 0;        
-        Header.Unknown = null;
-
-        // --- Read entries ---
-        BinaryEntries = new List<BinaryEntry>();
-
-        StringEntries = new List<ScriptEntry>();
-
-        // reverse back to start of the stream
-        br.BaseStream.Position = 0;
-
-        // keep reading until we reach the end of the file
-        while (true)
-        {
-            br.ReadBytes(3);  // zero bytes
-            if (br.BaseStream.Position == br.BaseStream.Length)
-                break;
-            ScriptEntry sentry = new ScriptEntry();
-            sentry.ID = Header.StringCount;
-            sentry.LineNumber = 0;
-            sentry.Size = br.ReadByte();   // 1 byte
-            if (sentry.Size > 1)
-            {
-                sentry.TextBytes = br.ReadBytes(sentry.Size - 4);
-                sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(sentry.TextBytes);
-            }
-            sentry.Data = null;
-            sentry.IsLinked = false;
-            if (sentry.Text.StartsWith("@"))
-            {
-                // reverse back and scan the string again, storing the remaining part for analysis
-                br.BaseStream.Position -= sentry.Size - 4;
-
-                sentry.Text = sentry.Text.Split('\0')[0];
-                byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(sentry.Text);
-                int len = text.Count();
-                sentry.IsLinked = true;
-
-                byte[] bytes = br.ReadBytes(len); // including null terminator
-                sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(bytes);
-
-                // scan the remaining bytes into data
-                if (sentry.Size - (len) - 4 > 0)
-                    sentry.Data = br.ReadBytes(sentry.Size - (len) - 4);
-            }
-            StringEntries.Add(sentry);
-            Header.StringCount++;
-            if (br.BaseStream.Position >= br.BaseStream.Length - 1)
-                break; // finished reading, hopefully didn't go past the end of the stream :)
-        }
-    }
-
+    // standard pac, sometimes may contain a string count but strings are in a separate pac like evet.pkb (IE1 DS)
     private void LoadPACV1(BinaryReader br)
     {
         Header.Version = br.ReadInt16();   // 2 bytes
@@ -268,7 +211,7 @@ public class PAC
                     sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(bytes);
 
                     // scan the remaining bytes into data
-                    if(sentry.Size - (len) - 4 > 0)
+                    if (sentry.Size - (len) - 4 > 0)
                         sentry.Data = br.ReadBytes(sentry.Size - (len) - 4);
                 }
                 StringEntries.Add(sentry);
@@ -280,6 +223,66 @@ public class PAC
         }
     }
 
+    // linked pacs like eve.pkb and evet.pkb where @ strings in eve.pkb link to the pac file (IE 123 3DS)
+    private void LoadPACV2(BinaryReader br)
+    {
+        Header.Version = 0;      
+        Header.Type = -1; // using type -1 as v2 indicator            
+        Header.FileSize = 0;        
+        Header.AssetCount = 0;      
+        Header.StringCount = 0;     
+        Header.DataSize = 0;        
+        Header.Unknown = null;
+
+        // --- Read entries ---
+        BinaryEntries = new List<BinaryEntry>();
+
+        StringEntries = new List<ScriptEntry>();
+
+        // reverse back to start of the stream
+        br.BaseStream.Position = 0;
+
+        // keep reading until we reach the end of the file
+        while (true)
+        {
+            br.ReadBytes(3);  // zero bytes
+            if (br.BaseStream.Position == br.BaseStream.Length)
+                break;
+            ScriptEntry sentry = new ScriptEntry();
+            sentry.ID = Header.StringCount;
+            sentry.LineNumber = 0;
+            sentry.Size = br.ReadByte();   // 1 byte
+            if (sentry.Size > 1)
+            {
+                sentry.TextBytes = br.ReadBytes(sentry.Size - 4);
+                sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(sentry.TextBytes);
+            }
+            sentry.Data = null;
+            sentry.IsLinked = false;
+            if (sentry.Text.StartsWith("@"))
+            {
+                // reverse back and scan the string again, storing the remaining part for analysis
+                br.BaseStream.Position -= sentry.Size - 4;
+
+                sentry.Text = sentry.Text.Split('\0')[0];
+                byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(sentry.Text);
+                int len = text.Count();
+                sentry.IsLinked = true;
+
+                byte[] bytes = br.ReadBytes(len); // including null terminator
+                sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(bytes);
+
+                // scan the remaining bytes into data
+                if (sentry.Size - (len) - 4 > 0)
+                    sentry.Data = br.ReadBytes(sentry.Size - (len) - 4);
+            }
+            StringEntries.Add(sentry);
+            Header.StringCount++;
+            if (br.BaseStream.Position >= br.BaseStream.Length - 1)
+                break; // finished reading, hopefully didn't go past the end of the stream :)
+        }
+    }
+
     public void SaveAs(string fn)
     {
         using (var fs = new FileStream(fn, FileMode.Create, FileAccess.Write))
@@ -287,7 +290,7 @@ public class PAC
         {
             if (Header.Type == -2)
             {
-                //SavePACV0(bw);
+                SavePACV0(bw);
             }
             else if(Header.Type == -1)
             {
@@ -296,6 +299,23 @@ public class PAC
             {
                 SavePACV1(bw);
             }
+        }
+    }
+    private void SavePACV0(BinaryWriter bw)
+    {
+        // seems to only contain strings
+        int sizeChange = 0;
+        foreach (var sentry in StringEntries)
+        {
+            // update the size of the string
+            byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(sentry.Text);
+            ushort StringSize = (ushort)(text.Count() + 8);
+            sizeChange += StringSize - sentry.Size;
+            sentry.Size = StringSize;
+            bw.Write((Int16)sentry.ID);
+            bw.Write((Int16)sentry.LineNumber);
+            bw.Write((Int32)sentry.Size);
+            bw.Write(text);
         }
     }
 

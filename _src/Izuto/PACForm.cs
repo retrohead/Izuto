@@ -293,7 +293,7 @@ namespace Izuto
                 return;
             }
             // unpack the text archive
-            PKB.FileEntry textPKBFileData = await PKB.UnpackPKBFromArchiveFA_Async(MainForm.LoadedArchiveFilePath, textFile, MainForm.tempDir);
+            PKB.FileEntry textPKBFileData = await PKB.UnpackPKBFromArchiveFA_Async(MainForm.LoadedArchiveFilePath, textFile, MainForm.CurrentWorkingDirectory);
             // search for the ID in the new archive
             var textPacIdentifiers = textPKBFileData.PKBContents.Identifiers.FindAll(
                 tp => BitConverter.ToInt32(tp.ID, 0).ToString("X8").Equals(BitConverter.ToInt32(identifier.ID, 0).ToString("X8"))

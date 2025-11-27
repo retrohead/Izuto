@@ -1,4 +1,5 @@
-﻿using Izuto.Extensions;
+﻿using Ekona;
+using Izuto.Extensions;
 using plugin_level5.N3DS.Archive;
 using System.Diagnostics;
 using System.Reflection;
@@ -8,9 +9,10 @@ namespace Izuto
 {
     public partial class MainForm : Form
     {
-        public static string tempDir = Path.Combine(Path.GetTempPath(), "Izuto");
+        public static string CurrentWorkingDirectory = "";
         public static OptionsFileData OptionsFile = new OptionsFileData();
         public static string LoadedArchiveFilePath = "";
+        private static string ApplicationTempPath = Path.Combine(Path.GetTempPath(), "Izuto");
         public static MainForm? Self;
         public static List<OptionsFileData.FileReplacementEntry> QueuedImports = new List<OptionsFileData.FileReplacementEntry>();
         private ProgressPanel progressPanel = new ProgressPanel();
@@ -21,6 +23,57 @@ namespace Izuto
             Txt,
             Zip
         }
+        public static void DeleteDirWithoutWarning(string path)
+        {
+            try
+            {
+                if (Directory.Exists(path))
+                    Directory.Delete(path, true);
+            }
+            catch { }
+
+        }
+
+        public static bool IsAnotherInstanceRunning()
+        {
+            string currentProcessName = Process.GetCurrentProcess().ProcessName;
+            int count = Process.GetProcessesByName(currentProcessName).Length;
+            return count > 1; // More than one means another instance is running
+        }
+
+        public static void DeleteTempDirs()
+        {
+             // delete this applications temp folder
+            DeleteTempDir();
+            if (IsAnotherInstanceRunning())
+                return;
+            // delete all temp folders as this is the only instance of the app running
+            var dirs = Directory.GetDirectories(ApplicationTempPath);
+            foreach (var dir in dirs)
+                DeleteDirWithoutWarning(dir);
+        }
+
+        public static void DeleteTempDir()
+        {
+            DeleteDirWithoutWarning(CurrentWorkingDirectory);
+            CurrentWorkingDirectory = "";
+        }
+        public static void CreateNewTempDirectory()
+        {
+            DeleteTempDir();
+            string newTempDir = Path.Combine(ApplicationTempPath, "temp_" + DateTime.Now.ToString("yyyyMMdd_HHmmss"));
+
+            int appendInt = 2;
+            string adjustedTempDir = newTempDir;
+            while (Directory.Exists(adjustedTempDir))
+            {
+                adjustedTempDir = $"{newTempDir} ({appendInt})";
+                appendInt++;
+            }
+            newTempDir = adjustedTempDir;
+            Directory.CreateDirectory(newTempDir);
+            CurrentWorkingDirectory = newTempDir;
+        }
 
         public MainForm()
         {
@@ -29,8 +82,6 @@ namespace Izuto
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
             // Display it in the form header
             this.Text = $"Izuto - Version {version}";
-            // delete all temp files
-            Directory.CreateDirectory(tempDir);
             Self = this;
             Logo = Properties.Resources.IzutoLogo;
             pictureBoxLogo.Image = Logo;
@@ -98,6 +149,7 @@ namespace Izuto
 
         private async Task ListFiles()
         {
+            CreateNewTempDirectory();
             ArchiveFiles = await ArchiveFA.ListFiles(LoadedArchiveFilePath);
             listView1.BeginUpdate();
             listView1.Items.Clear();
@@ -122,12 +174,12 @@ namespace Izuto
             bool doNotSave = false;
             if (file.FilePath.FullName.Contains("t.pkb") && ArchiveFiles.FirstOrDefault(p => p.FilePath.FullName.Equals(file.FilePath.FullName.Replace("t.pkb", ".pkb"))) != null)
             {
-                if(MessageBox.Show($"You appear to be loading a linked text script package. To modify the strings in this package you should open\n\n{file.FilePath.FullName.Replace("t.pkb", ".pkb")}\n\nDo you want to view the package anyway without saving changes", "Linked Package Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                if (MessageBox.Show($"You appear to be loading a linked text script package. To modify the strings in this package you should open\n\n{file.FilePath.FullName.Replace("t.pkb", ".pkb")}\n\nDo you want to view the package anyway without saving changes", "Linked Package Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                     return;
                 doNotSave = true;
             }
             UpdateProgress("Unpacking Archive", 0, 1);
-            PKB.FileEntry pkbFileData = await PKB.UnpackPKBFromArchiveFA_Async(textArchiveFaPath.Text, file, tempDir);
+            PKB.FileEntry pkbFileData = await PKB.UnpackPKBFromArchiveFA_Async(textArchiveFaPath.Text, file, CurrentWorkingDirectory);
             EndProgressUpdates();
             PKBForm pkbform = new PKBForm(pkbFileData, file);
             pkbform.StartPosition = FormStartPosition.CenterParent;
@@ -180,7 +232,7 @@ namespace Izuto
             EndProgressUpdates();
             MessageBox.Show("Archive modification completed, rebuild your rom for testing", "Completed!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-        
+
         public void UpdateProgress(string text, int value, int maxValue)
         {
             tableLayoutPanel1.Enabled = false;
@@ -228,6 +280,11 @@ namespace Izuto
                     }
                 }
             }
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            DeleteTempDirs();
         }
     }
 }
