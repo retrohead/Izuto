@@ -97,6 +97,9 @@ namespace Izuto
             {
                 var item = PACData.StringEntries[i];
                 ListViewItem newItem = new ListViewItem() { Text = $"Script ID#{item.ID}", Tag = item, ImageIndex = (int)MainForm.iconTypes.Txt };
+                
+
+                string ascii = Encoding.GetEncoding(932).GetString(item.TextBytes);
                 newItem.SubItems.Add(item.LineNumber.ToString());
                 newItem.SubItems.Add(item.Text);
                 newItem.SubItems.Add(MainForm.OptionsFile.ConvertBackTextString(item.Text));

@@ -43,7 +43,7 @@ namespace Izuto
 
         public static void DeleteTempDirs()
         {
-             // delete this applications temp folder
+            // delete this applications temp folder
             DeleteTempDir();
             if (IsAnotherInstanceRunning())
                 return;

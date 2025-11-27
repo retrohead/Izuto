@@ -157,7 +157,7 @@
             // openToolStripMenuItem
             // 
             openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(146, 22);
+            openToolStripMenuItem.Size = new Size(180, 22);
             openToolStripMenuItem.Text = "Open Archive";
             openToolStripMenuItem.Click += btnBrowseArchiveFA_Click;
             // 

@@ -27,6 +27,8 @@ namespace Izuto
         {
             string fontConfigPath = MainForm.BrowseForFile("Font Configuration File (*.json)|*.json", "Select a font configuration file");
             textOptionsFilePath.Text = "";
+            if (fontConfigPath == "")
+                return;
             if (!MainForm.OptionsFile.Load(fontConfigPath))
             {
                 MessageBox.Show("Failed to load the font configuration file", "Invalid font configuration file", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); return;

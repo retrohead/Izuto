@@ -20,7 +20,7 @@ namespace Izuto
             InitializeComponent();
             textOrigHex.Text = BitConverter.ToString(Encoding.GetEncoding("utf-8").GetBytes(FontTranslation.Syllable)).Replace("-", "");
             textReplacementHex.Text = BitConverter.ToString(Encoding.GetEncoding("shift_jis").GetBytes(FontTranslation.BytesString)).Replace("-", "");
-            
+
             textJp.Text = FontTranslation.BytesString;
             textSyllable.Text = FontTranslation.Syllable;
         }
@@ -84,10 +84,13 @@ namespace Izuto
             if (!TryParseHexBytes(textOrigHex.Text, out orig))
             {
                 textSyllable.Text = "Error";
+                textUnicodeEntry.Text = "";
                 return;
             }
             Encoding utf8 = Encoding.GetEncoding("utf-8");
             textSyllable.Text = utf8.GetString(orig);
+            if (tabControl1.SelectedTab == tabPageHexEntry)
+                textUnicodeEntry.Text = textSyllable.Text;
         }
         private void textReplacementHex_TextChanged(object sender, EventArgs e)
         {
@@ -99,7 +102,38 @@ namespace Izuto
             }
             Encoding sjis = Encoding.GetEncoding("shift_jis");
             textJp.Text = sjis.GetString(replace);
+            if (tabControl1.SelectedTab == tabPageHexEntry)
+                textJp_Text.Text = sjis.GetString(replace);
         }
 
+        private void textUnicodeEntry_TextChanged(object sender, EventArgs e)
+        {
+            Encoding utf8 = Encoding.GetEncoding("utf-8");
+            string syllable = textUnicodeEntry.Text;
+            byte[] orig = utf8.GetBytes(syllable);
+            string hex = "";
+            for (int i = 0; i < orig.Count(); i++)
+            {
+                hex += orig[i].ToString("X2");
+            }
+            textOrigHex_Text.Text = hex;
+            if (tabControl1.SelectedTab == tabPageTextEntry)
+                textOrigHex.Text = hex;
+        }
+
+        private void textJp_Text_TextChanged(object sender, EventArgs e)
+        {
+            Encoding sjis = Encoding.GetEncoding("shift_jis");
+            string replacetext = textJp_Text.Text;
+            byte[] replace = sjis.GetBytes(replacetext);
+            string hex = "";
+            for (int i = 0; i < replace.Count(); i++)
+            {
+                hex += replace[i].ToString("X2");
+            }
+            textReplacementHex_Text.Text = hex;
+            if (tabControl1.SelectedTab == tabPageTextEntry)
+                textReplacementHex.Text = hex;
+        }
     }
 }
