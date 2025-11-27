@@ -267,3 +267,5 @@ __pycache__/
 /src/KoreUnitTests/temp
 /plugins/Criware/plugin_criware/Scripts
 /*.rar
+/Izuto/PVRTexLib.dll
+/Izuto/Izuto.dll.config
