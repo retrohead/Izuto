@@ -15,6 +15,7 @@ public class PAC
     {
         public Int32 ID;
         public Int16 LineNumber;
+        public Int16 Type; // not always used
         public int Size;
         public string Text = "";
         public byte[]? TextBytes = null;
@@ -190,17 +191,31 @@ public class PAC
             for (int i = 0; i < Header.StringCount; i++)
             {
                 ScriptEntry sentry = new ScriptEntry();
-                sentry.ID = br.ReadInt16();   // 2 bytes
-                sentry.LineNumber = br.ReadByte();   // 1 byte
-                sentry.Size = br.ReadByte();   // 1 byte
-                sentry.TextBytes = br.ReadBytes(sentry.Size - 4);
+                int headersize = 0;
+                if (Header.Version == 2)
+                {
+                    sentry.ID = br.ReadInt16();   // 2 bytes
+                    sentry.LineNumber = br.ReadInt16();   // 2 bytes
+                    sentry.Size = br.ReadInt16();   // 2 bytes
+                    sentry.Type = br.ReadInt16();  // type 2 bytes
+                    headersize = 8;
+                }
+                else
+                {
+                    sentry.ID = br.ReadInt16();   // 2 bytes
+                    sentry.LineNumber = br.ReadByte();   // 1 byte
+                    sentry.Size = br.ReadByte();   // 1 byte
+                    sentry.Type = -1;
+                    headersize = 4;
+                }
+                sentry.TextBytes = br.ReadBytes(sentry.Size - headersize);
                 sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(sentry.TextBytes);
                 sentry.Data = null;
                 sentry.IsLinked = false;
                 if (sentry.Text.StartsWith("@"))
                 {
                     // reverse back and scan the string again, storing the remaining part for analysis
-                    br.BaseStream.Position -= sentry.Size - 4;
+                    br.BaseStream.Position -= sentry.Size - headersize;
 
                     sentry.Text = sentry.Text.Split('\0')[0];
                     byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(sentry.Text);
@@ -211,8 +226,8 @@ public class PAC
                     sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(bytes);
 
                     // scan the remaining bytes into data
-                    if (sentry.Size - (len) - 4 > 0)
-                        sentry.Data = br.ReadBytes(sentry.Size - (len) - 4);
+                    if (sentry.Size - (len) - headersize > 0)
+                        sentry.Data = br.ReadBytes(sentry.Size - (len) - headersize);
                 }
                 StringEntries.Add(sentry);
             }
@@ -345,11 +360,23 @@ public class PAC
         int sizeChange = 0;
         foreach (var sentry in StringEntries)
         {
-            bw.Write((Int16)sentry.ID);
-            bw.Write((byte)sentry.LineNumber);
+            int headersize = 0;
+            if (Header.Version == 2)
+            {
+                bw.Write((Int16)sentry.ID);
+                bw.Write((Int16)sentry.LineNumber);
+                bw.Write((Int16)sentry.Type);
+                headersize = 8;
+            }
+            else
+            {
+                bw.Write((Int16)sentry.ID);
+                bw.Write((byte)sentry.LineNumber);
+                headersize = 4;
+            }
             // update the size of the string
             byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(sentry.Text);
-            ushort StringSize = (ushort)(text.Count() + 4);
+            ushort StringSize = (ushort)(text.Count() + headersize);
             while(StringSize % 4 > 0)
             {
                 StringSize++;
@@ -359,7 +386,14 @@ public class PAC
 
             sizeChange += StringSize - sentry.Size;
             sentry.Size = StringSize;
-            bw.Write((byte)sentry.Size);
+            if (Header.Version == 2)
+            {
+                bw.Write((Int16)sentry.Size);
+            }
+            else
+            {
+                bw.Write((byte)sentry.Size);
+            }
             bw.Write(text);
         }
 
