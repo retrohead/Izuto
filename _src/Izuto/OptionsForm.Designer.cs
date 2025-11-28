@@ -41,6 +41,8 @@
             columnHeader7 = new ColumnHeader();
             btnAddFileReplacement = new Button();
             btnRemoveFileReplacement = new Button();
+            btnRemoveAllFileReplacements = new Button();
+            btnModifyFileReplacement = new Button();
             tabPage1 = new TabPage();
             tableLayoutPanel2 = new TableLayoutPanel();
             listViewTextTranslation = new ListView();
@@ -51,7 +53,9 @@
             btnAddTextTranslation = new Button();
             btnRemoveTextTranslation = new Button();
             btnModifyTextTranslation = new Button();
+            btnRemoveAllTextTranslations = new Button();
             btnSave = new Button();
+            btnSaveAs = new Button();
             tableLayoutPanel1.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPageFontFile.SuspendLayout();
@@ -63,8 +67,8 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 4;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
             tableLayoutPanel1.Controls.Add(btnBrowseOptionsFile, 3, 0);
@@ -72,6 +76,7 @@
             tableLayoutPanel1.Controls.Add(label1, 0, 0);
             tableLayoutPanel1.Controls.Add(tabControl1, 0, 1);
             tableLayoutPanel1.Controls.Add(btnSave, 0, 2);
+            tableLayoutPanel1.Controls.Add(btnSaveAs, 1, 2);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -98,10 +103,10 @@
             textOptionsFilePath.BackColor = SystemColors.ControlLight;
             tableLayoutPanel1.SetColumnSpan(textOptionsFilePath, 2);
             textOptionsFilePath.Dock = DockStyle.Fill;
-            textOptionsFilePath.Location = new Point(103, 3);
+            textOptionsFilePath.Location = new Point(153, 3);
             textOptionsFilePath.Name = "textOptionsFilePath";
             textOptionsFilePath.ReadOnly = true;
-            textOptionsFilePath.Size = new Size(728, 23);
+            textOptionsFilePath.Size = new Size(678, 23);
             textOptionsFilePath.TabIndex = 9;
             // 
             // label1
@@ -139,13 +144,17 @@
             // 
             // tableLayoutPanel3
             // 
-            tableLayoutPanel3.ColumnCount = 3;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
+            tableLayoutPanel3.ColumnCount = 5;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel3.Controls.Add(listViewFileReplacements, 0, 0);
             tableLayoutPanel3.Controls.Add(btnAddFileReplacement, 0, 1);
             tableLayoutPanel3.Controls.Add(btnRemoveFileReplacement, 1, 1);
+            tableLayoutPanel3.Controls.Add(btnRemoveAllFileReplacements, 2, 1);
+            tableLayoutPanel3.Controls.Add(btnModifyFileReplacement, 3, 1);
             tableLayoutPanel3.Dock = DockStyle.Fill;
             tableLayoutPanel3.Location = new Point(3, 3);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -158,7 +167,7 @@
             // listViewFileReplacements
             // 
             listViewFileReplacements.Columns.AddRange(new ColumnHeader[] { columnHeader4, columnHeader7 });
-            tableLayoutPanel3.SetColumnSpan(listViewFileReplacements, 3);
+            tableLayoutPanel3.SetColumnSpan(listViewFileReplacements, 5);
             listViewFileReplacements.Dock = DockStyle.Fill;
             listViewFileReplacements.FullRowSelect = true;
             listViewFileReplacements.Location = new Point(3, 3);
@@ -183,7 +192,7 @@
             btnAddFileReplacement.Dock = DockStyle.Fill;
             btnAddFileReplacement.Location = new Point(3, 431);
             btnAddFileReplacement.Name = "btnAddFileReplacement";
-            btnAddFileReplacement.Size = new Size(94, 26);
+            btnAddFileReplacement.Size = new Size(144, 26);
             btnAddFileReplacement.TabIndex = 2;
             btnAddFileReplacement.Text = "Add";
             btnAddFileReplacement.UseVisualStyleBackColor = true;
@@ -192,13 +201,35 @@
             // btnRemoveFileReplacement
             // 
             btnRemoveFileReplacement.Dock = DockStyle.Fill;
-            btnRemoveFileReplacement.Location = new Point(103, 431);
+            btnRemoveFileReplacement.Location = new Point(153, 431);
             btnRemoveFileReplacement.Name = "btnRemoveFileReplacement";
-            btnRemoveFileReplacement.Size = new Size(94, 26);
+            btnRemoveFileReplacement.Size = new Size(144, 26);
             btnRemoveFileReplacement.TabIndex = 3;
-            btnRemoveFileReplacement.Text = "Remove";
+            btnRemoveFileReplacement.Text = "Remove Selected";
             btnRemoveFileReplacement.UseVisualStyleBackColor = true;
             btnRemoveFileReplacement.Click += btnRemoveFileReplacement_Click;
+            // 
+            // btnRemoveAllFileReplacements
+            // 
+            btnRemoveAllFileReplacements.Dock = DockStyle.Fill;
+            btnRemoveAllFileReplacements.Location = new Point(303, 431);
+            btnRemoveAllFileReplacements.Name = "btnRemoveAllFileReplacements";
+            btnRemoveAllFileReplacements.Size = new Size(144, 26);
+            btnRemoveAllFileReplacements.TabIndex = 4;
+            btnRemoveAllFileReplacements.Text = "Remove All";
+            btnRemoveAllFileReplacements.UseVisualStyleBackColor = true;
+            btnRemoveAllFileReplacements.Click += btnRemoveAllFileReplacements_Click;
+            // 
+            // btnModifyFileReplacement
+            // 
+            btnModifyFileReplacement.Dock = DockStyle.Fill;
+            btnModifyFileReplacement.Location = new Point(453, 431);
+            btnModifyFileReplacement.Name = "btnModifyFileReplacement";
+            btnModifyFileReplacement.Size = new Size(144, 26);
+            btnModifyFileReplacement.TabIndex = 5;
+            btnModifyFileReplacement.Text = "Modify Selected";
+            btnModifyFileReplacement.UseVisualStyleBackColor = true;
+            btnModifyFileReplacement.Click += btnModifyFileReplacement_Click;
             // 
             // tabPage1
             // 
@@ -213,15 +244,17 @@
             // 
             // tableLayoutPanel2
             // 
-            tableLayoutPanel2.ColumnCount = 4;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
+            tableLayoutPanel2.ColumnCount = 5;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.Controls.Add(listViewTextTranslation, 0, 0);
             tableLayoutPanel2.Controls.Add(btnAddTextTranslation, 0, 1);
             tableLayoutPanel2.Controls.Add(btnRemoveTextTranslation, 1, 1);
-            tableLayoutPanel2.Controls.Add(btnModifyTextTranslation, 2, 1);
+            tableLayoutPanel2.Controls.Add(btnModifyTextTranslation, 3, 1);
+            tableLayoutPanel2.Controls.Add(btnRemoveAllTextTranslations, 2, 1);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(3, 3);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -234,7 +267,7 @@
             // listViewTextTranslation
             // 
             listViewTextTranslation.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader5, columnHeader6 });
-            tableLayoutPanel2.SetColumnSpan(listViewTextTranslation, 4);
+            tableLayoutPanel2.SetColumnSpan(listViewTextTranslation, 5);
             listViewTextTranslation.Dock = DockStyle.Fill;
             listViewTextTranslation.FullRowSelect = true;
             listViewTextTranslation.Location = new Point(3, 3);
@@ -268,7 +301,7 @@
             btnAddTextTranslation.Dock = DockStyle.Fill;
             btnAddTextTranslation.Location = new Point(3, 431);
             btnAddTextTranslation.Name = "btnAddTextTranslation";
-            btnAddTextTranslation.Size = new Size(94, 26);
+            btnAddTextTranslation.Size = new Size(144, 26);
             btnAddTextTranslation.TabIndex = 2;
             btnAddTextTranslation.Text = "Add";
             btnAddTextTranslation.UseVisualStyleBackColor = true;
@@ -277,36 +310,57 @@
             // btnRemoveTextTranslation
             // 
             btnRemoveTextTranslation.Dock = DockStyle.Fill;
-            btnRemoveTextTranslation.Location = new Point(103, 431);
+            btnRemoveTextTranslation.Location = new Point(153, 431);
             btnRemoveTextTranslation.Name = "btnRemoveTextTranslation";
-            btnRemoveTextTranslation.Size = new Size(94, 26);
+            btnRemoveTextTranslation.Size = new Size(144, 26);
             btnRemoveTextTranslation.TabIndex = 3;
-            btnRemoveTextTranslation.Text = "Remove";
+            btnRemoveTextTranslation.Text = "Remove Selected";
             btnRemoveTextTranslation.UseVisualStyleBackColor = true;
             btnRemoveTextTranslation.Click += btnRemoveTextTranslation_Click;
             // 
             // btnModifyTextTranslation
             // 
             btnModifyTextTranslation.Dock = DockStyle.Fill;
-            btnModifyTextTranslation.Location = new Point(203, 431);
+            btnModifyTextTranslation.Location = new Point(453, 431);
             btnModifyTextTranslation.Name = "btnModifyTextTranslation";
-            btnModifyTextTranslation.Size = new Size(94, 26);
+            btnModifyTextTranslation.Size = new Size(144, 26);
             btnModifyTextTranslation.TabIndex = 4;
-            btnModifyTextTranslation.Text = "Modify";
+            btnModifyTextTranslation.Text = "Modify Selected";
             btnModifyTextTranslation.UseVisualStyleBackColor = true;
             btnModifyTextTranslation.Click += btnModifyTextTranslation_Click;
             // 
+            // btnRemoveAllTextTranslations
+            // 
+            btnRemoveAllTextTranslations.Dock = DockStyle.Fill;
+            btnRemoveAllTextTranslations.Location = new Point(303, 431);
+            btnRemoveAllTextTranslations.Name = "btnRemoveAllTextTranslations";
+            btnRemoveAllTextTranslations.Size = new Size(144, 26);
+            btnRemoveAllTextTranslations.TabIndex = 5;
+            btnRemoveAllTextTranslations.Text = "Remove All";
+            btnRemoveAllTextTranslations.UseVisualStyleBackColor = true;
+            btnRemoveAllTextTranslations.Click += btnRemoveAllTextTranslations_Click;
+            // 
             // btnSave
             // 
-            tableLayoutPanel1.SetColumnSpan(btnSave, 2);
             btnSave.Dock = DockStyle.Fill;
             btnSave.Location = new Point(3, 535);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(194, 26);
+            btnSave.Size = new Size(144, 26);
             btnSave.TabIndex = 13;
             btnSave.Text = "Save Configuration";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
+            // 
+            // btnSaveAs
+            // 
+            btnSaveAs.Dock = DockStyle.Fill;
+            btnSaveAs.Location = new Point(153, 535);
+            btnSaveAs.Name = "btnSaveAs";
+            btnSaveAs.Size = new Size(144, 26);
+            btnSaveAs.TabIndex = 14;
+            btnSaveAs.Text = "Save Configuration As...";
+            btnSaveAs.UseVisualStyleBackColor = true;
+            btnSaveAs.Click += btnSaveAs_Click;
             // 
             // OptionsForm
             // 
@@ -355,5 +409,9 @@
         private ColumnHeader columnHeader6;
         private ColumnHeader columnHeader7;
         private Button btnModifyTextTranslation;
+        private Button btnRemoveAllTextTranslations;
+        private Button btnRemoveAllFileReplacements;
+        private Button btnModifyFileReplacement;
+        private Button btnSaveAs;
     }
 }

@@ -1,18 +1,6 @@
-﻿using Ekona;
-using Izuto.Extensions;
-using SixLabors.ImageSharp.PixelFormats;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Text;
 using static Izuto.Extensions.OptionsFileData;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static Izuto.Extensions.TextTranslation;
 
 namespace Izuto
 {
@@ -50,8 +38,8 @@ namespace Izuto
                 {
                     var newItem = new ListViewItem() { Text = textTranslation.Syllable, Tag = textTranslation };
                     newItem.SubItems.Add(textTranslation.BytesString);
-                    newItem.SubItems.Add(BitConverter.ToString(Encoding.UTF8.GetBytes(textTranslation.Syllable)).Replace("-", " "));
-                    newItem.SubItems.Add(BitConverter.ToString(textTranslation.GetBytes()).Replace("-", " "));
+                    newItem.SubItems.Add(MainForm.BytesToHexString(Encoding.UTF8.GetBytes(textTranslation.Syllable), " "));
+                    newItem.SubItems.Add(MainForm.BytesToHexString(textTranslation.GetBytes(), " "));
                     listViewTextTranslation.Items.Add(newItem);
                     if (listViewTextTranslation.Items.Count == selectedTranslationsIndex + 1)
                     {
@@ -83,18 +71,10 @@ namespace Izuto
             listViewFileReplacements.EndUpdate();
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            MainForm.OptionsFile.Save();
-            Properties.Settings.Default.OptionsFilePath = MainForm.OptionsFile.FilePath;
-            Properties.Settings.Default.Save();
-            Close();
-        }
-
         private void btnAddTextTranslation_Click(object sender, EventArgs e)
         {
             TextTranslationForm translationForm = new TextTranslationForm(new TranslationEntry());
-            translationForm.ShowDialog();
+            translationForm.ShowDialog(this);
             if (translationForm.DialogResult == DialogResult.Cancel) return;
             MainForm.OptionsFile.Config.TranslationTable.Add(translationForm.FontTranslation);
             selectedTranslationsIndex = MainForm.OptionsFile.Config.TranslationTable.IndexOf(translationForm.FontTranslation);
@@ -110,7 +90,7 @@ namespace Izuto
             TranslationEntry entry = ((TranslationEntry?)listViewTextTranslation.SelectedItems[0].Tag) ?? new TranslationEntry();
             if (entry.Syllable == "") return;
 
-            if (MessageBox.Show("Are you sure you want to remove the selected translation?", "Confirm Removal", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            if (MessageBox.Show("Are you sure you want to remove the selected text translation?", "Confirm Removal", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
             int thisPos = MainForm.OptionsFile.Config.TranslationTable.IndexOf(entry);
@@ -129,6 +109,16 @@ namespace Izuto
             listViewTextTranslation.Focus();
         }
 
+        private void btnRemoveAllTextTranslations_Click(object sender, EventArgs e)
+        {
+            if (listViewTextTranslation.Items.Count == 0) return;
+            if (MessageBox.Show("Are you sure you want to remove all of the text translations?", "Confirm Removal", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+            MainForm.OptionsFile.Config.TranslationTable.Clear();
+            FontForm_Shown(this, EventArgs.Empty);
+            listViewTextTranslation.Focus();
+        }
+
         private void btnModifyTextTranslation_Click(object sender, EventArgs e)
         {
             if (listViewTextTranslation.SelectedItems.Count == 0) return;
@@ -137,7 +127,7 @@ namespace Izuto
             TranslationEntry entry = ((TranslationEntry?)listViewTextTranslation.SelectedItems[0].Tag) ?? new TranslationEntry();
             if (entry.Syllable == "") return;
             TextTranslationForm translationForm = new TextTranslationForm(entry);
-            translationForm.ShowDialog();
+            translationForm.ShowDialog(this);
             if (translationForm.DialogResult == DialogResult.Cancel) return;
             entry = translationForm.FontTranslation;
             selectedTranslationsIndex = MainForm.OptionsFile.Config.TranslationTable.IndexOf(entry);
@@ -158,9 +148,9 @@ namespace Izuto
                 return;
             }
             ReplaceFileForm f = new ReplaceFileForm(new FileReplacementEntry());
-            f.ShowDialog();
+            f.ShowDialog(this);
             if (f.DialogResult == DialogResult.Cancel) return;
-            if(f.FileReplacement == null) return;
+            if (f.FileReplacement == null) return;
 
             MainForm.OptionsFile.Config.FileReplacements.Add(f.FileReplacement);
             selectedFileReplacementIndex = MainForm.OptionsFile.Config.FileReplacements.IndexOf(f.FileReplacement);
@@ -191,6 +181,50 @@ namespace Izuto
             MainForm.OptionsFile.Config.FileReplacements.Remove(entry);
             FontForm_Shown(this, EventArgs.Empty);
             listViewFileReplacements.Focus();
+        }
+
+        private void btnRemoveAllFileReplacements_Click(object sender, EventArgs e)
+        {
+            if (listViewFileReplacements.SelectedItems.Count == 0) return;
+            if (MessageBox.Show("Are you sure you want to remove all of the file replacements?", "Confirm Removal", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+            MainForm.OptionsFile.Config.FileReplacements.Clear();
+            FontForm_Shown(this, EventArgs.Empty);
+            listViewFileReplacements.Focus();
+        }
+
+        private void btnModifyFileReplacement_Click(object sender, EventArgs e)
+        {
+            if (listViewFileReplacements.SelectedItems.Count == 0) return;
+            if (listViewFileReplacements.SelectedItems[0].Tag == null) return;
+            if (listViewFileReplacements.SelectedItems[0].Tag?.GetType() != typeof(FileReplacementEntry)) return;
+            FileReplacementEntry entry = ((FileReplacementEntry?)listViewFileReplacements.SelectedItems[0].Tag) ?? new FileReplacementEntry();
+            if (entry.PathToReplace == "") return;
+            ReplaceFileForm replaceForm = new ReplaceFileForm(entry);
+            replaceForm.ShowDialog(this);
+            if (replaceForm.DialogResult == DialogResult.Cancel) return;
+            entry = replaceForm.FileReplacement;
+            selectedFileReplacementIndex = MainForm.OptionsFile.Config.FileReplacements.IndexOf(entry);
+            FontForm_Shown(this, EventArgs.Empty);
+            listViewFileReplacements.Focus();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (!MainForm.OptionsFile.Save())
+                return;
+            Properties.Settings.Default.OptionsFilePath = MainForm.OptionsFile.FilePath;
+            Properties.Settings.Default.Save();
+            Close();
+        }
+
+        private void btnSaveAs_Click(object sender, EventArgs e)
+        {
+            if (!MainForm.OptionsFile.Save(""))
+                return;
+            Properties.Settings.Default.OptionsFilePath = MainForm.OptionsFile.FilePath;
+            Properties.Settings.Default.Save();
+            Close();
         }
     }
 }

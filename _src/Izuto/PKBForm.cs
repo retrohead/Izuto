@@ -42,12 +42,7 @@ namespace Izuto
                 pkbitem.SubItems.Add(file.offset.ToString());
                 pkbitem.SubItems.Add("0x" + file.offset.ToString("X8"));
                 pkbitem.SubItems.Add(file.size.ToString());
-
-                string hex = "";
-                for (int j = 0; j < 4; j++)
-                    hex += PKBFileInfo.PKBContents.Identifiers[i].ID[j].ToString("X2");
-
-                pkbitem.SubItems.Add(hex);
+                pkbitem.SubItems.Add(MainForm.BytesToHexString(PKBFileInfo.PKBContents.Identifiers[i].ID, ""));
                 pkbitem.SubItems.Add(PKBFileInfo.PKBContents.Identifiers[i].subID.ToString());
                 listView1.Items.Add(pkbitem);
             }
@@ -55,7 +50,7 @@ namespace Izuto
             listView1.EndUpdate();
         }
         PKB.FileEntry? PACFileInfo;
-        private async Task exploreSelectedPKB()
+        private async Task exploreSelectedPAC()
         {
             if (listView1.SelectedItems.Count == 0) return;
             if (listView1.SelectedItems[0].Tag == null) return;
@@ -63,8 +58,8 @@ namespace Izuto
             sFile file = ((sFile?)listView1.SelectedItems[0].Tag) ?? new sFile();
             if (file.path == "") return;
 
-            // create a folder for the pkb
-            string pkbContentsDir = Path.Combine(PKBFileInfo.FileData.path.Replace(".pkb", ""));
+            // create a folder for the pkb contents
+            string pkbContentsDir = PKBFileInfo.FileData.path.Replace(".pkb", "");
             if (!Directory.Exists(pkbContentsDir))
                 Directory.CreateDirectory(pkbContentsDir);
 
@@ -115,7 +110,7 @@ namespace Izuto
 
         private async void btnExplorePAC_Click(object sender, EventArgs e)
         {
-            await exploreSelectedPKB();
+            await exploreSelectedPAC();
         }
 
         private void btnImportPKB_Click(object sender, EventArgs e)
@@ -126,7 +121,7 @@ namespace Izuto
 
         private void listView1_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            exploreSelectedPKB();
+            exploreSelectedPAC();
         }
 
         Color? previousColour;
@@ -151,13 +146,16 @@ namespace Izuto
             {
                 textBox2.ForeColor = (Color)previousColour;
                 textBox2.Text = "Search By ID....";
-            } else
+            }
+            else
             {
                 // search for the ID in the list items
-                foreach(ListViewItem item in listView1.Items)
+                foreach (ListViewItem item in listView1.Items)
                 {
                     if (item.SubItems[4].Text.ToLower().Contains(textBox2.Text.ToLower()))
                     {
+                        if (listView1.SelectedItems != null && listView1.SelectedItems.Count > 0)
+                            listView1.SelectedItems[0].Selected = false;
                         item.Selected = false;
                         item.Selected = true;
                         listView1.Focus();
@@ -167,6 +165,30 @@ namespace Izuto
                     }
                 }
                 MessageBox.Show($"A package with a simialar ID to {textBox2.Text} could not be found", "No Package Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void btnExportPKB_Click(object sender, EventArgs e)
+        {
+
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Title = "Save your file";
+                sfd.Filter = "Inazuma 11 PKB File (*.pkb)|.pkb";
+                sfd.FileName = Path.GetFileNameWithoutExtension(PKBFileInfo.FileData.path);  // suggested default name
+                sfd.DefaultExt = Path.GetExtension(".pkb");
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        File.Copy(PKBFileInfo.FileData.path, sfd.FileName, true);
+                        File.Copy(PKBFileInfo.FileData.path.Replace(".pkb", ".pkh"), sfd.FileName.Replace(".pkb", ".pkh"), true);
+                    } catch (Exception ex)
+                    {
+                        MessageBox.Show($"There was a problem exporting the files\n\n{ex.Message}", "Export Failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    MessageBox.Show($"The following files were exported succesfully\n\nPKB File:\n\n{sfd.FileName}\n\nPKH File:\n\n{sfd.FileName.Replace(".pkb", ".pkh")}", "Export Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
     }

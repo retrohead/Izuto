@@ -41,12 +41,13 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             btnImportPKB = new Button();
             textBox2 = new TextBox();
+            btnExportPKB = new Button();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // textBox1
             // 
-            tableLayoutPanel1.SetColumnSpan(textBox1, 3);
+            tableLayoutPanel1.SetColumnSpan(textBox1, 4);
             textBox1.Dock = DockStyle.Top;
             textBox1.Location = new Point(3, 3);
             textBox1.Name = "textBox1";
@@ -57,7 +58,7 @@
             // listView1
             // 
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader5, columnHeader4, columnHeader6 });
-            tableLayoutPanel1.SetColumnSpan(listView1, 3);
+            tableLayoutPanel1.SetColumnSpan(listView1, 4);
             listView1.Dock = DockStyle.Fill;
             listView1.FullRowSelect = true;
             listView1.Location = new Point(3, 35);
@@ -108,7 +109,8 @@
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnCount = 4;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
@@ -116,7 +118,8 @@
             tableLayoutPanel1.Controls.Add(textBox1, 0, 0);
             tableLayoutPanel1.Controls.Add(btnImportPKB, 0, 2);
             tableLayoutPanel1.Controls.Add(btnExplorePAC, 1, 2);
-            tableLayoutPanel1.Controls.Add(textBox2, 2, 2);
+            tableLayoutPanel1.Controls.Add(textBox2, 3, 2);
+            tableLayoutPanel1.Controls.Add(btnExportPKB, 2, 2);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -142,14 +145,25 @@
             // 
             textBox2.Dock = DockStyle.Fill;
             textBox2.ForeColor = SystemColors.ControlDark;
-            textBox2.Location = new Point(303, 421);
+            textBox2.Location = new Point(453, 421);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(494, 23);
+            textBox2.Size = new Size(344, 23);
             textBox2.TabIndex = 4;
             textBox2.Text = "Search By ID....";
             textBox2.Enter += textBox2_Enter;
             textBox2.KeyUp += textBox2_KeyUp;
             textBox2.Leave += textBox2_Leave;
+            // 
+            // btnExportPKB
+            // 
+            btnExportPKB.Dock = DockStyle.Fill;
+            btnExportPKB.Location = new Point(303, 421);
+            btnExportPKB.Name = "btnExportPKB";
+            btnExportPKB.Size = new Size(144, 26);
+            btnExportPKB.TabIndex = 5;
+            btnExportPKB.Text = "Export Modified PKB";
+            btnExportPKB.UseVisualStyleBackColor = true;
+            btnExportPKB.Click += btnExportPKB_Click;
             // 
             // PKBForm
             // 
@@ -180,5 +194,6 @@
         private ColumnHeader columnHeader4;
         private ColumnHeader columnHeader6;
         private TextBox textBox2;
+        private Button btnExportPKB;
     }
 }

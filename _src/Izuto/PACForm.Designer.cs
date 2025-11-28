@@ -45,6 +45,7 @@
             btnModifyLinkedScript = new Button();
             tabPageTextScripts = new TabPage();
             tableLayoutPanel2 = new TableLayoutPanel();
+            btnImport = new Button();
             btnModifyString = new Button();
             listViewTextScripts = new ListView();
             columnHeader3 = new ColumnHeader();
@@ -57,6 +58,8 @@
             listView1 = new ListView();
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
+            columnHeader14 = new ColumnHeader();
+            columnHeader15 = new ColumnHeader();
             tableLayoutPanel1.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPageLinkedTextScripts.SuspendLayout();
@@ -220,9 +223,11 @@
             // 
             // tableLayoutPanel2
             // 
-            tableLayoutPanel2.ColumnCount = 2;
+            tableLayoutPanel2.ColumnCount = 3;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.Controls.Add(btnImport, 1, 1);
             tableLayoutPanel2.Controls.Add(btnModifyString, 0, 1);
             tableLayoutPanel2.Controls.Add(listViewTextScripts, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
@@ -233,6 +238,17 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
             tableLayoutPanel2.Size = new Size(780, 346);
             tableLayoutPanel2.TabIndex = 0;
+            // 
+            // btnImport
+            // 
+            btnImport.Dock = DockStyle.Left;
+            btnImport.Location = new Point(153, 317);
+            btnImport.Name = "btnImport";
+            btnImport.Size = new Size(144, 26);
+            btnImport.TabIndex = 7;
+            btnImport.Text = "Import Strings";
+            btnImport.UseVisualStyleBackColor = true;
+            btnImport.Click += btnImport_Click;
             // 
             // btnModifyString
             // 
@@ -247,8 +263,8 @@
             // 
             // listViewTextScripts
             // 
-            listViewTextScripts.Columns.AddRange(new ColumnHeader[] { columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7, columnHeader8 });
-            tableLayoutPanel2.SetColumnSpan(listViewTextScripts, 2);
+            listViewTextScripts.Columns.AddRange(new ColumnHeader[] { columnHeader3, columnHeader4, columnHeader5, columnHeader6, columnHeader7, columnHeader8, columnHeader14 });
+            tableLayoutPanel2.SetColumnSpan(listViewTextScripts, 3);
             listViewTextScripts.Dock = DockStyle.Fill;
             listViewTextScripts.FullRowSelect = true;
             listViewTextScripts.Location = new Point(3, 3);
@@ -299,7 +315,7 @@
             // 
             // listView1
             // 
-            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2 });
+            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader15 });
             listView1.Dock = DockStyle.Fill;
             listView1.FullRowSelect = true;
             listView1.Location = new Point(3, 3);
@@ -318,6 +334,15 @@
             // 
             columnHeader2.Text = "Size (Bytes)";
             columnHeader2.Width = 100;
+            // 
+            // columnHeader14
+            // 
+            columnHeader14.Text = "Unknown Data";
+            // 
+            // columnHeader15
+            // 
+            columnHeader15.Text = "Hex";
+            columnHeader15.Width = 500;
             // 
             // PACForm
             // 
@@ -370,5 +395,8 @@
         private ColumnHeader columnHeader12;
         private ColumnHeader columnHeader13;
         private Button btnModifyLinkedScript;
+        private Button btnImport;
+        private ColumnHeader columnHeader14;
+        private ColumnHeader columnHeader15;
     }
 }

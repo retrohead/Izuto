@@ -1,0 +1,25 @@
+{
+  "TranslationTable": [
+    {
+      "Syllable": "'",
+      "Bytes": [
+        129,
+        102
+      ],
+      "BytesString": "’"
+    },
+    {
+      "Syllable": "é",
+      "Bytes": [
+        186
+      ],
+      "BytesString": "ｺ"
+    }
+  ],
+  "FileReplacements": [
+    {
+      "PathToReplace": "/font/FONT12.bcfnt",
+      "RelativePath": "FONT12.bcfnt"
+    }
+  ]
+}

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using static Izuto.Extensions.TextTranslation;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Izuto.Extensions
@@ -11,6 +12,7 @@ namespace Izuto.Extensions
     public class OptionsFileData
     {
         public string FilePath = "";
+        public const string OptionsFileFilter = "Izuto Options JSON files (*.json)|*.json|All files (*.*)|*.*";
 
         public class ConfigurationFile()
         {
@@ -28,77 +30,6 @@ namespace Izuto.Extensions
             public string PathToReplace { get; set; } = "";
 
             public string RelativePath { get; set; } = "";
-        }
-
-        public class TranslationEntry
-        {
-            public string Syllable { get; set; } = "";
-
-            private byte[]? _bytes;
-
-
-            private byte[] BytesSetter
-            {
-                get
-                {
-                    if (_bytes == null)
-                        return new byte[1];
-                    return _bytes;
-                }
-                set
-                {
-                    _bytes = value;
-                }
-            }
-
-            public byte[] GetBytes()
-            {
-                return BytesSetter;
-            }
-
-            public int[] Bytes
-            {
-                get
-                {
-                    if (_bytes == null)
-                        return new int[2];
-                    // Convert internal bytes to int[] for JSON serialization
-                    return _bytes.Select(b => (int)b).ToArray();
-                }
-                set
-                {
-                    if (value == null)
-                    {
-                        _bytes = null;
-                    }
-                    else
-                    {
-                        // Ensure each element is cast down to byte
-                        _bytes = value.Select(b => (byte)b).ToArray();
-                    }
-                }
-            }
-            public string BytesString
-            {
-                get
-                {
-                    if (_bytes == null)
-                        return "";
-                    return System.Text.Encoding.GetEncoding("shift_jis").GetString(_bytes);
-                }
-                set
-                {
-                    if (string.IsNullOrEmpty(value))
-                    {
-                        _bytes = new byte[2];
-                    }
-                    else
-                    {
-                        // Convert the incoming Shift-JIS string into raw bytes
-                        _bytes = Encoding.GetEncoding("shift_jis").GetBytes(value);
-                    }
-                }
-            }
         }
 
         public ConfigurationFile Config = new ConfigurationFile();
@@ -142,9 +73,15 @@ namespace Izuto.Extensions
             return true;
         }
 
-        public void Save()
+        /// <summary>
+        /// Saves the config file to the path it was loaded from unless a path parameter is sent.
+        /// If path is blank then the user is prompted for a location to save
+        /// </summary>
+        /// <param name="path">File filter string (e.g. "CIA files (*.cia)|*.cia").</param>
+        /// <returns>True if file was saved or Fales if user cancelled or something went wrong.</returns>
+        public bool Save(string path = "Existing Path")
         {
-            string targetPath = FilePath;
+            string targetPath = path == "Existing Path" ? FilePath : path;
 
             if (string.IsNullOrWhiteSpace(targetPath))
             {
@@ -152,19 +89,20 @@ namespace Izuto.Extensions
                 var dialog = new SaveFileDialog
                 {
                     FileName = "izuto_options.json",
-                    Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*",
+                    Filter = OptionsFileFilter,
                     Title = "Save Izuto options configuration"
                 };
 
-                if (dialog.ShowDialog() == DialogResult.OK)
+                if (dialog.ShowDialog(MainForm.Self) == DialogResult.OK)
                 {
                     targetPath = dialog.FileName;
-                    FilePath = targetPath; // remember it
+                    if(path == "")
+                        FilePath = targetPath; // remember it
                 }
                 else
                 {
                     // user cancelled
-                    return;
+                    return false;
                 }
             }
 
@@ -177,70 +115,7 @@ namespace Izuto.Extensions
                                            "Save Successful",
                                            MessageBoxButtons.OK,
                                            MessageBoxIcon.Information);
-        }
-
-        public string ConvertTextString(string text)
-        {
-            if (Config == null)
-                return text;
-            if (Config.TranslationTable == null)
-                return text;
-            if (!IsLoaded())
-                return text;
-            // Work with bytes directly
-            List<byte> outputBytes = new List<byte>();
-
-            int i = 0;
-            while (i < text.Length)
-            {
-                bool matched = false;
-
-                // Try each syllable
-                foreach (var entry in Config.TranslationTable)
-                {
-                    string syllable = entry.Syllable;
-
-                    // Check if the text at position i starts with this syllable
-                    if (i + syllable.Length <= text.Length &&
-                        text.Substring(i, syllable.Length) == syllable)
-                    {
-                        // Add mapped bytes
-                        outputBytes.AddRange(entry.GetBytes());
-
-                        // Advance by syllable length
-                        i += syllable.Length;
-                        matched = true;
-                        break; // stop checking other syllables
-                    }
-                }
-
-                if (!matched)
-                {
-                    // Fallback: just encode the single char as ASCII
-                    outputBytes.Add((byte)text[i]);
-                    i++;
-                }
-            }
-
-            // Convert collected bytes into a Shift-JIS string
-            return Encoding.GetEncoding("shift_jis").GetString(outputBytes.ToArray());
-        }
-
-        public string ConvertBackTextString(string text)
-        {
-            if (Config == null)
-                return text;
-            if (Config.TranslationTable == null)
-                return text;
-            if (!IsLoaded())
-                return text;
-
-            string newText = text;
-            foreach (var t in Config.TranslationTable)
-            {
-                newText = newText.Replace(t.BytesString, t.Syllable);
-            }
-            return newText;
+            return true;
         }
 
     }

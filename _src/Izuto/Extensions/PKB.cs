@@ -34,16 +34,19 @@ public class PKB
         string compressedFileName = Path.Combine(outputDirectory, pkbitem.name);
 
         // open the pkb file and extract the selected file
-        string magicString = ""; 
-
-        using (var br = new BinaryReader(File.OpenRead(PKBFileInfo.FileData.path)))
+        string magicString = "";
+        await Task.Run(() =>
         {
-            br.BaseStream.Position = pkbitem.offset;
-            byte[] magicbytes = br.ReadBytes(2);
-            magicString = System.Text.Encoding.GetEncoding("shift_jis").GetString(magicbytes);
-            br.BaseStream.Position = pkbitem.offset;
-            File.WriteAllBytes(compressedFileName, br.ReadBytes((int)pkbitem.size));
-        }
+
+            using (var br = new BinaryReader(File.OpenRead(PKBFileInfo.FileData.path)))
+            {
+                br.BaseStream.Position = pkbitem.offset;
+                byte[] magicbytes = br.ReadBytes(2);
+                magicString = System.Text.Encoding.GetEncoding("shift_jis").GetString(magicbytes);
+                br.BaseStream.Position = pkbitem.offset;
+                File.WriteAllBytes(compressedFileName, br.ReadBytes((int)pkbitem.size));
+            }
+        });
         FileEntry PACFileInfo = new FileEntry();
         PACFileInfo.FileData.path = compressedFileName + "_decompressed";
         PACFileInfo.FileData.name = pkbitem.name + "_decompressed";
@@ -117,20 +120,6 @@ public class PKB
         return 0;
     }
 
-    private static void addLZ77Header(string fn)
-    {
-        // Write the header LZ77
-        BinaryReader br = new BinaryReader(File.OpenRead(fn));
-        BinaryWriter bw = new BinaryWriter(File.OpenWrite(fn + ".lz"));
-        bw.Write(new char[] { 'L', 'Z', '7', '7' });
-        bw.Write(br.ReadBytes((int)br.BaseStream.Length));
-        bw.Flush();
-        bw.Close();
-        br.Close();
-        File.Delete(fn);
-        File.Move(fn + ".lz", fn);
-    }
-
     public static async Task<bool> ImportDecompressedPACFile_Async(FileEntry PKBFileInfo, PKB.FileEntry fileToImport)
     {
         string tempDir = Path.Combine(Path.GetDirectoryName(fileToImport.FileData.path), "import");
@@ -196,41 +185,44 @@ public class PKB
         if (File.Exists(modifiedPKBPath))
             File.Delete(modifiedPKBPath);
 
-        using (var br = new BinaryReader(File.OpenRead(PKBFileInfo.FileData.path)))
+        await Task.Run(() =>
         {
-            using (var bw = new BinaryWriter(File.OpenWrite(modifiedPKBPath)))
+            using (var br = new BinaryReader(File.OpenRead(PKBFileInfo.FileData.path)))
             {
-                // write everything before the file entry
-                if(pkbEntry.offset > 0)
-                    bw.Write(br.ReadBytes((int)pkbEntry.offset - 1));
-                bw.BaseStream.Position = pkbEntry.offset;
-                // write the new file entry
-                using (var br2 = new BinaryReader(File.OpenRead(compressedFileName)))
+                using (var bw = new BinaryWriter(File.OpenWrite(modifiedPKBPath)))
                 {
-                    byte[] buffer = new byte[81920]; // 80 KB buffer (common default)
-                    int bytesRead;
-
-                    while ((bytesRead = br2.Read(buffer, 0, buffer.Length)) > 0)
+                    // write everything before the file entry
+                    if (pkbEntry.offset > 0)
+                        bw.Write(br.ReadBytes((int)pkbEntry.offset - 1));
+                    bw.BaseStream.Position = pkbEntry.offset;
+                    // write the new file entry
+                    using (var br2 = new BinaryReader(File.OpenRead(compressedFileName)))
                     {
-                        bw.Write(buffer, 0, bytesRead);
+                        byte[] buffer = new byte[81920]; // 80 KB buffer (common default)
+                        int bytesRead;
+
+                        while ((bytesRead = br2.Read(buffer, 0, buffer.Length)) > 0)
+                        {
+                            bw.Write(buffer, 0, bytesRead);
+                        }
                     }
-                }
-                // write everything after the file entry
-                if (pkbEntryIndex + 1 < PKBFileInfo.PKBContents.FolderContents.files.Count())
-                {
-                    br.BaseStream.Position = PKBFileInfo.PKBContents.FolderContents.files[pkbEntryIndex + 1].offset;
-
-                    const int bufferSize = 81920; // 80 KB buffer
-                    byte[] buffer2 = new byte[bufferSize];
-                    int bytesRead2;
-
-                    while ((bytesRead2 = br.BaseStream.Read(buffer2, 0, buffer2.Length)) > 0)
+                    // write everything after the file entry
+                    if (pkbEntryIndex + 1 < PKBFileInfo.PKBContents.FolderContents.files.Count())
                     {
-                        bw.Write(buffer2, 0, bytesRead2);
+                        br.BaseStream.Position = PKBFileInfo.PKBContents.FolderContents.files[pkbEntryIndex + 1].offset;
+
+                        const int bufferSize = 81920; // 80 KB buffer
+                        byte[] buffer2 = new byte[bufferSize];
+                        int bytesRead2;
+
+                        while ((bytesRead2 = br.BaseStream.Read(buffer2, 0, buffer2.Length)) > 0)
+                        {
+                            bw.Write(buffer2, 0, bytesRead2);
+                        }
                     }
                 }
             }
-        }
+        });
         // update the offsets for all files past this one
         if (sizediff != 0)
         {
@@ -254,7 +246,7 @@ public class PKB
         // create new pkh
         sFile pkh = new sFile();
         pkh.path = PKBFileInfo.FileData.path.Replace(".pkb", ".pkh");
-        createPKH(
+        await createPKH_Async(
             pkh.path,
             pkh.path + "_modified",
             PKBFileInfo.FileData.path + "_modified",
@@ -265,59 +257,62 @@ public class PKB
         return true;
     }
 
-    public static void createPKH(string oldPKH, string newPKH, string newPKB, sFolder unpacked)
+    public static async Task createPKH_Async(string oldPKH, string newPKH, string newPKB, sFolder unpacked)
     {
-        BinaryReader br = new BinaryReader(File.OpenRead(oldPKH));
-        BinaryReader bwPkb = new BinaryReader(File.OpenRead(newPKB));
-        BinaryWriter bwPkh = new BinaryWriter(File.OpenWrite(newPKH));
-
-        // Write header
-        bwPkh.Write(Encoding.ASCII.GetChars(br.ReadBytes(16))); // Header
-        bwPkh.Write(br.ReadUInt16());                           //File_Size
-        ushort type = br.ReadUInt16();
-        bwPkh.Write(type);                                      //Type
-        bwPkh.Write(br.ReadUInt16());                           //Unknown
-        ushort num_files = br.ReadUInt16();
-        bwPkh.Write(num_files);                                 //Num_files
-        bwPkh.Write(br.ReadUInt32());                           //Unknown
-
-        if (type == 0)
-            bwPkh.Write(br.ReadUInt32());                       //Block_Length
-        else if (type == 2 || type == 3)
+        await Task.Run(() =>
         {
-            bwPkh.Write(unpacked.files[0].size);
-            br.BaseStream.Position += 4;
-        }
+            BinaryReader br = new BinaryReader(File.OpenRead(oldPKH));
+            BinaryReader bwPkb = new BinaryReader(File.OpenRead(newPKB));
+            BinaryWriter bwPkh = new BinaryWriter(File.OpenWrite(newPKH));
 
-        bwPkh.Write(br.ReadBytes(0x10));                        // Unknown, usually 0x00 but not always
+            // Write header
+            bwPkh.Write(Encoding.ASCII.GetChars(br.ReadBytes(16))); // Header
+            bwPkh.Write(br.ReadUInt16());                           //File_Size
+            ushort type = br.ReadUInt16();
+            bwPkh.Write(type);                                      //Type
+            bwPkh.Write(br.ReadUInt16());                           //Unknown
+            ushort num_files = br.ReadUInt16();
+            bwPkh.Write(num_files);                                 //Num_files
+            bwPkh.Write(br.ReadUInt32());                           //Unknown
 
-        uint offset = 0;
-        for (int i = 0; i < num_files; i++)
-        {
             if (type == 0)
+                bwPkh.Write(br.ReadUInt32());                       //Block_Length
+            else if (type == 2 || type == 3)
             {
-                bwPkh.Write(br.ReadUInt32());           // Unknown, ID¿?
-                bwPkh.Write(offset);                    // Offset
-                bwPkh.Write(unpacked.files[i].size);    //Size File
-                br.BaseStream.Position += 8;
-                offset += unpacked.files[i].size;
-                if (offset % 0x10 != 0)
-                    offset += 0x10 - (offset % 0x10);
+                bwPkh.Write(unpacked.files[0].size);
+                br.BaseStream.Position += 4;
             }
-            else if (type == 2)
-                bwPkh.Write(br.ReadUInt64());
-            else if (type == 3)
-                bwPkh.Write(br.ReadUInt32());
-        }
 
-        while (bwPkh.BaseStream.Position % 0x10 != 0)
-            bwPkh.Write((byte)0xFF);
+            bwPkh.Write(br.ReadBytes(0x10));                        // Unknown, usually 0x00 but not always
 
-        bwPkh.Flush();
+            uint offset = 0;
+            for (int i = 0; i < num_files; i++)
+            {
+                if (type == 0)
+                {
+                    bwPkh.Write(br.ReadUInt32());           // Unknown, ID¿?
+                    bwPkh.Write(offset);                    // Offset
+                    bwPkh.Write(unpacked.files[i].size);    //Size File
+                    br.BaseStream.Position += 8;
+                    offset += unpacked.files[i].size;
+                    if (offset % 0x10 != 0)
+                        offset += 0x10 - (offset % 0x10);
+                }
+                else if (type == 2)
+                    bwPkh.Write(br.ReadUInt64());
+                else if (type == 3)
+                    bwPkh.Write(br.ReadUInt32());
+            }
 
-        bwPkb.Close();
-        bwPkh.Close();
+            while (bwPkh.BaseStream.Position % 0x10 != 0)
+                bwPkh.Write((byte)0xFF);
 
-        br.Close();
+            bwPkh.Flush();
+
+            bwPkb.Close();
+            bwPkh.Close();
+
+            br.Close();
+        });
     }
 }

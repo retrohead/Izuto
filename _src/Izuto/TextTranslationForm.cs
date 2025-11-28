@@ -1,4 +1,5 @@
-﻿using System;
+﻿using plugin_level5.N3DS.Archive;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Izuto.Extensions.OptionsFileData;
+using static Izuto.Extensions.TextTranslation;
 
 namespace Izuto
 {
@@ -18,8 +19,8 @@ namespace Izuto
         {
             this.FontTranslation = FontTranslation;
             InitializeComponent();
-            textOrigHex.Text = BitConverter.ToString(Encoding.GetEncoding("utf-8").GetBytes(FontTranslation.Syllable)).Replace("-", "");
-            textReplacementHex.Text = BitConverter.ToString(Encoding.GetEncoding("shift_jis").GetBytes(FontTranslation.BytesString)).Replace("-", "");
+            textOrigHex.Text = MainForm.BytesToHexString(Encoding.GetEncoding("utf-8").GetBytes(FontTranslation.Syllable));
+            textReplacementHex.Text = MainForm.BytesToHexString(Encoding.GetEncoding("shift_jis").GetBytes(FontTranslation.BytesString));
 
             textJp.Text = FontTranslation.BytesString;
             textSyllable.Text = FontTranslation.Syllable;
@@ -110,30 +111,20 @@ namespace Izuto
         {
             Encoding utf8 = Encoding.GetEncoding("utf-8");
             string syllable = textUnicodeEntry.Text;
-            byte[] orig = utf8.GetBytes(syllable);
-            string hex = "";
-            for (int i = 0; i < orig.Count(); i++)
-            {
-                hex += orig[i].ToString("X2");
-            }
-            textOrigHex_Text.Text = hex;
+            byte[] origbytes = utf8.GetBytes(syllable);
+            textOrigHex_Text.Text = MainForm.BytesToHexString(origbytes, "");
             if (tabControl1.SelectedTab == tabPageTextEntry)
-                textOrigHex.Text = hex;
+                textOrigHex.Text = textOrigHex_Text.Text;
         }
 
         private void textJp_Text_TextChanged(object sender, EventArgs e)
         {
             Encoding sjis = Encoding.GetEncoding("shift_jis");
             string replacetext = textJp_Text.Text;
-            byte[] replace = sjis.GetBytes(replacetext);
-            string hex = "";
-            for (int i = 0; i < replace.Count(); i++)
-            {
-                hex += replace[i].ToString("X2");
-            }
-            textReplacementHex_Text.Text = hex;
+            byte[] replacebytes = sjis.GetBytes(replacetext);
+            textReplacementHex_Text.Text = MainForm.BytesToHexString(replacebytes, "");
             if (tabControl1.SelectedTab == tabPageTextEntry)
-                textReplacementHex.Text = hex;
+                textReplacementHex.Text = textReplacementHex_Text.Text;
         }
     }
 }

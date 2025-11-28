@@ -40,6 +40,10 @@
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             openToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
+            noRecentItemsToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
+            exitToolStripMenuItem = new ToolStripMenuItem();
             optionsToolStripMenuItem = new ToolStripMenuItem();
             label1 = new Label();
             pictureBoxLogo = new PictureBox();
@@ -149,10 +153,11 @@
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { openToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { openToolStripMenuItem, toolStripMenuItem1, toolStripSeparator1, exitToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(37, 20);
             fileToolStripMenuItem.Text = "File";
+            fileToolStripMenuItem.DropDownOpening += fileToolStripMenuItem_DropDownOpening;
             // 
             // openToolStripMenuItem
             // 
@@ -160,6 +165,32 @@
             openToolStripMenuItem.Size = new Size(180, 22);
             openToolStripMenuItem.Text = "Open Archive";
             openToolStripMenuItem.Click += btnBrowseArchiveFA_Click;
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { noRecentItemsToolStripMenuItem });
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(180, 22);
+            toolStripMenuItem1.Text = "Recent Items";
+            // 
+            // noRecentItemsToolStripMenuItem
+            // 
+            noRecentItemsToolStripMenuItem.Enabled = false;
+            noRecentItemsToolStripMenuItem.Name = "noRecentItemsToolStripMenuItem";
+            noRecentItemsToolStripMenuItem.Size = new Size(180, 22);
+            noRecentItemsToolStripMenuItem.Text = "No Recent Items";
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(177, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            exitToolStripMenuItem.Size = new Size(180, 22);
+            exitToolStripMenuItem.Text = "Exit";
+            exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
             // optionsToolStripMenuItem
             // 
@@ -227,5 +258,9 @@
         private ToolStripMenuItem openToolStripMenuItem;
         private ToolStripMenuItem optionsToolStripMenuItem;
         private Label label1;
+        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem exitToolStripMenuItem;
+        private ToolStripMenuItem noRecentItemsToolStripMenuItem;
     }
 }

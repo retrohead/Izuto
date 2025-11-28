@@ -1,4 +1,6 @@
 ﻿using Ekona;
+using Izuto;
+using Izuto.Extensions;
 using System.Text;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -16,7 +18,7 @@ public class PAC
         public Int32 ID;
         public Int16 LineNumber;
         public Int16 Type; // not always used
-        public int Size;
+        public int OriginalSize;
         public string Text = "";
         public byte[]? TextBytes = null;
         public bool IsLinked = false;
@@ -117,11 +119,11 @@ public class PAC
             ScriptEntry sentry = new ScriptEntry();
             sentry.ID = br.ReadInt16();
             sentry.LineNumber = br.ReadInt16();
-            sentry.Size = br.ReadInt32();   // 4 bytes
+            sentry.OriginalSize = br.ReadInt32();   // 4 bytes
             int headerSize = 8;
-            if (sentry.Size > 1)
+            if (sentry.OriginalSize > 1)
             {
-                sentry.TextBytes = br.ReadBytes(sentry.Size - headerSize);
+                sentry.TextBytes = br.ReadBytes(sentry.OriginalSize - headerSize);
                 sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(sentry.TextBytes);
             }
             sentry.Data = null;
@@ -129,7 +131,7 @@ public class PAC
             if (sentry.Text.StartsWith("@"))
             {
                 // reverse back and scan the string again, storing the remaining part for analysis
-                br.BaseStream.Position -= sentry.Size - headerSize;
+                br.BaseStream.Position -= sentry.OriginalSize - headerSize;
 
                 sentry.Text = sentry.Text.Split('\0')[0];
                 byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(sentry.Text);
@@ -140,8 +142,8 @@ public class PAC
                 sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(bytes);
 
                 // scan the remaining bytes into data
-                if (sentry.Size - (len) - headerSize > 0)
-                    sentry.Data = br.ReadBytes(sentry.Size - (len) - headerSize);
+                if (sentry.OriginalSize - (len) - headerSize > 0)
+                    sentry.Data = br.ReadBytes(sentry.OriginalSize - (len) - headerSize);
             }
             StringEntries.Add(sentry);
             Header.StringCount++;
@@ -196,7 +198,7 @@ public class PAC
                 {
                     sentry.ID = br.ReadInt16();   // 2 bytes
                     sentry.LineNumber = br.ReadInt16();   // 2 bytes
-                    sentry.Size = br.ReadInt16();   // 2 bytes
+                    sentry.OriginalSize = br.ReadInt16();   // 2 bytes
                     sentry.Type = br.ReadInt16();  // type 2 bytes
                     headersize = 8;
                 }
@@ -204,18 +206,18 @@ public class PAC
                 {
                     sentry.ID = br.ReadInt16();   // 2 bytes
                     sentry.LineNumber = br.ReadByte();   // 1 byte
-                    sentry.Size = br.ReadByte();   // 1 byte
+                    sentry.OriginalSize = br.ReadByte();   // 1 byte
                     sentry.Type = -1;
                     headersize = 4;
                 }
-                sentry.TextBytes = br.ReadBytes(sentry.Size - headersize);
+                sentry.TextBytes = br.ReadBytes(sentry.OriginalSize - headersize);
                 sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(sentry.TextBytes);
                 sentry.Data = null;
                 sentry.IsLinked = false;
                 if (sentry.Text.StartsWith("@"))
                 {
                     // reverse back and scan the string again, storing the remaining part for analysis
-                    br.BaseStream.Position -= sentry.Size - headersize;
+                    br.BaseStream.Position -= sentry.OriginalSize - headersize;
 
                     sentry.Text = sentry.Text.Split('\0')[0];
                     byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(sentry.Text);
@@ -226,8 +228,8 @@ public class PAC
                     sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(bytes);
 
                     // scan the remaining bytes into data
-                    if (sentry.Size - (len) - headersize > 0)
-                        sentry.Data = br.ReadBytes(sentry.Size - (len) - headersize);
+                    if (sentry.OriginalSize - (len) - headersize > 0)
+                        sentry.Data = br.ReadBytes(sentry.OriginalSize - (len) - headersize);
                 }
                 StringEntries.Add(sentry);
             }
@@ -266,10 +268,10 @@ public class PAC
             ScriptEntry sentry = new ScriptEntry();
             sentry.ID = Header.StringCount;
             sentry.LineNumber = 0;
-            sentry.Size = br.ReadByte();   // 1 byte
-            if (sentry.Size > 1)
+            sentry.OriginalSize = br.ReadByte();   // 1 byte
+            if (sentry.OriginalSize > 1)
             {
-                sentry.TextBytes = br.ReadBytes(sentry.Size - 4);
+                sentry.TextBytes = br.ReadBytes(sentry.OriginalSize - 4);
                 sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(sentry.TextBytes);
             }
             sentry.Data = null;
@@ -277,7 +279,7 @@ public class PAC
             if (sentry.Text.StartsWith("@"))
             {
                 // reverse back and scan the string again, storing the remaining part for analysis
-                br.BaseStream.Position -= sentry.Size - 4;
+                br.BaseStream.Position -= sentry.OriginalSize - 4;
 
                 sentry.Text = sentry.Text.Split('\0')[0];
                 byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(sentry.Text);
@@ -288,8 +290,8 @@ public class PAC
                 sentry.Text = System.Text.Encoding.GetEncoding("shift_jis").GetString(bytes);
 
                 // scan the remaining bytes into data
-                if (sentry.Size - (len) - 4 > 0)
-                    sentry.Data = br.ReadBytes(sentry.Size - (len) - 4);
+                if (sentry.OriginalSize - (len) - 4 > 0)
+                    sentry.Data = br.ReadBytes(sentry.OriginalSize - (len) - 4);
             }
             StringEntries.Add(sentry);
             Header.StringCount++;
@@ -325,11 +327,11 @@ public class PAC
             // update the size of the string
             byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(sentry.Text);
             ushort StringSize = (ushort)(text.Count() + 8);
-            sizeChange += StringSize - sentry.Size;
-            sentry.Size = StringSize;
+            sizeChange += StringSize - sentry.OriginalSize;
+            sentry.OriginalSize = StringSize;
             bw.Write((Int16)sentry.ID);
             bw.Write((Int16)sentry.LineNumber);
-            bw.Write((Int32)sentry.Size);
+            bw.Write((Int32)sentry.OriginalSize);
             bw.Write(text);
         }
     }
@@ -384,15 +386,15 @@ public class PAC
             }
             text = Encoding.GetEncoding("shift_jis").GetBytes(sentry.Text);
 
-            sizeChange += StringSize - sentry.Size;
-            sentry.Size = StringSize;
+            sizeChange += StringSize - sentry.OriginalSize;
+            sentry.OriginalSize = StringSize;
             if (Header.Version == 2)
             {
-                bw.Write((Int16)sentry.Size);
+                bw.Write((Int16)sentry.OriginalSize);
             }
             else
             {
-                bw.Write((byte)sentry.Size);
+                bw.Write((byte)sentry.OriginalSize);
             }
             bw.Write(text);
         }
@@ -412,12 +414,99 @@ public class PAC
             // update the size of the string
             byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(sentry.Text);
             ushort StringSize = (ushort)(text.Count() + 4);
-            sizeChange += StringSize - sentry.Size;
-            sentry.Size = StringSize;
-            bw.Write((byte)sentry.Size);
+            sizeChange += StringSize - sentry.OriginalSize;
+            sentry.OriginalSize = StringSize;
+            bw.Write((byte)sentry.OriginalSize);
             bw.Write(text);
 
         }
+    }
+
+    public static string UpdateString(string InputString)
+    {
+        string newString = InputString;
+        newString = newString.Replace("\r\n", "\n");
+        newString = newString.Replace("\n", "\\n");
+        byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(newString);
+        int remain = newString.Length % 4;
+        while (remain > 0)
+        {
+            newString = newString + "\0";
+            remain--;
+        }
+        return newString;
+    }
+
+    private static void CopyStringBetweenPACS(ref PAC DestPAC, ScriptEntry DestEntry, PAC SourcePAC, ScriptEntry SourceEntry, OptionsFileData? SourceTranslationOptions)
+    {
+        int destPacIndex = DestPAC.StringEntries.IndexOf(DestEntry);
+        string sourceText = SourceEntry.Text;
+        if(SourceTranslationOptions != null)
+        {
+            sourceText = TextTranslation.ConvertBackTextString(SourceTranslationOptions.Config.TranslationTable, sourceText);
+        }
+        DestPAC.StringEntries[destPacIndex].Text = UpdateString(TextTranslation.ConvertTextString(MainForm.OptionsFile.Config.TranslationTable, sourceText));
+
+
+        DestPAC.StringEntries[destPacIndex].Type = SourceEntry.Type;
+        if (SourceEntry.Data != null && SourceEntry.Data.Count() > 0)
+        {
+            DestPAC.StringEntries[destPacIndex].Data = new byte[SourceEntry.Data.Count()];
+            SourceEntry.Data.CopyTo(DestPAC.StringEntries[destPacIndex].Data, 0);
+        }
+
+    }
+
+    public static bool ImportStringsFromPACSourcePriority(ref PAC DestPAC, PAC SourcePAC, string SourceTranslationFile = "")
+    {
+        int copiedstrings = 0;
+        List<ScriptEntry> FailedCopies = new List<ScriptEntry>();
+        OptionsFileData? SourceTranslationOptions = null;
+        if(!string.IsNullOrEmpty(SourceTranslationFile))
+        {
+            SourceTranslationOptions = new OptionsFileData();
+            SourceTranslationOptions.Load(SourceTranslationFile);
+        }
+        // scan the strings
+        foreach(var sourceentry in SourcePAC.StringEntries.FindAll(s => !s.IsLinked))
+        {
+            var destentry = DestPAC.StringEntries.Find(s => s.ID.Equals(sourceentry.ID) && s.LineNumber.Equals(sourceentry.LineNumber));
+            if(destentry != null)
+            {
+                CopyStringBetweenPACS(ref DestPAC, destentry, SourcePAC, sourceentry, SourceTranslationOptions);
+                copiedstrings++;
+            } else
+            {
+                FailedCopies.Add(sourceentry);
+            }
+        }
+        return true;
+    }
+    public static bool ImportStringsFromPACDestinationPriority(ref PAC DestPAC, PAC SourcePAC, string SourceTranslationFile = "")
+    {
+        int copiedstrings = 0;
+        List<ScriptEntry> FailedCopies = new List<ScriptEntry>();
+        OptionsFileData? SourceTranslationOptions = null;
+        if (!string.IsNullOrEmpty(SourceTranslationFile))
+        {
+            SourceTranslationOptions = new OptionsFileData();
+            SourceTranslationOptions.Load(SourceTranslationFile);
+        }
+        // scan the strings
+        foreach (var destentry in DestPAC.StringEntries.FindAll(s => !s.IsLinked))
+        {
+            var sourceentry = SourcePAC.StringEntries.Find(s => s.ID.Equals(destentry.ID) && s.LineNumber.Equals(destentry.LineNumber));
+            if (sourceentry != null)
+            {
+                CopyStringBetweenPACS(ref DestPAC, destentry, SourcePAC, sourceentry, SourceTranslationOptions);
+                copiedstrings++;
+            } else
+            {
+                FailedCopies.Add(destentry);
+            }
+        }
+        int failedCopiesWithLineNumber1 = FailedCopies.FindAll(f => f.LineNumber == 1).Count();
+        return true;
     }
 }
 

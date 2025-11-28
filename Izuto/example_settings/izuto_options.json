@@ -1735,6 +1735,54 @@
         214
       ],
       "BytesString": "ω"
+    },
+    {
+      "Syllable": "\" ",
+      "Bytes": [
+        131,
+        145
+      ],
+      "BytesString": "ヱ"
+    },
+    {
+      "Syllable": " \"",
+      "Bytes": [
+        131,
+        146
+      ],
+      "BytesString": "ヲ"
+    },
+    {
+      "Syllable": "\"",
+      "Bytes": [
+        131,
+        147
+      ],
+      "BytesString": "ン"
+    },
+    {
+      "Syllable": ", ",
+      "Bytes": [
+        131,
+        148
+      ],
+      "BytesString": "ヴ"
+    },
+    {
+      "Syllable": "! ",
+      "Bytes": [
+        131,
+        149
+      ],
+      "BytesString": "ヵ"
+    },
+    {
+      "Syllable": "at",
+      "Bytes": [
+        131,
+        150
+      ],
+      "BytesString": "ヶ"
     }
   ],
   "FileReplacements": [

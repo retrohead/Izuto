@@ -83,13 +83,13 @@ namespace Izuto
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(744, 87);
+            tableLayoutPanel1.Size = new Size(728, 87);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(360, 39);
+            label4.Location = new Point(352, 39);
             label4.Margin = new Padding(3, 7, 3, 0);
             label4.Name = "label4";
             label4.Size = new Size(129, 15);
@@ -119,7 +119,7 @@ namespace Izuto
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(360, 7);
+            label3.Location = new Point(352, 7);
             label3.Margin = new Padding(3, 7, 3, 0);
             label3.Name = "label3";
             label3.RightToLeft = RightToLeft.No;
@@ -133,7 +133,7 @@ namespace Izuto
             textOrigHex.Location = new Point(123, 3);
             textOrigHex.MaxLength = 6;
             textOrigHex.Name = "textOrigHex";
-            textOrigHex.Size = new Size(231, 23);
+            textOrigHex.Size = new Size(223, 23);
             textOrigHex.TabIndex = 5;
             textOrigHex.TextChanged += textOrigHex_TextChanged;
             // 
@@ -142,9 +142,9 @@ namespace Izuto
             textSyllable.BackColor = SystemColors.ControlLight;
             textSyllable.Dock = DockStyle.Fill;
             textSyllable.Enabled = false;
-            textSyllable.Location = new Point(510, 3);
+            textSyllable.Location = new Point(502, 3);
             textSyllable.Name = "textSyllable";
-            textSyllable.Size = new Size(231, 23);
+            textSyllable.Size = new Size(223, 23);
             textSyllable.TabIndex = 6;
             // 
             // textJp
@@ -152,9 +152,9 @@ namespace Izuto
             textJp.BackColor = SystemColors.ControlLight;
             textJp.Dock = DockStyle.Fill;
             textJp.Enabled = false;
-            textJp.Location = new Point(510, 35);
+            textJp.Location = new Point(502, 35);
             textJp.Name = "textJp";
-            textJp.Size = new Size(231, 23);
+            textJp.Size = new Size(223, 23);
             textJp.TabIndex = 7;
             // 
             // textReplacementHex
@@ -163,7 +163,7 @@ namespace Izuto
             textReplacementHex.Location = new Point(123, 35);
             textReplacementHex.MaxLength = 4;
             textReplacementHex.Name = "textReplacementHex";
-            textReplacementHex.Size = new Size(231, 23);
+            textReplacementHex.Size = new Size(223, 23);
             textReplacementHex.TabIndex = 8;
             textReplacementHex.TextChanged += textReplacementHex_TextChanged;
             // 
@@ -175,7 +175,7 @@ namespace Izuto
             tabControl1.Location = new Point(3, 3);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(758, 121);
+            tabControl1.Size = new Size(742, 121);
             tabControl1.TabIndex = 1;
             // 
             // tabPageHexEntry
@@ -184,7 +184,7 @@ namespace Izuto
             tabPageHexEntry.Location = new Point(4, 24);
             tabPageHexEntry.Name = "tabPageHexEntry";
             tabPageHexEntry.Padding = new Padding(3);
-            tabPageHexEntry.Size = new Size(750, 93);
+            tabPageHexEntry.Size = new Size(734, 93);
             tabPageHexEntry.TabIndex = 0;
             tabPageHexEntry.Text = "Hex Entry";
             tabPageHexEntry.UseVisualStyleBackColor = true;
@@ -195,7 +195,7 @@ namespace Izuto
             tabPageTextEntry.Location = new Point(4, 24);
             tabPageTextEntry.Name = "tabPageTextEntry";
             tabPageTextEntry.Padding = new Padding(3);
-            tabPageTextEntry.Size = new Size(750, 93);
+            tabPageTextEntry.Size = new Size(734, 93);
             tabPageTextEntry.TabIndex = 1;
             tabPageTextEntry.Text = "Text Entry";
             tabPageTextEntry.UseVisualStyleBackColor = true;
@@ -222,13 +222,13 @@ namespace Izuto
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.Size = new Size(744, 87);
+            tableLayoutPanel3.Size = new Size(728, 87);
             tableLayoutPanel3.TabIndex = 1;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(390, 39);
+            label5.Location = new Point(382, 39);
             label5.Margin = new Padding(3, 7, 3, 0);
             label5.Name = "label5";
             label5.Size = new Size(100, 15);
@@ -258,7 +258,7 @@ namespace Izuto
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(390, 7);
+            label8.Location = new Point(382, 7);
             label8.Margin = new Padding(3, 7, 3, 0);
             label8.Name = "label8";
             label8.RightToLeft = RightToLeft.No;
@@ -272,7 +272,7 @@ namespace Izuto
             textUnicodeEntry.Location = new Point(153, 3);
             textUnicodeEntry.MaxLength = 6;
             textUnicodeEntry.Name = "textUnicodeEntry";
-            textUnicodeEntry.Size = new Size(231, 23);
+            textUnicodeEntry.Size = new Size(223, 23);
             textUnicodeEntry.TabIndex = 5;
             textUnicodeEntry.TextChanged += textUnicodeEntry_TextChanged;
             // 
@@ -281,9 +281,9 @@ namespace Izuto
             textOrigHex_Text.BackColor = SystemColors.ControlLight;
             textOrigHex_Text.Dock = DockStyle.Fill;
             textOrigHex_Text.Enabled = false;
-            textOrigHex_Text.Location = new Point(510, 3);
+            textOrigHex_Text.Location = new Point(502, 3);
             textOrigHex_Text.Name = "textOrigHex_Text";
-            textOrigHex_Text.Size = new Size(231, 23);
+            textOrigHex_Text.Size = new Size(223, 23);
             textOrigHex_Text.TabIndex = 6;
             // 
             // textReplacementHex_Text
@@ -291,9 +291,9 @@ namespace Izuto
             textReplacementHex_Text.BackColor = SystemColors.ControlLight;
             textReplacementHex_Text.Dock = DockStyle.Fill;
             textReplacementHex_Text.Enabled = false;
-            textReplacementHex_Text.Location = new Point(510, 35);
+            textReplacementHex_Text.Location = new Point(502, 35);
             textReplacementHex_Text.Name = "textReplacementHex_Text";
-            textReplacementHex_Text.Size = new Size(231, 23);
+            textReplacementHex_Text.Size = new Size(223, 23);
             textReplacementHex_Text.TabIndex = 7;
             // 
             // textJp_Text
@@ -302,7 +302,7 @@ namespace Izuto
             textJp_Text.Location = new Point(153, 35);
             textJp_Text.MaxLength = 4;
             textJp_Text.Name = "textJp_Text";
-            textJp_Text.Size = new Size(231, 23);
+            textJp_Text.Size = new Size(223, 23);
             textJp_Text.TabIndex = 8;
             textJp_Text.TextChanged += textJp_Text_TextChanged;
             // 
@@ -319,7 +319,7 @@ namespace Izuto
             tableLayoutPanel2.RowCount = 2;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel2.Size = new Size(764, 159);
+            tableLayoutPanel2.Size = new Size(748, 159);
             tableLayoutPanel2.TabIndex = 2;
             // 
             // btnApply
@@ -337,9 +337,13 @@ namespace Izuto
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(764, 159);
+            ClientSize = new Size(748, 159);
             Controls.Add(tableLayoutPanel2);
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MaximumSize = new Size(764, 198);
+            MinimizeBox = false;
+            MinimumSize = new Size(764, 198);
             Name = "TextTranslationForm";
             Text = "Izuto Text Translation Configuration";
             tableLayoutPanel1.ResumeLayout(false);

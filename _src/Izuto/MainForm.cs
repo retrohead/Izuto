@@ -34,6 +34,40 @@ namespace Izuto
 
         }
 
+        public static string BytesToHexString(byte[]? bytes, string spacing = "", int? bytesPerRow = null)
+        {
+            if (bytes == null || bytes.Count() == 0)
+                return "";
+            int len = bytes.Count();
+
+            // Estimate capacity: 2 hex chars per byte + spacing + possible newline
+            int estimated = len * (2 + spacing.Length + 1);
+            var sb = new StringBuilder(estimated);
+
+            int rowCount = 0;
+            for (int i = 0; i < len; i++)
+            {
+                // Add space between bytes (except at start of line)
+                if (rowCount > 0)
+                    sb.Append(spacing);
+
+                sb.Append(bytes[i].ToString("X2"));
+
+                if (!string.IsNullOrEmpty(spacing))
+                    sb.Append(spacing);
+
+                rowCount++;
+
+                if (bytesPerRow.HasValue && rowCount == bytesPerRow.Value)
+                {
+                    sb.AppendLine();
+                    rowCount = 0;
+                }
+            }
+
+            return sb.ToString();
+        }
+
         public static bool IsAnotherInstanceRunning()
         {
             string currentProcessName = Process.GetCurrentProcess().ProcessName;
@@ -58,9 +92,8 @@ namespace Izuto
             DeleteDirWithoutWarning(CurrentWorkingDirectory);
             CurrentWorkingDirectory = "";
         }
-        public static void CreateNewTempDirectory()
+        public static string CreateNewTempDirectory(bool SetAsWorkingDirectory)
         {
-            DeleteTempDir();
             string newTempDir = Path.Combine(ApplicationTempPath, "temp_" + DateTime.Now.ToString("yyyyMMdd_HHmmss"));
 
             int appendInt = 2;
@@ -72,7 +105,12 @@ namespace Izuto
             }
             newTempDir = adjustedTempDir;
             Directory.CreateDirectory(newTempDir);
-            CurrentWorkingDirectory = newTempDir;
+            if (SetAsWorkingDirectory)
+            {
+                DeleteTempDir();
+                CurrentWorkingDirectory = newTempDir;
+            }
+            return newTempDir;
         }
 
         public MainForm()
@@ -85,6 +123,7 @@ namespace Izuto
             Self = this;
             Logo = Properties.Resources.IzutoLogo;
             pictureBoxLogo.Image = Logo;
+            RecentFiles.Init();
         }
 
         /// <summary>
@@ -103,7 +142,7 @@ namespace Izuto
                 openFileDialog.Title = title;
                 openFileDialog.RestoreDirectory = true;
 
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                if (openFileDialog.ShowDialog(MainForm.Self) == DialogResult.OK)
                 {
                     filePath = openFileDialog.FileName;
                 }
@@ -125,7 +164,7 @@ namespace Izuto
                 folderDialog.Description = description;
                 folderDialog.ShowNewFolderButton = true; // Allow creating new folders
 
-                if (folderDialog.ShowDialog() == DialogResult.OK)
+                if (folderDialog.ShowDialog(MainForm.Self) == DialogResult.OK)
                 {
                     folderPath = folderDialog.SelectedPath;
                 }
@@ -139,17 +178,18 @@ namespace Izuto
         {
             LoadedArchiveFilePath = BrowseForFile("Level 5 Archive File (*.fa)|*.fa", "Select a FA file");
             textArchiveFaPath.Text = LoadedArchiveFilePath;
-            QueuedImports = new List<OptionsFileData.FileReplacementEntry>();
-            UpdateProgress("Reading Archive", 0, 1);
             await ListFiles();
-            EndProgressUpdates();
         }
 
         public static List<B123ArchiveFile> ArchiveFiles = new List<B123ArchiveFile>();
 
         private async Task ListFiles()
         {
-            CreateNewTempDirectory();
+            RecentFiles.Add(LoadedArchiveFilePath);
+            QueuedImports = new List<OptionsFileData.FileReplacementEntry>();
+            UpdateProgress("Reading Archive", 0, 1);
+            EndProgressUpdates();
+            CreateNewTempDirectory(true);
             ArchiveFiles = await ArchiveFA.ListFiles(LoadedArchiveFilePath);
             listView1.BeginUpdate();
             listView1.Items.Clear();
@@ -181,14 +221,18 @@ namespace Izuto
             UpdateProgress("Unpacking Archive", 0, 1);
             PKB.FileEntry pkbFileData = await PKB.UnpackPKBFromArchiveFA_Async(textArchiveFaPath.Text, file, CurrentWorkingDirectory);
             EndProgressUpdates();
+            //---------------
+            // OPENING FORM
+            //---------------
             PKBForm pkbform = new PKBForm(pkbFileData, file);
             pkbform.StartPosition = FormStartPosition.CenterParent;
             pkbform.ShowDialog(this);
             if (pkbform.DialogResult == DialogResult.Cancel || doNotSave) return;
 
+            //---------------
+            // FORM CLOSED
+            //---------------
             int filesToPack = 2 + QueuedImports.Count + (OptionsFile.Config == null ? 0 : OptionsFile.Config.FileReplacements.Count);
-
-
             UpdateProgress("Listing Archive Contents", 0, 1);
             B123ArchiveFile? pkhFile = ArchiveFiles.FirstOrDefault(f => f.FilePath.FullName.Equals(file.FilePath.FullName.Replace(".pkb", ".pkh")));
 
@@ -198,7 +242,7 @@ namespace Izuto
             await ArchiveFA.QueueReplaceFile(textArchiveFaPath.Text, file, pkbFileData.FileData.path);
             UpdateProgress("Queuing Files", 1, filesToPack);
             await ArchiveFA.QueueReplaceFile(textArchiveFaPath.Text, pkhFile, pkbFileData.FileData.path.Replace(".pkb", ".pkh"));
-
+            // queue file replacements from options
             if (OptionsFile.Config != null)
             {
                 foreach (var replaceFile in OptionsFile.Config.FileReplacements)
@@ -215,6 +259,7 @@ namespace Izuto
                     await ArchiveFA.QueueReplaceFile(textArchiveFaPath.Text, fileToReplace, OptionsFile.GetFileActualPath(replaceFile));
                 }
             }
+            // queue the other queued imports (usually coming from linked text pacs)
             foreach (OptionsFileData.FileReplacementEntry queuedFile in QueuedImports)
             {
                 UpdateProgress("Queuing Files", filesToReplaceCount, filesToPack);
@@ -228,8 +273,10 @@ namespace Izuto
                 }
                 await ArchiveFA.QueueReplaceFile(textArchiveFaPath.Text, fileToReplace, queuedFile.PathToReplace);
             }
+            // actually do the replacements
             await ArchiveFA.ReplaceQueuedFiles(textArchiveFaPath.Text);
             EndProgressUpdates();
+            QueuedImports = new List<OptionsFileData.FileReplacementEntry>();
             MessageBox.Show("Archive modification completed, rebuild your rom for testing", "Completed!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -285,6 +332,81 @@ namespace Izuto
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             DeleteTempDirs();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+        public static string ShortenPath(string path, int maxLength = 50)
+        {
+            if (string.IsNullOrEmpty(path) || path.Length <= maxLength)
+                return path;
+
+            // Split into directory segments
+            string[] parts = path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
+            // Always keep first and last segment
+            string first = parts[0];
+            string last = parts[^1];
+
+            // Build middle segments until we exceed maxLength
+            var middle = new List<string>();
+            int totalLength = first.Length + last.Length + 5; // 5 for "...\"
+            for (int i = 1; i < parts.Length - 1; i++)
+            {
+                int nextLen = parts[i].Length + 1; // +1 for separator
+                if (totalLength + nextLen > maxLength)
+                {
+                    middle.Add("...");
+                    break;
+                }
+                middle.Add(parts[i]);
+                totalLength += nextLen;
+            }
+
+            return string.Join(Path.DirectorySeparatorChar.ToString(),
+                new[] { first }.Concat(middle).Concat(new[] { last }));
+        }
+
+        private void fileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            ToolStripMenuItem fileItem = (ToolStripMenuItem)sender;
+            if (RecentFiles.Items.Count > 0)
+            {
+                // add the recent items
+                toolStripMenuItem1.DropDownItems.Clear();
+                foreach(var item in RecentFiles.Items)
+                {
+                    ToolStripMenuItem newItem = new ToolStripMenuItem() { Text = ShortenPath(item.FilePath), Tag=item, ToolTipText= item.FilePath };
+                    newItem.Click += RecentItem_Click;
+                    toolStripMenuItem1.DropDownItems.Add(newItem);
+                }
+            }
+            else
+            {
+                // make sure the "No Recent Files" item is in place
+                toolStripMenuItem1.DropDownItems.Clear();
+                toolStripMenuItem1.DropDownItems.Add(noRecentItemsToolStripMenuItem);
+            }
+        }
+
+        private async void RecentItem_Click(object? sender, EventArgs e)
+        {
+            if (sender == null)
+                return;
+            ToolStripMenuItem item = (ToolStripMenuItem)sender;
+            if (item.Tag == null)
+                return;
+            if(!File.Exists(((RecentFiles.RecentFile)item.Tag).FilePath))
+            {
+                if(MessageBox.Show("The file no longer exists, do you want to remove it from your recent files list?", "Missing File", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    RecentFiles.Items.Remove(((RecentFiles.RecentFile)item.Tag));
+                return;
+            }
+            LoadedArchiveFilePath = ((RecentFiles.RecentFile)item.Tag).FilePath;
+            textArchiveFaPath.Text = LoadedArchiveFilePath;
+            await ListFiles();
         }
     }
 }

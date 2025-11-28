@@ -30,46 +30,12 @@ namespace Izuto
             string replacedNullsAndReturns = OriginalString.Replace("\\n", "\r\n").Replace("\0", "");
             if (MainForm.OptionsFile.IsLoaded())
             {
-                textBox1.Text = MainForm.OptionsFile.ConvertBackTextString(replacedNullsAndReturns);
+                textBox1.Text = TextTranslation.ConvertBackTextString(MainForm.OptionsFile.Config.TranslationTable, replacedNullsAndReturns);
             }
             else
             {
                 textBox1.Text = replacedNullsAndReturns;
             }
-        }
-
-        private static string WrapText(string input, int maxBytesPerLine)
-        {
-            var words = input.Split(new[] { ' ' }, StringSplitOptions.None);
-            var sb = new StringBuilder();
-            int currentLineBytes = 0;
-
-            var sjis = Encoding.GetEncoding("shift_jis");
-
-            foreach (var word in words)
-            {
-                // Calculate byte length of this word in Shift-JIS
-                int wordBytes = sjis.GetByteCount(word);
-
-                // If adding this word would exceed the byte limit, start a new line
-                int spaceBytes = (currentLineBytes > 0) ? sjis.GetByteCount(" ") : 0;
-                if (currentLineBytes + wordBytes + spaceBytes > maxBytesPerLine)
-                {
-                    sb.Append("\\n"); // insert line break marker
-                    currentLineBytes = 0;
-                    spaceBytes = 0;
-                }
-                else if (currentLineBytes > 0)
-                {
-                    sb.Append(" ");
-                    currentLineBytes += spaceBytes;
-                }
-
-                sb.Append(word);
-                currentLineBytes += wordBytes;
-            }
-
-            return sb.ToString();
         }
 
 
@@ -78,17 +44,8 @@ namespace Izuto
             // Save the modified text before closing
             ModifiedString = textBox1.Text;
             if (MainForm.OptionsFile.IsLoaded())
-                ModifiedString = MainForm.OptionsFile.ConvertTextString(ModifiedString);
-            ModifiedString = ModifiedString.Replace("\r\n", "\n");
-            //ModifiedString = WrapText(ModifiedString, 44);
-            ModifiedString = ModifiedString.Replace("\n", "\\n");
-            byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(ModifiedString);
-            int remain = ModifiedString.Length % 4;
-            while (remain > 0)
-            {
-                ModifiedString = ModifiedString + "\0";
-                remain--;
-            }
+                ModifiedString = TextTranslation.ConvertTextString(MainForm.OptionsFile.Config.TranslationTable, ModifiedString);
+            ModifiedString = PAC.UpdateString(ModifiedString);
 
             this.DialogResult = DialogResult.OK;
             this.Close();

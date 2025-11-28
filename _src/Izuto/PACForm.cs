@@ -1,5 +1,6 @@
 ﻿using Ekona;
 using INAZUMA11;
+using Izuto.Extensions;
 using Microsoft.VisualBasic;
 using plugin_level5.N3DS.Archive;
 using plugin_nintendo.Archives;
@@ -12,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Izuto.PACStringReplacementOptionsForm;
 using static PAC;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -26,9 +28,11 @@ namespace Izuto
         B123ArchiveFile SourceArchiveFile;
         PKBForm? pkbForm;
         PACForm? linkedTextForm;
+        string LoadedPACID = "";
         PAC? PACData;
         LinkedScriptEntry? LinkedScript;
         public int LinkedScriptSize = 0;
+        private const string PACFileFilter = "Inazuma 11 PAC Files (*.pac_)|*.pac_";
 
         public PACForm(PKBForm? pkbForm, PKB.FileEntry PKBFileInfo, PKB.FileEntry PACFileInfo, B123ArchiveFile SourceArchiveFile, LinkedScriptEntry? LinkedScript = null)
         {
@@ -40,15 +44,18 @@ namespace Izuto
             this.LinkedScript = LinkedScript;
             listView1.SmallImageList = MainForm.Self?.imgListFiles;
             listViewTextScripts.SmallImageList = MainForm.Self?.imgListFiles;
+
+            var pacItem = PKBFileInfo.PKBContents.FolderContents.files.FirstOrDefault(f => f.name.Equals(PACFileInfo.FileData.name.Replace("_decompressed", "")));
+            var pacItemIndex = PKBFileInfo.PKBContents.FolderContents.files.IndexOf(pacItem);
+            LoadedPACID = MainForm.BytesToHexString(PKBFileInfo.PKBContents.Identifiers[pacItemIndex].ID);
+            Text += $" ({LoadedPACID})";
+
             if (LinkedScript != null)
                 Text += " [Linked]";
         }
 
         private void PACForm_Shown(object sender, EventArgs e)
         {
-            string searchForString = "";
-            string searchForHex = "30 46";
-            string searchForHex2 = "46 30";
             PACData = new PAC();
             if (!PACData.Load(PACFileInfo.FileData.path))
             {
@@ -66,23 +73,7 @@ namespace Izuto
                 var item = PACData.BinaryEntries[i];
                 ListViewItem newItem = new ListViewItem() { Text = $"Item ID#{i}", Tag = item, ImageIndex = (int)MainForm.iconTypes.Unknown };
                 newItem.SubItems.Add(item.FileSize.ToString());
-
-                string hex = "";
-                for (int j = 0; j < item.Data.Count(); j++)
-                {
-                    if (j > 0)
-                        hex += " ";
-                    hex += item.Data[j].ToString("X2");
-                }
-                if (!string.IsNullOrEmpty(searchForHex) && (hex.Contains(searchForHex)))
-                {
-                    MessageBox.Show($"Required hex found at {$"Item ID#{i}"} in the selected file: {Path.GetFileName(PACFileInfo.FileData.path)}");
-                }
-                if (!string.IsNullOrEmpty(searchForHex2) && (hex.Contains(searchForHex2)))
-                {
-                    MessageBox.Show($"Required hex found at {$"Item ID#{i}"} in the selected file: {Path.GetFileName(PACFileInfo.FileData.path)}");
-                }
-                newItem.SubItems.Add(hex);
+                newItem.SubItems.Add(MainForm.BytesToHexString(item.Data, " "));
                 listView1.Items.Add(newItem);
             }
             listView1.EndUpdate();
@@ -97,12 +88,12 @@ namespace Izuto
             {
                 var item = PACData.StringEntries[i];
                 ListViewItem newItem = new ListViewItem() { Text = $"Script ID#{item.ID}", Tag = item, ImageIndex = (int)MainForm.iconTypes.Txt };
-                
+
 
                 string ascii = Encoding.GetEncoding(932).GetString(item.TextBytes);
                 newItem.SubItems.Add(item.LineNumber.ToString());
                 newItem.SubItems.Add(item.Text);
-                newItem.SubItems.Add(MainForm.OptionsFile.ConvertBackTextString(item.Text));
+                newItem.SubItems.Add(TextTranslation.ConvertBackTextString(MainForm.OptionsFile.Config.TranslationTable, item.Text));
 
                 byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(item.Text);
                 ushort StringSize = (ushort)(text.Length + 4 + (item.Data != null ? item.Data.Count() : 0));
@@ -113,7 +104,7 @@ namespace Izuto
                     bool showItem = false;
                     if (CurrentTextOffset >= LinkedScript.Offset && CurrentTextOffset < LinkedScript.Offset + LinkedScript.Size)
                     {
-                        if(CurrentTextOffset + StringSize > LinkedScript.Offset + LinkedScript.Size)
+                        if (CurrentTextOffset + StringSize > LinkedScript.Offset + LinkedScript.Size)
                         {
                             throw new Exception("string does not match the expected size");
                         }
@@ -129,39 +120,22 @@ namespace Izuto
 
                 if (!item.IsLinked)
                 {
-                    string hex = "";
-                    if (item.TextBytes != null)
-                    {
-                        for (int j = 0; j < item.TextBytes.Count(); j++)
-                        {
-                            if (j > 0)
-                                hex += " ";
-                            hex += item.TextBytes[j].ToString("X2");
-                        }
-                    }
-                    newItem.SubItems.Add(hex);
-
+                    newItem.SubItems.Add(MainForm.BytesToHexString(item.TextBytes, " "));
+                    if (item.Data == null)
+                        newItem.SubItems.Add("N/A");
+                    else
+                        newItem.SubItems.Add(MainForm.BytesToHexString(item.Data, " "));
                     listViewTextScripts.Items.Add(newItem);
                 }
                 else
                 {
                     if (LinkedScript != null)
                         continue; // already a linked script, can't be linked more
-
-                    newItem.SubItems[3].Text = "N/A";
+                    if(item.Data == null)
+                        newItem.SubItems[3].Text = "N/A";
+                    else
+                        newItem.SubItems[3].Text = MainForm.BytesToHexString(item.Data, " ");
                     listViewLinkedScripts.Items.Add(newItem);
-                }
-                if (!string.IsNullOrEmpty(searchForString) && (newItem.SubItems[2].Text.Contains(searchForString) || newItem.SubItems[3].Text.Contains(searchForString)))
-                {
-                    MessageBox.Show($"Required string found at {$"Script ID#{item.ID}"} in the selected file: {Path.GetFileName(PACFileInfo.FileData.path)}");
-                }
-                if (!string.IsNullOrEmpty(searchForHex) && (newItem.SubItems[4].Text.Contains(searchForHex)))
-                {
-                    MessageBox.Show($"Required hex found at {$"Script ID#{item.ID}"} in the selected file: {Path.GetFileName(PACFileInfo.FileData.path)}");
-                }
-                if (!string.IsNullOrEmpty(searchForHex2) && (newItem.SubItems[4].Text.Contains(searchForHex2)))
-                {
-                    MessageBox.Show($"Required hex found at {$"Script ID#{item.ID}"} in the selected file: {Path.GetFileName(PACFileInfo.FileData.path)}");
                 }
             }
             listViewTextScripts.EndUpdate();
@@ -201,7 +175,7 @@ namespace Izuto
             {
                 sfd.Title = "Save your file";
 
-                sfd.Filter = "Inazuma 11 PAC Files (*.pac_)|*.pac_";
+                sfd.Filter = PACFileFilter;
                 sfd.FileName = Path.GetFileNameWithoutExtension(txtPACFilePath.Text).Split(":")[1];  // suggested default name
                 sfd.DefaultExt = Path.GetExtension(".pac_");
                 if (sfd.ShowDialog() == DialogResult.OK)
@@ -250,14 +224,14 @@ namespace Izuto
             ushort StringSize = (ushort)(Encoding.GetEncoding("shift_jis").GetBytes(newText).Count() + 4);
             entry.Text = newText;
             listViewTextScripts.SelectedItems[0].SubItems[2].Text = entry.Text;
-            listViewTextScripts.SelectedItems[0].SubItems[3].Text = MainForm.OptionsFile.ConvertBackTextString(entry.Text);
+            listViewTextScripts.SelectedItems[0].SubItems[3].Text = TextTranslation.ConvertBackTextString(MainForm.OptionsFile.Config.TranslationTable, entry.Text);
             listViewTextScripts.SelectedItems[0].SubItems[4].Text = StringSize.ToString();
         }
 
         private async void btnAccept_Click(object sender, EventArgs e)
         {
             if (LinkedScript != null)
-            { 
+            {
                 // calculate the new linked script total size
                 LinkedScriptSize = 0;
                 foreach (ListViewItem lvi in listViewTextScripts.Items)
@@ -388,6 +362,71 @@ namespace Izuto
             File.Move(PKBFileInfo.FileData.path + "_modified", PKBFileInfo.FileData.path);
             File.Move(PKBFileInfo.FileData.path.Replace(".pkb", ".pkh") + "_modified", PKBFileInfo.FileData.path.Replace(".pkb", ".pkh"));
 
+        }
+
+        private async void btnImport_Click(object sender, EventArgs e)
+        {
+            string importfn = MainForm.BrowseForFile("Inazuma 11 PKH File (*.pkh)|*.pkh", "Select a PKH file linked to a PKB file containing the same PAC ID");
+            if (string.IsNullOrEmpty(importfn)) return;
+            
+            // open the pkb
+            sFile pkhFile = new sFile()
+            {
+                path = importfn,
+                name = Path.GetFileName(importfn)
+            };
+            sFile pkbFile = new sFile()
+            {
+                path = importfn.Replace(".pkh", ".pkb"),
+                name = Path.GetFileName(importfn).Replace(".pkh", ".pkb")
+            }; 
+            if (!File.Exists(pkbFile.path))
+            {
+                MessageBox.Show($"A matching .pkb file was not found in the same directory as the .pkh", "Missing PKB File", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            INAZUMA11.PKB.PKBContents extractedPKBItems = new INAZUMA11.PKB.PKBContents();
+            await Task.Run(() =>
+            {
+                extractedPKBItems = INAZUMA11.PKB.Unpack(pkbFile, pkhFile);
+            });
+            PKB.FileEntry pkbSource = new PKB.FileEntry() { FileData = pkbFile, PKBContents = extractedPKBItems };
+
+            // try to find a package with the same identifier
+            var foundPackage = extractedPKBItems.Identifiers.FirstOrDefault((x) => MainForm.BytesToHexString(x.ID).Equals(LoadedPACID));
+            if(foundPackage == null)
+            {
+                MessageBox.Show($"A pac file with the ID {LoadedPACID} was not found inside the requested PKH / PKB file combination", "Matching PAC not found", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            var sourcePacFile = extractedPKBItems.FolderContents.files[extractedPKBItems.Identifiers.IndexOf(foundPackage)];
+            // create a folder for the pkb contents
+            string tempDir = MainForm.CreateNewTempDirectory(false);
+            string pkbContentsDir = Path.Combine(tempDir, Path.GetFileName(pkbFile.path).Replace(".pkb", ""));
+            if (!Directory.Exists(pkbContentsDir))
+                Directory.CreateDirectory(pkbContentsDir);
+
+            // extract the pac file from the archive
+            PKB.FileEntry SourcePACFileInfo = await PKB.ExtractPACFileFromPKB_Async(pkbSource, sourcePacFile, pkbContentsDir);
+
+            // ask the user how to perform the changes
+            PAC SourcePAC = new PAC();
+            SourcePAC.Load(SourcePACFileInfo.FileData.path);
+            PACStringReplacementOptionsForm f = new PACStringReplacementOptionsForm(SourcePAC, PACData);
+            f.ShowDialog(this);
+            if (f.DialogResult == DialogResult.Cancel) return;
+
+            ReplacmentOptionsType replacementOptions = f.ReplacementOptions;
+
+            if(replacementOptions.ReplacementPriority == ReplacementPriorityType.Source)
+            {
+                PAC.ImportStringsFromPACSourcePriority(ref PACData, SourcePAC, replacementOptions.SourceTranslationFilePath);
+            } else
+            {
+                PAC.ImportStringsFromPACDestinationPriority(ref PACData, SourcePAC, replacementOptions.SourceTranslationFilePath);
+            }
+            PACData.SaveAs(PACFileInfo.FileData.path);
+            PACForm_Shown(this, EventArgs.Empty);
         }
     }
 }
