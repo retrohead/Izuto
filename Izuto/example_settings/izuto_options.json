@@ -1739,13 +1739,61 @@
     {
       "Syllable": "\" ",
       "Bytes": [
+        143,
+        228
+      ],
+      "BytesString": "丈"
+    },
+    {
+      "Syllable": " \"",
+      "Bytes": [
+        142,
+        79
+      ],
+      "BytesString": "三"
+    },
+    {
+      "Syllable": "\"",
+      "Bytes": [
+        143,
+        227
+      ],
+      "BytesString": "上"
+    },
+    {
+      "Syllable": ", ",
+      "Bytes": [
+        137,
+        186
+      ],
+      "BytesString": "下"
+    },
+    {
+      "Syllable": "! ",
+      "Bytes": [
+        149,
+        115
+      ],
+      "BytesString": "不"
+    },
+    {
+      "Syllable": "at",
+      "Bytes": [
+        151,
+        94
+      ],
+      "BytesString": "与"
+    },
+    {
+      "Syllable": "st",
+      "Bytes": [
         131,
         145
       ],
       "BytesString": "ヱ"
     },
     {
-      "Syllable": " \"",
+      "Syllable": "nt",
       "Bytes": [
         131,
         146
@@ -1753,7 +1801,7 @@
       "BytesString": "ヲ"
     },
     {
-      "Syllable": "\"",
+      "Syllable": "oi",
       "Bytes": [
         131,
         147
@@ -1761,7 +1809,7 @@
       "BytesString": "ン"
     },
     {
-      "Syllable": ", ",
+      "Syllable": "ui",
       "Bytes": [
         131,
         148
@@ -1769,7 +1817,7 @@
       "BytesString": "ヴ"
     },
     {
-      "Syllable": "! ",
+      "Syllable": "et",
       "Bytes": [
         131,
         149
@@ -1777,12 +1825,228 @@
       "BytesString": "ヵ"
     },
     {
-      "Syllable": "at",
+      "Syllable": "nn",
       "Bytes": [
         131,
         150
       ],
       "BytesString": "ヶ"
+    },
+    {
+      "Syllable": "pp",
+      "Bytes": [
+        129,
+        69
+      ],
+      "BytesString": "・"
+    },
+    {
+      "Syllable": "sp",
+      "Bytes": [
+        129,
+        91
+      ],
+      "BytesString": "ー"
+    },
+    {
+      "Syllable": "ff",
+      "Bytes": [
+        129,
+        82
+      ],
+      "BytesString": "ヽ"
+    },
+    {
+      "Syllable": "gn",
+      "Bytes": [
+        129,
+        83
+      ],
+      "BytesString": "ヾ"
+    },
+    {
+      "Syllable": "ie",
+      "Bytes": [
+        136,
+        234
+      ],
+      "BytesString": "一"
+    },
+    {
+      "Syllable": "rt",
+      "Bytes": [
+        146,
+        154
+      ],
+      "BytesString": "丁"
+    },
+    {
+      "Syllable": "rd",
+      "Bytes": [
+        142,
+        181
+      ],
+      "BytesString": "七"
+    },
+    {
+      "Syllable": "rs",
+      "Bytes": [
+        150,
+        156
+      ],
+      "BytesString": "万"
+    },
+    {
+      "Syllable": "'s",
+      "Bytes": [
+        137,
+        78
+      ],
+      "BytesString": "丑"
+    },
+    {
+      "Syllable": "'r",
+      "Bytes": [
+        138,
+        142
+      ],
+      "BytesString": "且"
+    },
+    {
+      "Syllable": "'v",
+      "Bytes": [
+        144,
+        162
+      ],
+      "BytesString": "世"
+    },
+    {
+      "Syllable": "'d",
+      "Bytes": [
+        153,
+        192
+      ],
+      "BytesString": "丗"
+    },
+    {
+      "Syllable": "'l",
+      "Bytes": [
+        139,
+        117
+      ],
+      "BytesString": "丘"
+    },
+    {
+      "Syllable": "i'",
+      "Bytes": [
+        149,
+        184
+      ],
+      "BytesString": "丙"
+    },
+    {
+      "Syllable": "'n",
+      "Bytes": [
+        143,
+        229
+      ],
+      "BytesString": "丞"
+    },
+    {
+      "Syllable": "'e",
+      "Bytes": [
+        151,
+        188
+      ],
+      "BytesString": "両"
+    },
+    {
+      "Syllable": "'c",
+      "Bytes": [
+        149,
+        192
+      ],
+      "BytesString": "並"
+    },
+    {
+      "Syllable": "'t",
+      "Bytes": [
+        146,
+        134
+      ],
+      "BytesString": "中"
+    },
+    {
+      "Syllable": "'a",
+      "Bytes": [
+        139,
+        248
+      ],
+      "BytesString": "串"
+    },
+    {
+      "Syllable": "'u",
+      "Bytes": [
+        138,
+        219
+      ],
+      "BytesString": "丸"
+    },
+    {
+      "Syllable": "l'",
+      "Bytes": [
+        146,
+        79
+      ],
+      "BytesString": "丹"
+    },
+    {
+      "Syllable": "av",
+      "Bytes": [
+        142,
+        229
+      ],
+      "BytesString": "主"
+    },
+    {
+      "Syllable": "ay",
+      "Bytes": [
+        152,
+        165
+      ],
+      "BytesString": "丼"
+    },
+    {
+      "Syllable": "ed",
+      "Bytes": [
+        152,
+        166
+      ],
+      "BytesString": "丿"
+    },
+    {
+      "Syllable": "ec",
+      "Bytes": [
+        152,
+        167
+      ],
+      "BytesString": "乂"
+    },
+    {
+      "Syllable": "lk",
+      "Bytes": [
+        148,
+        84
+      ],
+      "BytesString": "乃"
+    },
+    {
+      "Syllable": "lt",
+      "Bytes": [
+        139,
+        118
+      ],
+      "BytesString": "久"
     }
   ],
   "FileReplacements": [
