@@ -1,4 +1,8 @@
-﻿### Version 1.0.0.6
+﻿### Version 1.0.0.7
+- Added updated font and settings example.
+- Fixed confirmation window after importing strings.
+
+### Version 1.0.0.6
 - Added confirmation window after importing strings.
 
 ### Version 1.0.0.5
