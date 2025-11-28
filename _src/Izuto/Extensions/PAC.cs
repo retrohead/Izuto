@@ -506,6 +506,10 @@ public class PAC
             }
         }
         int failedCopiesWithLineNumber1 = FailedCopies.FindAll(f => f.LineNumber == 1).Count();
+        if(copiedstrings > 0)
+            MessageBox.Show($"The copy process completed\n\n{copiedstrings} strings were copied over\n{failedCopiesWithLineNumber1} strings failed to copy", "Copy Completed");
+        else
+            MessageBox.Show($"No matching strings were found. Are you you sure the selected file contains the same PAC ID?", "Copy Completed");
         return true;
     }
 }

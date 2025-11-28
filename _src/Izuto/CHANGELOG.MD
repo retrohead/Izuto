@@ -1,4 +1,7 @@
-﻿### Version 1.0.0.5
+﻿### Version 1.0.0.6
+- Added confirmation window after importing strings.
+
+### Version 1.0.0.5
 - Added import text into PAC from a different PKH / PKB file combination.
 - Added recent items to file selection menu.
 - Added a few more text conversions to font.
