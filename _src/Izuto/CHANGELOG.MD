@@ -1,4 +1,8 @@
-﻿### Version 1.0.0.7
+﻿### Version 1.0.0.8
+- Added log file during importing text.
+ 
+ 
+### Version 1.0.0.7
 - Added updated font and settings example.
 - Fixed confirmation window after importing strings.
 

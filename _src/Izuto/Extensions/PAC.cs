@@ -1,6 +1,7 @@
 ﻿using Ekona;
 using Izuto;
 using Izuto.Extensions;
+using System.Diagnostics;
 using System.Text;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -480,6 +481,7 @@ public class PAC
                 FailedCopies.Add(sourceentry);
             }
         }
+        ImportStrings_Completed(copiedstrings, FailedCopies.FindAll(f => f.LineNumber == 1));
         return true;
     }
     public static bool ImportStringsFromPACDestinationPriority(ref PAC DestPAC, PAC SourcePAC, string SourceTranslationFile = "")
@@ -505,12 +507,56 @@ public class PAC
                 FailedCopies.Add(destentry);
             }
         }
-        int failedCopiesWithLineNumber1 = FailedCopies.FindAll(f => f.LineNumber == 1).Count();
-        if(copiedstrings > 0)
-            MessageBox.Show($"The copy process completed\n\n{copiedstrings} strings were copied over\n{failedCopiesWithLineNumber1} strings failed to copy", "Copy Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        else
-            MessageBox.Show($"No matching strings were found. Are you you sure the selected file contains the same PAC ID?", "Copy Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        ImportStrings_Completed(copiedstrings, FailedCopies.FindAll(f => f.LineNumber == 1));
         return true;
+    }
+
+    private static void ImportStrings_Completed(int copiedStringCount, List<ScriptEntry> failedCopies)
+    {
+        if (copiedStringCount > 0)
+        {
+            if (failedCopies.Count() == 0)
+            {
+                MessageBox.Show($"The copy process completed\n\nAll {copiedStringCount} strings were updated", "Copy Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (MessageBox.Show($"The copy process completed\n\n{copiedStringCount} strings were updated\n{failedCopies.Count()} strings failed to update.\n\nDo you want to view the log file?", "Copy Completed", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                return;
+            }
+            else
+            {
+                // generate log file
+                StringBuilder logbuilder = new StringBuilder();
+                logbuilder.AppendLine("The following strings failed to update:\n");
+                foreach (var fail in failedCopies)
+                {
+                    logbuilder.AppendLine($"-----------------------------------------");
+                    logbuilder.AppendLine($"Script ID: {fail.ID}, LineNumber: {fail.LineNumber}");
+                    logbuilder.AppendLine($"Text:");
+                    logbuilder.AppendLine($"{fail.Text}\n");
+                }
+                string logpath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath) ?? "", $"izuto_copy_string_log_{DateTime.Now.ToString("yyyyMMddhhmmss")}.txt");
+
+
+                // Decide encoding: ASCII if all chars < 128, otherwise Shift-JIS
+                Encoding enc = logbuilder.ToString().Any(c => c > 127)
+                    ? Encoding.GetEncoding(932)   // Shift-JIS (code page 932)
+                    : Encoding.ASCII;
+
+                File.WriteAllText(logpath, logbuilder.ToString(), Encoding.UTF8);
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = logpath,
+                    UseShellExecute = true
+                });
+                MessageBox.Show($"Log file saved to:\n\n{logpath}", "Copy Log", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        else
+        {
+            MessageBox.Show($"No matching strings were found. Are you you sure the selected file contains the same PAC ID?", "Copy Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }
 
