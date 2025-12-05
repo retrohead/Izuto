@@ -10,6 +10,9 @@ namespace Izuto.Extensions
     {
         public class TranslationEntry
         {
+            /// <summary>
+            /// The syllable or text segment to be translated.
+            /// </summary>
             public string Syllable { get; set; } = "";
 
             private byte[]? _bytes;
@@ -29,12 +32,18 @@ namespace Izuto.Extensions
                 }
             }
 
+            /// <summary>
+            /// The SJIS byte sequence as an array of bytes.
+            /// </summary>
             public byte[] GetBytes()
             {
                 return BytesSetter;
             }
 
-            public int[] Bytes
+            /// <summary>
+            /// The SJIS byte sequence as an array of integers.
+            /// </summary>
+            public int[] BytesInt
             {
                 get
                 {
@@ -56,6 +65,9 @@ namespace Izuto.Extensions
                     }
                 }
             }
+            /// <summary>
+            /// The SJIS string representation of the byte sequence.
+            /// </summary>
             public string BytesString
             {
                 get
@@ -75,6 +87,19 @@ namespace Izuto.Extensions
                         // Convert the incoming Shift-JIS string into raw bytes
                         _bytes = Encoding.GetEncoding("shift_jis").GetBytes(value);
                     }
+                }
+            }
+
+            public string UnicodeCodePoint
+            {
+                get
+                {
+                    // Decode SJIS into a .NET string (UTF-16 internally)
+                    Encoding sjis = Encoding.GetEncoding("shift_jis");
+                    string decoded = sjis.GetString(_bytes);
+                    // Get the UTF-16 code unit (UInt16)
+                    ushort unicodeCode = decoded[0]; // since you expect only one character
+                    return "0x" + MainForm.BytesToHexString(new byte[] { BitConverter.GetBytes(unicodeCode)[1], BitConverter.GetBytes(unicodeCode)[0] }, "");
                 }
             }
         }

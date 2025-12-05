@@ -2,2051 +2,1848 @@
   "TranslationTable": [
     {
       "Syllable": "ba",
-      "Bytes": [
+      "BytesInt": [
         130,
         159
       ],
-      "BytesString": "ぁ"
+      "BytesString": "ぁ",
+      "UnicodeCodePoint": "0x3041"
     },
     {
       "Syllable": "be",
-      "Bytes": [
+      "BytesInt": [
         130,
         160
       ],
-      "BytesString": "あ"
+      "BytesString": "あ",
+      "UnicodeCodePoint": "0x3042"
     },
     {
       "Syllable": "bi",
-      "Bytes": [
+      "BytesInt": [
         130,
         161
       ],
-      "BytesString": "ぃ"
+      "BytesString": "ぃ",
+      "UnicodeCodePoint": "0x3043"
     },
     {
       "Syllable": "bo",
-      "Bytes": [
+      "BytesInt": [
         130,
         162
       ],
-      "BytesString": "い"
+      "BytesString": "い",
+      "UnicodeCodePoint": "0x3044"
     },
     {
       "Syllable": "bu",
-      "Bytes": [
+      "BytesInt": [
         130,
         163
       ],
-      "BytesString": "ぅ"
+      "BytesString": "ぅ",
+      "UnicodeCodePoint": "0x3045"
     },
     {
       "Syllable": "ca",
-      "Bytes": [
+      "BytesInt": [
         130,
         164
       ],
-      "BytesString": "う"
+      "BytesString": "う",
+      "UnicodeCodePoint": "0x3046"
     },
     {
       "Syllable": "ce",
-      "Bytes": [
+      "BytesInt": [
         130,
         165
       ],
-      "BytesString": "ぇ"
+      "BytesString": "ぇ",
+      "UnicodeCodePoint": "0x3047"
     },
     {
       "Syllable": "ci",
-      "Bytes": [
+      "BytesInt": [
         130,
         166
       ],
-      "BytesString": "え"
+      "BytesString": "え",
+      "UnicodeCodePoint": "0x3048"
     },
     {
       "Syllable": "co",
-      "Bytes": [
+      "BytesInt": [
         130,
         167
       ],
-      "BytesString": "ぉ"
+      "BytesString": "ぉ",
+      "UnicodeCodePoint": "0x3049"
     },
     {
       "Syllable": "cu",
-      "Bytes": [
+      "BytesInt": [
         130,
         168
       ],
-      "BytesString": "お"
+      "BytesString": "お",
+      "UnicodeCodePoint": "0x304A"
     },
     {
       "Syllable": "da",
-      "Bytes": [
+      "BytesInt": [
         130,
         169
       ],
-      "BytesString": "か"
+      "BytesString": "か",
+      "UnicodeCodePoint": "0x304B"
     },
     {
       "Syllable": "de",
-      "Bytes": [
+      "BytesInt": [
         130,
         170
       ],
-      "BytesString": "が"
+      "BytesString": "が",
+      "UnicodeCodePoint": "0x304C"
     },
     {
       "Syllable": "di",
-      "Bytes": [
+      "BytesInt": [
         130,
         171
       ],
-      "BytesString": "き"
+      "BytesString": "き",
+      "UnicodeCodePoint": "0x304D"
     },
     {
       "Syllable": "do",
-      "Bytes": [
+      "BytesInt": [
         130,
         172
       ],
-      "BytesString": "ぎ"
+      "BytesString": "ぎ",
+      "UnicodeCodePoint": "0x304E"
     },
     {
       "Syllable": "du",
-      "Bytes": [
+      "BytesInt": [
         130,
         173
       ],
-      "BytesString": "く"
+      "BytesString": "く",
+      "UnicodeCodePoint": "0x304F"
     },
     {
       "Syllable": "fa",
-      "Bytes": [
+      "BytesInt": [
         130,
         174
       ],
-      "BytesString": "ぐ"
+      "BytesString": "ぐ",
+      "UnicodeCodePoint": "0x3050"
     },
     {
       "Syllable": "fe",
-      "Bytes": [
+      "BytesInt": [
         130,
         175
       ],
-      "BytesString": "け"
+      "BytesString": "け",
+      "UnicodeCodePoint": "0x3051"
     },
     {
       "Syllable": "fi",
-      "Bytes": [
+      "BytesInt": [
         130,
         176
       ],
-      "BytesString": "げ"
+      "BytesString": "げ",
+      "UnicodeCodePoint": "0x3052"
     },
     {
       "Syllable": "fo",
-      "Bytes": [
+      "BytesInt": [
         130,
         177
       ],
-      "BytesString": "こ"
+      "BytesString": "こ",
+      "UnicodeCodePoint": "0x3053"
     },
     {
       "Syllable": "fu",
-      "Bytes": [
+      "BytesInt": [
         130,
         178
       ],
-      "BytesString": "ご"
+      "BytesString": "ご",
+      "UnicodeCodePoint": "0x3054"
     },
     {
       "Syllable": "ga",
-      "Bytes": [
+      "BytesInt": [
         130,
         179
       ],
-      "BytesString": "さ"
+      "BytesString": "さ",
+      "UnicodeCodePoint": "0x3055"
     },
     {
       "Syllable": "ge",
-      "Bytes": [
+      "BytesInt": [
         130,
         180
       ],
-      "BytesString": "ざ"
+      "BytesString": "ざ",
+      "UnicodeCodePoint": "0x3056"
     },
     {
       "Syllable": "gi",
-      "Bytes": [
+      "BytesInt": [
         130,
         181
       ],
-      "BytesString": "し"
+      "BytesString": "し",
+      "UnicodeCodePoint": "0x3057"
     },
     {
       "Syllable": "go",
-      "Bytes": [
+      "BytesInt": [
         130,
         182
       ],
-      "BytesString": "じ"
+      "BytesString": "じ",
+      "UnicodeCodePoint": "0x3058"
     },
     {
       "Syllable": "gu",
-      "Bytes": [
+      "BytesInt": [
         130,
         183
       ],
-      "BytesString": "す"
+      "BytesString": "す",
+      "UnicodeCodePoint": "0x3059"
     },
     {
       "Syllable": "ha",
-      "Bytes": [
+      "BytesInt": [
         130,
         184
       ],
-      "BytesString": "ず"
+      "BytesString": "ず",
+      "UnicodeCodePoint": "0x305A"
     },
     {
       "Syllable": "he",
-      "Bytes": [
+      "BytesInt": [
         130,
         185
       ],
-      "BytesString": "せ"
+      "BytesString": "せ",
+      "UnicodeCodePoint": "0x305B"
     },
     {
       "Syllable": "hi",
-      "Bytes": [
+      "BytesInt": [
         130,
         186
       ],
-      "BytesString": "ぜ"
+      "BytesString": "ぜ",
+      "UnicodeCodePoint": "0x305C"
     },
     {
       "Syllable": "ho",
-      "Bytes": [
+      "BytesInt": [
         130,
         187
       ],
-      "BytesString": "そ"
+      "BytesString": "そ",
+      "UnicodeCodePoint": "0x305D"
     },
     {
       "Syllable": "hu",
-      "Bytes": [
+      "BytesInt": [
         130,
         188
       ],
-      "BytesString": "ぞ"
+      "BytesString": "ぞ",
+      "UnicodeCodePoint": "0x305E"
     },
     {
       "Syllable": "ja",
-      "Bytes": [
+      "BytesInt": [
         130,
         189
       ],
-      "BytesString": "た"
+      "BytesString": "た",
+      "UnicodeCodePoint": "0x305F"
     },
     {
       "Syllable": "je",
-      "Bytes": [
+      "BytesInt": [
         130,
         190
       ],
-      "BytesString": "だ"
+      "BytesString": "だ",
+      "UnicodeCodePoint": "0x3060"
     },
     {
       "Syllable": "ji",
-      "Bytes": [
+      "BytesInt": [
         130,
         191
       ],
-      "BytesString": "ち"
+      "BytesString": "ち",
+      "UnicodeCodePoint": "0x3061"
     },
     {
       "Syllable": "jo",
-      "Bytes": [
+      "BytesInt": [
         130,
         192
       ],
-      "BytesString": "ぢ"
+      "BytesString": "ぢ",
+      "UnicodeCodePoint": "0x3062"
     },
     {
       "Syllable": "ju",
-      "Bytes": [
+      "BytesInt": [
         130,
         193
       ],
-      "BytesString": "っ"
+      "BytesString": "っ",
+      "UnicodeCodePoint": "0x3063"
     },
     {
       "Syllable": "ka",
-      "Bytes": [
+      "BytesInt": [
         130,
         194
       ],
-      "BytesString": "つ"
+      "BytesString": "つ",
+      "UnicodeCodePoint": "0x3064"
     },
     {
       "Syllable": "ke",
-      "Bytes": [
+      "BytesInt": [
         130,
         195
       ],
-      "BytesString": "づ"
+      "BytesString": "づ",
+      "UnicodeCodePoint": "0x3065"
     },
     {
       "Syllable": "ki",
-      "Bytes": [
+      "BytesInt": [
         130,
         196
       ],
-      "BytesString": "て"
+      "BytesString": "て",
+      "UnicodeCodePoint": "0x3066"
     },
     {
       "Syllable": "ko",
-      "Bytes": [
+      "BytesInt": [
         130,
         197
       ],
-      "BytesString": "で"
+      "BytesString": "で",
+      "UnicodeCodePoint": "0x3067"
     },
     {
       "Syllable": "ku",
-      "Bytes": [
+      "BytesInt": [
         130,
         198
       ],
-      "BytesString": "と"
+      "BytesString": "と",
+      "UnicodeCodePoint": "0x3068"
     },
     {
       "Syllable": "la",
-      "Bytes": [
+      "BytesInt": [
         130,
         199
       ],
-      "BytesString": "ど"
+      "BytesString": "ど",
+      "UnicodeCodePoint": "0x3069"
     },
     {
       "Syllable": "le",
-      "Bytes": [
+      "BytesInt": [
         130,
         200
       ],
-      "BytesString": "な"
+      "BytesString": "な",
+      "UnicodeCodePoint": "0x306A"
     },
     {
       "Syllable": "li",
-      "Bytes": [
+      "BytesInt": [
         130,
         201
       ],
-      "BytesString": "に"
+      "BytesString": "に",
+      "UnicodeCodePoint": "0x306B"
     },
     {
       "Syllable": "lo",
-      "Bytes": [
+      "BytesInt": [
         130,
         202
       ],
-      "BytesString": "ぬ"
+      "BytesString": "ぬ",
+      "UnicodeCodePoint": "0x306C"
     },
     {
       "Syllable": "lu",
-      "Bytes": [
+      "BytesInt": [
         130,
         203
       ],
-      "BytesString": "ね"
+      "BytesString": "ね",
+      "UnicodeCodePoint": "0x306D"
     },
     {
       "Syllable": "na",
-      "Bytes": [
+      "BytesInt": [
         130,
         204
       ],
-      "BytesString": "の"
+      "BytesString": "の",
+      "UnicodeCodePoint": "0x306E"
     },
     {
       "Syllable": "ne",
-      "Bytes": [
+      "BytesInt": [
         130,
         205
       ],
-      "BytesString": "は"
+      "BytesString": "は",
+      "UnicodeCodePoint": "0x306F"
     },
     {
       "Syllable": "ni",
-      "Bytes": [
+      "BytesInt": [
         130,
         206
       ],
-      "BytesString": "ば"
+      "BytesString": "ば",
+      "UnicodeCodePoint": "0x3070"
     },
     {
       "Syllable": "no",
-      "Bytes": [
+      "BytesInt": [
         130,
         207
       ],
-      "BytesString": "ぱ"
+      "BytesString": "ぱ",
+      "UnicodeCodePoint": "0x3071"
     },
     {
       "Syllable": "nu",
-      "Bytes": [
+      "BytesInt": [
         130,
         208
       ],
-      "BytesString": "ひ"
+      "BytesString": "ひ",
+      "UnicodeCodePoint": "0x3072"
     },
     {
       "Syllable": "pa",
-      "Bytes": [
+      "BytesInt": [
         130,
         209
       ],
-      "BytesString": "び"
+      "BytesString": "び",
+      "UnicodeCodePoint": "0x3073"
     },
     {
       "Syllable": "pe",
-      "Bytes": [
+      "BytesInt": [
         130,
         210
       ],
-      "BytesString": "ぴ"
+      "BytesString": "ぴ",
+      "UnicodeCodePoint": "0x3074"
     },
     {
       "Syllable": "pi",
-      "Bytes": [
+      "BytesInt": [
         130,
         211
       ],
-      "BytesString": "ふ"
+      "BytesString": "ふ",
+      "UnicodeCodePoint": "0x3075"
     },
     {
       "Syllable": "po",
-      "Bytes": [
+      "BytesInt": [
         130,
         212
       ],
-      "BytesString": "ぶ"
+      "BytesString": "ぶ",
+      "UnicodeCodePoint": "0x3076"
     },
     {
       "Syllable": "pu",
-      "Bytes": [
+      "BytesInt": [
         130,
         213
       ],
-      "BytesString": "ぷ"
+      "BytesString": "ぷ",
+      "UnicodeCodePoint": "0x3077"
     },
     {
       "Syllable": "qa",
-      "Bytes": [
+      "BytesInt": [
         130,
         214
       ],
-      "BytesString": "へ"
+      "BytesString": "へ",
+      "UnicodeCodePoint": "0x3078"
     },
     {
       "Syllable": "qe",
-      "Bytes": [
+      "BytesInt": [
         130,
         215
       ],
-      "BytesString": "べ"
+      "BytesString": "べ",
+      "UnicodeCodePoint": "0x3079"
     },
     {
       "Syllable": "qi",
-      "Bytes": [
+      "BytesInt": [
         130,
         216
       ],
-      "BytesString": "ぺ"
+      "BytesString": "ぺ",
+      "UnicodeCodePoint": "0x307A"
     },
     {
       "Syllable": "qo",
-      "Bytes": [
+      "BytesInt": [
         130,
         217
       ],
-      "BytesString": "ほ"
+      "BytesString": "ほ",
+      "UnicodeCodePoint": "0x307B"
     },
     {
       "Syllable": "qu",
-      "Bytes": [
+      "BytesInt": [
         130,
         218
       ],
-      "BytesString": "ぼ"
+      "BytesString": "ぼ",
+      "UnicodeCodePoint": "0x307C"
     },
     {
       "Syllable": "ra",
-      "Bytes": [
+      "BytesInt": [
         130,
         219
       ],
-      "BytesString": "ぽ"
+      "BytesString": "ぽ",
+      "UnicodeCodePoint": "0x307D"
     },
     {
       "Syllable": "re",
-      "Bytes": [
+      "BytesInt": [
         130,
         220
       ],
-      "BytesString": "ま"
+      "BytesString": "ま",
+      "UnicodeCodePoint": "0x307E"
     },
     {
       "Syllable": "ri",
-      "Bytes": [
+      "BytesInt": [
         130,
         221
       ],
-      "BytesString": "み"
+      "BytesString": "み",
+      "UnicodeCodePoint": "0x307F"
     },
     {
       "Syllable": "ro",
-      "Bytes": [
+      "BytesInt": [
         130,
         222
       ],
-      "BytesString": "む"
+      "BytesString": "む",
+      "UnicodeCodePoint": "0x3080"
     },
     {
       "Syllable": "ru",
-      "Bytes": [
+      "BytesInt": [
         130,
         223
       ],
-      "BytesString": "め"
+      "BytesString": "め",
+      "UnicodeCodePoint": "0x3081"
     },
     {
       "Syllable": "sa",
-      "Bytes": [
+      "BytesInt": [
         130,
         224
       ],
-      "BytesString": "も"
+      "BytesString": "も",
+      "UnicodeCodePoint": "0x3082"
     },
     {
       "Syllable": "se",
-      "Bytes": [
+      "BytesInt": [
         130,
         225
       ],
-      "BytesString": "ゃ"
+      "BytesString": "ゃ",
+      "UnicodeCodePoint": "0x3083"
     },
     {
       "Syllable": "si",
-      "Bytes": [
+      "BytesInt": [
         130,
         226
       ],
-      "BytesString": "や"
+      "BytesString": "や",
+      "UnicodeCodePoint": "0x3084"
     },
     {
       "Syllable": "so",
-      "Bytes": [
+      "BytesInt": [
         130,
         227
       ],
-      "BytesString": "ゅ"
+      "BytesString": "ゅ",
+      "UnicodeCodePoint": "0x3085"
     },
     {
       "Syllable": "su",
-      "Bytes": [
+      "BytesInt": [
         130,
         228
       ],
-      "BytesString": "ゆ"
+      "BytesString": "ゆ",
+      "UnicodeCodePoint": "0x3086"
     },
     {
       "Syllable": "ta",
-      "Bytes": [
+      "BytesInt": [
         130,
         229
       ],
-      "BytesString": "ょ"
+      "BytesString": "ょ",
+      "UnicodeCodePoint": "0x3087"
     },
     {
       "Syllable": "te",
-      "Bytes": [
+      "BytesInt": [
         130,
         230
       ],
-      "BytesString": "よ"
+      "BytesString": "よ",
+      "UnicodeCodePoint": "0x3088"
     },
     {
       "Syllable": "ti",
-      "Bytes": [
+      "BytesInt": [
         130,
         231
       ],
-      "BytesString": "ら"
+      "BytesString": "ら",
+      "UnicodeCodePoint": "0x3089"
     },
     {
       "Syllable": "to",
-      "Bytes": [
+      "BytesInt": [
         130,
         232
       ],
-      "BytesString": "り"
+      "BytesString": "り",
+      "UnicodeCodePoint": "0x308A"
     },
     {
       "Syllable": "tu",
-      "Bytes": [
+      "BytesInt": [
         130,
         233
       ],
-      "BytesString": "る"
+      "BytesString": "る",
+      "UnicodeCodePoint": "0x308B"
     },
     {
       "Syllable": "va",
-      "Bytes": [
+      "BytesInt": [
         130,
         234
       ],
-      "BytesString": "れ"
+      "BytesString": "れ",
+      "UnicodeCodePoint": "0x308C"
     },
     {
       "Syllable": "ve",
-      "Bytes": [
+      "BytesInt": [
         130,
         235
       ],
-      "BytesString": "ろ"
+      "BytesString": "ろ",
+      "UnicodeCodePoint": "0x308D"
     },
     {
       "Syllable": "vi",
-      "Bytes": [
+      "BytesInt": [
         130,
         236
       ],
-      "BytesString": "ゎ"
+      "BytesString": "ゎ",
+      "UnicodeCodePoint": "0x308E"
     },
     {
       "Syllable": "vo",
-      "Bytes": [
+      "BytesInt": [
         130,
         237
       ],
-      "BytesString": "わ"
+      "BytesString": "わ",
+      "UnicodeCodePoint": "0x308F"
     },
     {
       "Syllable": "vu",
-      "Bytes": [
+      "BytesInt": [
         130,
         238
       ],
-      "BytesString": "ゐ"
+      "BytesString": "ゐ",
+      "UnicodeCodePoint": "0x3090"
     },
     {
       "Syllable": "xa",
-      "Bytes": [
+      "BytesInt": [
         130,
         239
       ],
-      "BytesString": "ゑ"
+      "BytesString": "ゑ",
+      "UnicodeCodePoint": "0x3091"
     },
     {
       "Syllable": "xe",
-      "Bytes": [
+      "BytesInt": [
         130,
         240
       ],
-      "BytesString": "を"
+      "BytesString": "を",
+      "UnicodeCodePoint": "0x3092"
     },
     {
       "Syllable": "xi",
-      "Bytes": [
+      "BytesInt": [
         130,
         241
       ],
-      "BytesString": "ん"
+      "BytesString": "ん",
+      "UnicodeCodePoint": "0x3093"
     },
     {
       "Syllable": "xo",
-      "Bytes": [
+      "BytesInt": [
         129,
         74
       ],
-      "BytesString": "゛"
+      "BytesString": "゛",
+      "UnicodeCodePoint": "0x309B"
     },
     {
       "Syllable": "xu",
-      "Bytes": [
+      "BytesInt": [
         129,
         75
       ],
-      "BytesString": "゜"
+      "BytesString": "゜",
+      "UnicodeCodePoint": "0x309C"
     },
     {
       "Syllable": "ya",
-      "Bytes": [
+      "BytesInt": [
         129,
         84
       ],
-      "BytesString": "ゝ"
+      "BytesString": "ゝ",
+      "UnicodeCodePoint": "0x309D"
     },
     {
       "Syllable": "ye",
-      "Bytes": [
+      "BytesInt": [
         129,
         85
       ],
-      "BytesString": "ゞ"
+      "BytesString": "ゞ",
+      "UnicodeCodePoint": "0x309E"
     },
     {
       "Syllable": "yi",
-      "Bytes": [
+      "BytesInt": [
         131,
         64
       ],
-      "BytesString": "ァ"
+      "BytesString": "ァ",
+      "UnicodeCodePoint": "0x30A1"
     },
     {
       "Syllable": "yo",
-      "Bytes": [
+      "BytesInt": [
         131,
         65
       ],
-      "BytesString": "ア"
+      "BytesString": "ア",
+      "UnicodeCodePoint": "0x30A2"
     },
     {
       "Syllable": "yu",
-      "Bytes": [
+      "BytesInt": [
         131,
         66
       ],
-      "BytesString": "ィ"
+      "BytesString": "ィ",
+      "UnicodeCodePoint": "0x30A3"
     },
     {
       "Syllable": "za",
-      "Bytes": [
+      "BytesInt": [
         131,
         67
       ],
-      "BytesString": "イ"
+      "BytesString": "イ",
+      "UnicodeCodePoint": "0x30A4"
     },
     {
       "Syllable": "ze",
-      "Bytes": [
+      "BytesInt": [
         131,
         68
       ],
-      "BytesString": "ゥ"
+      "BytesString": "ゥ",
+      "UnicodeCodePoint": "0x30A5"
     },
     {
       "Syllable": "zi",
-      "Bytes": [
+      "BytesInt": [
         131,
         69
       ],
-      "BytesString": "ウ"
+      "BytesString": "ウ",
+      "UnicodeCodePoint": "0x30A6"
     },
     {
       "Syllable": "zo",
-      "Bytes": [
+      "BytesInt": [
         131,
         70
       ],
-      "BytesString": "ェ"
+      "BytesString": "ェ",
+      "UnicodeCodePoint": "0x30A7"
     },
     {
       "Syllable": "zu",
-      "Bytes": [
+      "BytesInt": [
         131,
         71
       ],
-      "BytesString": "エ"
+      "BytesString": "エ",
+      "UnicodeCodePoint": "0x30A8"
     },
     {
       "Syllable": "ça",
-      "Bytes": [
+      "BytesInt": [
         131,
         72
       ],
-      "BytesString": "ォ"
+      "BytesString": "ォ",
+      "UnicodeCodePoint": "0x30A9"
     },
     {
       "Syllable": "çe",
-      "Bytes": [
+      "BytesInt": [
         131,
         73
       ],
-      "BytesString": "オ"
+      "BytesString": "オ",
+      "UnicodeCodePoint": "0x30AA"
     },
     {
       "Syllable": "çi",
-      "Bytes": [
+      "BytesInt": [
         131,
         74
       ],
-      "BytesString": "カ"
+      "BytesString": "カ",
+      "UnicodeCodePoint": "0x30AB"
     },
     {
       "Syllable": "ço",
-      "Bytes": [
+      "BytesInt": [
         131,
         75
       ],
-      "BytesString": "ガ"
+      "BytesString": "ガ",
+      "UnicodeCodePoint": "0x30AC"
     },
     {
       "Syllable": "çu",
-      "Bytes": [
+      "BytesInt": [
         131,
         76
       ],
-      "BytesString": "キ"
+      "BytesString": "キ",
+      "UnicodeCodePoint": "0x30AD"
     },
     {
       "Syllable": "ña",
-      "Bytes": [
+      "BytesInt": [
         131,
         77
       ],
-      "BytesString": "ギ"
+      "BytesString": "ギ",
+      "UnicodeCodePoint": "0x30AE"
     },
     {
       "Syllable": "ñe",
-      "Bytes": [
+      "BytesInt": [
         131,
         78
       ],
-      "BytesString": "ク"
+      "BytesString": "ク",
+      "UnicodeCodePoint": "0x30AF"
     },
     {
       "Syllable": "ñi",
-      "Bytes": [
+      "BytesInt": [
         131,
         79
       ],
-      "BytesString": "グ"
+      "BytesString": "グ",
+      "UnicodeCodePoint": "0x30B0"
     },
     {
       "Syllable": "ño",
-      "Bytes": [
+      "BytesInt": [
         131,
         80
       ],
-      "BytesString": "ケ"
+      "BytesString": "ケ",
+      "UnicodeCodePoint": "0x30B1"
     },
     {
       "Syllable": "ñu",
-      "Bytes": [
+      "BytesInt": [
         131,
         81
       ],
-      "BytesString": "ゲ"
+      "BytesString": "ゲ",
+      "UnicodeCodePoint": "0x30B2"
     },
     {
       "Syllable": "ch",
-      "Bytes": [
+      "BytesInt": [
         131,
         82
       ],
-      "BytesString": "コ"
+      "BytesString": "コ",
+      "UnicodeCodePoint": "0x30B3"
     },
     {
       "Syllable": "gh",
-      "Bytes": [
+      "BytesInt": [
         131,
         83
       ],
-      "BytesString": "ゴ"
+      "BytesString": "ゴ",
+      "UnicodeCodePoint": "0x30B4"
     },
     {
       "Syllable": "gr",
-      "Bytes": [
+      "BytesInt": [
         131,
         84
       ],
-      "BytesString": "サ"
+      "BytesString": "サ",
+      "UnicodeCodePoint": "0x30B5"
     },
     {
       "Syllable": "lh",
-      "Bytes": [
+      "BytesInt": [
         131,
         85
       ],
-      "BytesString": "ザ"
+      "BytesString": "ザ",
+      "UnicodeCodePoint": "0x30B6"
     },
     {
       "Syllable": "nh",
-      "Bytes": [
+      "BytesInt": [
         131,
         86
       ],
-      "BytesString": "シ"
+      "BytesString": "シ",
+      "UnicodeCodePoint": "0x30B7"
     },
     {
       "Syllable": "ph",
-      "Bytes": [
+      "BytesInt": [
         131,
         87
       ],
-      "BytesString": "ジ"
+      "BytesString": "ジ",
+      "UnicodeCodePoint": "0x30B8"
     },
     {
       "Syllable": "sh",
-      "Bytes": [
+      "BytesInt": [
         131,
         88
       ],
-      "BytesString": "ス"
+      "BytesString": "ス",
+      "UnicodeCodePoint": "0x30B9"
     },
     {
       "Syllable": "th",
-      "Bytes": [
+      "BytesInt": [
         131,
         89
       ],
-      "BytesString": "ズ"
+      "BytesString": "ズ",
+      "UnicodeCodePoint": "0x30BA"
     },
     {
       "Syllable": "ck",
-      "Bytes": [
+      "BytesInt": [
         131,
         90
       ],
-      "BytesString": "セ"
+      "BytesString": "セ",
+      "UnicodeCodePoint": "0x30BB"
     },
     {
       "Syllable": "bl",
-      "Bytes": [
+      "BytesInt": [
         131,
         91
       ],
-      "BytesString": "ゼ"
+      "BytesString": "ゼ",
+      "UnicodeCodePoint": "0x30BC"
     },
     {
       "Syllable": "cl",
-      "Bytes": [
+      "BytesInt": [
         131,
         92
       ],
-      "BytesString": "ソ"
+      "BytesString": "ソ",
+      "UnicodeCodePoint": "0x30BD"
     },
     {
       "Syllable": "dl",
-      "Bytes": [
+      "BytesInt": [
         131,
         93
       ],
-      "BytesString": "ゾ"
+      "BytesString": "ゾ",
+      "UnicodeCodePoint": "0x30BE"
     },
     {
       "Syllable": "fl",
-      "Bytes": [
+      "BytesInt": [
         131,
         94
       ],
-      "BytesString": "タ"
+      "BytesString": "タ",
+      "UnicodeCodePoint": "0x30BF"
     },
     {
       "Syllable": "gl",
-      "Bytes": [
+      "BytesInt": [
         131,
         95
       ],
-      "BytesString": "ダ"
+      "BytesString": "ダ",
+      "UnicodeCodePoint": "0x30C0"
     },
     {
       "Syllable": "ll",
-      "Bytes": [
+      "BytesInt": [
         131,
         96
       ],
-      "BytesString": "チ"
+      "BytesString": "チ",
+      "UnicodeCodePoint": "0x30C1"
     },
     {
       "Syllable": "pl",
-      "Bytes": [
+      "BytesInt": [
         131,
         97
       ],
-      "BytesString": "ヂ"
+      "BytesString": "ヂ",
+      "UnicodeCodePoint": "0x30C2"
     },
     {
       "Syllable": "tl",
-      "Bytes": [
+      "BytesInt": [
         131,
         98
       ],
-      "BytesString": "ッ"
+      "BytesString": "ッ",
+      "UnicodeCodePoint": "0x30C3"
     },
     {
       "Syllable": "an",
-      "Bytes": [
+      "BytesInt": [
         131,
         99
       ],
-      "BytesString": "ツ"
+      "BytesString": "ツ",
+      "UnicodeCodePoint": "0x30C4"
     },
     {
       "Syllable": "en",
-      "Bytes": [
+      "BytesInt": [
         131,
         100
       ],
-      "BytesString": "ヅ"
+      "BytesString": "ヅ",
+      "UnicodeCodePoint": "0x30C5"
     },
     {
       "Syllable": "in",
-      "Bytes": [
+      "BytesInt": [
         131,
         101
       ],
-      "BytesString": "テ"
+      "BytesString": "テ",
+      "UnicodeCodePoint": "0x30C6"
     },
     {
       "Syllable": "kn",
-      "Bytes": [
+      "BytesInt": [
         131,
         102
       ],
-      "BytesString": "デ"
+      "BytesString": "デ",
+      "UnicodeCodePoint": "0x30C7"
     },
     {
       "Syllable": "on",
-      "Bytes": [
+      "BytesInt": [
         131,
         103
       ],
-      "BytesString": "ト"
+      "BytesString": "ト",
+      "UnicodeCodePoint": "0x30C8"
     },
     {
       "Syllable": "un",
-      "Bytes": [
+      "BytesInt": [
         131,
         104
       ],
-      "BytesString": "ド"
+      "BytesString": "ド",
+      "UnicodeCodePoint": "0x30C9"
     },
     {
       "Syllable": "ar",
-      "Bytes": [
+      "BytesInt": [
         131,
         105
       ],
-      "BytesString": "ナ"
+      "BytesString": "ナ",
+      "UnicodeCodePoint": "0x30CA"
     },
     {
       "Syllable": "br",
-      "Bytes": [
+      "BytesInt": [
         131,
         106
       ],
-      "BytesString": "ニ"
+      "BytesString": "ニ",
+      "UnicodeCodePoint": "0x30CB"
     },
     {
       "Syllable": "cr",
-      "Bytes": [
+      "BytesInt": [
         131,
         107
       ],
-      "BytesString": "ヌ"
+      "BytesString": "ヌ",
+      "UnicodeCodePoint": "0x30CC"
     },
     {
       "Syllable": "dr",
-      "Bytes": [
+      "BytesInt": [
         131,
         108
       ],
-      "BytesString": "ネ"
+      "BytesString": "ネ",
+      "UnicodeCodePoint": "0x30CD"
     },
     {
       "Syllable": "er",
-      "Bytes": [
+      "BytesInt": [
         131,
         109
       ],
-      "BytesString": "ノ"
+      "BytesString": "ノ",
+      "UnicodeCodePoint": "0x30CE"
     },
     {
       "Syllable": "fr",
-      "Bytes": [
+      "BytesInt": [
         131,
         110
       ],
-      "BytesString": "ハ"
+      "BytesString": "ハ",
+      "UnicodeCodePoint": "0x30CF"
     },
     {
       "Syllable": "ir",
-      "Bytes": [
+      "BytesInt": [
         131,
         111
       ],
-      "BytesString": "バ"
+      "BytesString": "バ",
+      "UnicodeCodePoint": "0x30D0"
     },
     {
       "Syllable": "or",
-      "Bytes": [
+      "BytesInt": [
         131,
         112
       ],
-      "BytesString": "パ"
+      "BytesString": "パ",
+      "UnicodeCodePoint": "0x30D1"
     },
     {
       "Syllable": "pr",
-      "Bytes": [
+      "BytesInt": [
         131,
         113
       ],
-      "BytesString": "ヒ"
+      "BytesString": "ヒ",
+      "UnicodeCodePoint": "0x30D2"
     },
     {
       "Syllable": "rr",
-      "Bytes": [
+      "BytesInt": [
         131,
         114
       ],
-      "BytesString": "ビ"
+      "BytesString": "ビ",
+      "UnicodeCodePoint": "0x30D3"
     },
     {
       "Syllable": "tr",
-      "Bytes": [
+      "BytesInt": [
         131,
         115
       ],
-      "BytesString": "ピ"
+      "BytesString": "ピ",
+      "UnicodeCodePoint": "0x30D4"
     },
     {
       "Syllable": "ur",
-      "Bytes": [
+      "BytesInt": [
         131,
         116
       ],
-      "BytesString": "フ"
+      "BytesString": "フ",
+      "UnicodeCodePoint": "0x30D5"
     },
     {
       "Syllable": "vr",
-      "Bytes": [
+      "BytesInt": [
         131,
         117
       ],
-      "BytesString": "ブ"
+      "BytesString": "ブ",
+      "UnicodeCodePoint": "0x30D6"
     },
     {
       "Syllable": "as",
-      "Bytes": [
+      "BytesInt": [
         131,
         118
       ],
-      "BytesString": "プ"
+      "BytesString": "プ",
+      "UnicodeCodePoint": "0x30D7"
     },
     {
       "Syllable": "es",
-      "Bytes": [
+      "BytesInt": [
         131,
         119
       ],
-      "BytesString": "ヘ"
+      "BytesString": "ヘ",
+      "UnicodeCodePoint": "0x30D8"
     },
     {
       "Syllable": "is",
-      "Bytes": [
+      "BytesInt": [
         131,
         120
       ],
-      "BytesString": "ベ"
+      "BytesString": "ベ",
+      "UnicodeCodePoint": "0x30D9"
     },
     {
       "Syllable": "os",
-      "Bytes": [
+      "BytesInt": [
         131,
         121
       ],
-      "BytesString": "ペ"
+      "BytesString": "ペ",
+      "UnicodeCodePoint": "0x30DA"
     },
     {
       "Syllable": "sc",
-      "Bytes": [
+      "BytesInt": [
         131,
         122
       ],
-      "BytesString": "ホ"
+      "BytesString": "ホ",
+      "UnicodeCodePoint": "0x30DB"
     },
     {
       "Syllable": "sç",
-      "Bytes": [
+      "BytesInt": [
         131,
         123
       ],
-      "BytesString": "ボ"
+      "BytesString": "ボ",
+      "UnicodeCodePoint": "0x30DC"
     },
     {
       "Syllable": "ss",
-      "Bytes": [
+      "BytesInt": [
         131,
         124
       ],
-      "BytesString": "ポ"
+      "BytesString": "ポ",
+      "UnicodeCodePoint": "0x30DD"
     },
     {
       "Syllable": "us",
-      "Bytes": [
+      "BytesInt": [
         131,
         125
       ],
-      "BytesString": "マ"
+      "BytesString": "マ",
+      "UnicodeCodePoint": "0x30DE"
     },
     {
       "Syllable": "tt",
-      "Bytes": [
+      "BytesInt": [
         131,
         126
       ],
-      "BytesString": "ミ"
+      "BytesString": "ミ",
+      "UnicodeCodePoint": "0x30DF"
     },
     {
       "Syllable": "xc",
-      "Bytes": [
+      "BytesInt": [
         131,
         128
       ],
-      "BytesString": "ム"
+      "BytesString": "ム",
+      "UnicodeCodePoint": "0x30E0"
     },
     {
       "Syllable": "xs",
-      "Bytes": [
+      "BytesInt": [
         131,
         129
       ],
-      "BytesString": "メ"
+      "BytesString": "メ",
+      "UnicodeCodePoint": "0x30E1"
     },
     {
       "Syllable": "ãe",
-      "Bytes": [
+      "BytesInt": [
         131,
         130
       ],
-      "BytesString": "モ"
+      "BytesString": "モ",
+      "UnicodeCodePoint": "0x30E2"
     },
     {
       "Syllable": "ão",
-      "Bytes": [
+      "BytesInt": [
         131,
         131
       ],
-      "BytesString": "ャ"
+      "BytesString": "ャ",
+      "UnicodeCodePoint": "0x30E3"
     },
     {
       "Syllable": "õe",
-      "Bytes": [
+      "BytesInt": [
         131,
         132
       ],
-      "BytesString": "ヤ"
+      "BytesString": "ヤ",
+      "UnicodeCodePoint": "0x30E4"
     },
     {
       "Syllable": "ae",
-      "Bytes": [
+      "BytesInt": [
         131,
         133
       ],
-      "BytesString": "ュ"
+      "BytesString": "ュ",
+      "UnicodeCodePoint": "0x30E5"
     },
     {
       "Syllable": "ai",
-      "Bytes": [
+      "BytesInt": [
         131,
         134
       ],
-      "BytesString": "ユ"
+      "BytesString": "ユ",
+      "UnicodeCodePoint": "0x30E6"
     },
     {
       "Syllable": "au",
-      "Bytes": [
+      "BytesInt": [
         131,
         135
       ],
-      "BytesString": "ョ"
+      "BytesString": "ョ",
+      "UnicodeCodePoint": "0x30E7"
     },
     {
       "Syllable": "ee",
-      "Bytes": [
+      "BytesInt": [
         131,
         136
       ],
-      "BytesString": "ヨ"
+      "BytesString": "ヨ",
+      "UnicodeCodePoint": "0x30E8"
     },
     {
       "Syllable": "eu",
-      "Bytes": [
+      "BytesInt": [
         131,
         137
       ],
-      "BytesString": "ラ"
+      "BytesString": "ラ",
+      "UnicodeCodePoint": "0x30E9"
     },
     {
       "Syllable": "oo",
-      "Bytes": [
+      "BytesInt": [
         131,
         138
       ],
-      "BytesString": "リ"
+      "BytesString": "リ",
+      "UnicodeCodePoint": "0x30EA"
     },
     {
       "Syllable": "ou",
-      "Bytes": [
+      "BytesInt": [
         131,
         139
       ],
-      "BytesString": "ル"
+      "BytesString": "ル",
+      "UnicodeCodePoint": "0x30EB"
     },
     {
       "Syllable": "al",
-      "Bytes": [
+      "BytesInt": [
         131,
         140
       ],
-      "BytesString": "レ"
+      "BytesString": "レ",
+      "UnicodeCodePoint": "0x30EC"
     },
     {
       "Syllable": "el",
-      "Bytes": [
+      "BytesInt": [
         131,
         141
       ],
-      "BytesString": "ロ"
+      "BytesString": "ロ",
+      "UnicodeCodePoint": "0x30ED"
     },
     {
       "Syllable": "il",
-      "Bytes": [
+      "BytesInt": [
         131,
         142
       ],
-      "BytesString": "ヮ"
+      "BytesString": "ヮ",
+      "UnicodeCodePoint": "0x30EE"
     },
     {
       "Syllable": "ol",
-      "Bytes": [
+      "BytesInt": [
         131,
         143
       ],
-      "BytesString": "ワ"
+      "BytesString": "ワ",
+      "UnicodeCodePoint": "0x30EF"
     },
     {
       "Syllable": "ul",
-      "Bytes": [
+      "BytesInt": [
         131,
         144
       ],
-      "BytesString": "ヰ"
-    },
-    {
-      "Syllable": "¡",
-      "Bytes": [
-        129,
-        170
-      ],
-      "BytesString": "↑"
-    },
-    {
-      "Syllable": "¿",
-      "Bytes": [
-        129,
-        171
-      ],
-      "BytesString": "↓"
-    },
-    {
-      "Syllable": "Á",
-      "Bytes": [
-        131,
-        159
-      ],
-      "BytesString": "Α"
-    },
-    {
-      "Syllable": "À",
-      "Bytes": [
-        131,
-        160
-      ],
-      "BytesString": "Β"
-    },
-    {
-      "Syllable": "Â",
-      "Bytes": [
-        131,
-        161
-      ],
-      "BytesString": "Γ"
-    },
-    {
-      "Syllable": "Ã",
-      "Bytes": [
-        131,
-        162
-      ],
-      "BytesString": "Δ"
-    },
-    {
-      "Syllable": "Ä",
-      "Bytes": [
-        131,
-        163
-      ],
-      "BytesString": "Ε"
-    },
-    {
-      "Syllable": "É",
-      "Bytes": [
-        131,
-        164
-      ],
-      "BytesString": "Ζ"
-    },
-    {
-      "Syllable": "È",
-      "Bytes": [
-        131,
-        165
-      ],
-      "BytesString": "Η"
-    },
-    {
-      "Syllable": "Ê",
-      "Bytes": [
-        131,
-        166
-      ],
-      "BytesString": "Θ"
-    },
-    {
-      "Syllable": "Ë",
-      "Bytes": [
-        131,
-        167
-      ],
-      "BytesString": "Ι"
-    },
-    {
-      "Syllable": "Í",
-      "Bytes": [
-        131,
-        168
-      ],
-      "BytesString": "Κ"
-    },
-    {
-      "Syllable": "Ì",
-      "Bytes": [
-        131,
-        169
-      ],
-      "BytesString": "Λ"
-    },
-    {
-      "Syllable": "Î",
-      "Bytes": [
-        131,
-        170
-      ],
-      "BytesString": "Μ"
-    },
-    {
-      "Syllable": "Ï",
-      "Bytes": [
-        131,
-        171
-      ],
-      "BytesString": "Ν"
-    },
-    {
-      "Syllable": "Ó",
-      "Bytes": [
-        131,
-        172
-      ],
-      "BytesString": "Ξ"
-    },
-    {
-      "Syllable": "Ò",
-      "Bytes": [
-        131,
-        173
-      ],
-      "BytesString": "Ο"
-    },
-    {
-      "Syllable": "Ô",
-      "Bytes": [
-        131,
-        174
-      ],
-      "BytesString": "Π"
-    },
-    {
-      "Syllable": "Õ",
-      "Bytes": [
-        131,
-        175
-      ],
-      "BytesString": "Ρ"
-    },
-    {
-      "Syllable": "Ö",
-      "Bytes": [
-        131,
-        176
-      ],
-      "BytesString": "Σ"
-    },
-    {
-      "Syllable": "Ú",
-      "Bytes": [
-        131,
-        177
-      ],
-      "BytesString": "Τ"
-    },
-    {
-      "Syllable": "Ù",
-      "Bytes": [
-        131,
-        178
-      ],
-      "BytesString": "Υ"
-    },
-    {
-      "Syllable": "Û",
-      "Bytes": [
-        131,
-        179
-      ],
-      "BytesString": "Φ"
-    },
-    {
-      "Syllable": "Ü",
-      "Bytes": [
-        131,
-        180
-      ],
-      "BytesString": "Χ"
-    },
-    {
-      "Syllable": "Ç",
-      "Bytes": [
-        131,
-        181
-      ],
-      "BytesString": "Ψ"
-    },
-    {
-      "Syllable": "Ñ",
-      "Bytes": [
-        131,
-        182
-      ],
-      "BytesString": "Ω"
-    },
-    {
-      "Syllable": "á",
-      "Bytes": [
-        131,
-        191
-      ],
-      "BytesString": "α"
-    },
-    {
-      "Syllable": "à",
-      "Bytes": [
-        131,
-        192
-      ],
-      "BytesString": "β"
-    },
-    {
-      "Syllable": "â",
-      "Bytes": [
-        131,
-        193
-      ],
-      "BytesString": "γ"
-    },
-    {
-      "Syllable": "ã",
-      "Bytes": [
-        131,
-        194
-      ],
-      "BytesString": "δ"
-    },
-    {
-      "Syllable": "ä",
-      "Bytes": [
-        131,
-        195
-      ],
-      "BytesString": "ε"
-    },
-    {
-      "Syllable": "é",
-      "Bytes": [
-        131,
-        196
-      ],
-      "BytesString": "ζ"
-    },
-    {
-      "Syllable": "è",
-      "Bytes": [
-        131,
-        197
-      ],
-      "BytesString": "η"
-    },
-    {
-      "Syllable": "ê",
-      "Bytes": [
-        131,
-        198
-      ],
-      "BytesString": "θ"
-    },
-    {
-      "Syllable": "ë",
-      "Bytes": [
-        131,
-        199
-      ],
-      "BytesString": "ι"
-    },
-    {
-      "Syllable": "í",
-      "Bytes": [
-        131,
-        200
-      ],
-      "BytesString": "κ"
-    },
-    {
-      "Syllable": "ì",
-      "Bytes": [
-        131,
-        201
-      ],
-      "BytesString": "λ"
-    },
-    {
-      "Syllable": "î",
-      "Bytes": [
-        131,
-        202
-      ],
-      "BytesString": "μ"
-    },
-    {
-      "Syllable": "ï",
-      "Bytes": [
-        131,
-        203
-      ],
-      "BytesString": "ν"
-    },
-    {
-      "Syllable": "ó",
-      "Bytes": [
-        131,
-        204
-      ],
-      "BytesString": "ξ"
-    },
-    {
-      "Syllable": "ò",
-      "Bytes": [
-        131,
-        205
-      ],
-      "BytesString": "ο"
-    },
-    {
-      "Syllable": "ô",
-      "Bytes": [
-        131,
-        206
-      ],
-      "BytesString": "π"
-    },
-    {
-      "Syllable": "õ",
-      "Bytes": [
-        131,
-        207
-      ],
-      "BytesString": "ρ"
-    },
-    {
-      "Syllable": "ö",
-      "Bytes": [
-        131,
-        208
-      ],
-      "BytesString": "σ"
-    },
-    {
-      "Syllable": "ú",
-      "Bytes": [
-        131,
-        209
-      ],
-      "BytesString": "τ"
-    },
-    {
-      "Syllable": "ù",
-      "Bytes": [
-        131,
-        210
-      ],
-      "BytesString": "υ"
-    },
-    {
-      "Syllable": "û",
-      "Bytes": [
-        131,
-        211
-      ],
-      "BytesString": "φ"
-    },
-    {
-      "Syllable": "ü",
-      "Bytes": [
-        131,
-        212
-      ],
-      "BytesString": "χ"
-    },
-    {
-      "Syllable": "ç",
-      "Bytes": [
-        131,
-        213
-      ],
-      "BytesString": "ψ"
-    },
-    {
-      "Syllable": "ñ",
-      "Bytes": [
-        131,
-        214
-      ],
-      "BytesString": "ω"
-    },
-    {
-      "Syllable": "\" ",
-      "Bytes": [
-        143,
-        228
-      ],
-      "BytesString": "丈"
-    },
-    {
-      "Syllable": " \"",
-      "Bytes": [
-        142,
-        79
-      ],
-      "BytesString": "三"
-    },
-    {
-      "Syllable": "\"",
-      "Bytes": [
-        143,
-        227
-      ],
-      "BytesString": "上"
-    },
-    {
-      "Syllable": ", ",
-      "Bytes": [
-        137,
-        186
-      ],
-      "BytesString": "下"
-    },
-    {
-      "Syllable": "! ",
-      "Bytes": [
-        149,
-        115
-      ],
-      "BytesString": "不"
-    },
-    {
-      "Syllable": "at",
-      "Bytes": [
-        151,
-        94
-      ],
-      "BytesString": "与"
+      "BytesString": "ヰ",
+      "UnicodeCodePoint": "0x30F0"
     },
     {
       "Syllable": "st",
-      "Bytes": [
+      "BytesInt": [
         131,
         145
       ],
-      "BytesString": "ヱ"
+      "BytesString": "ヱ",
+      "UnicodeCodePoint": "0x30F1"
     },
     {
       "Syllable": "nt",
-      "Bytes": [
+      "BytesInt": [
         131,
         146
       ],
-      "BytesString": "ヲ"
+      "BytesString": "ヲ",
+      "UnicodeCodePoint": "0x30F2"
     },
     {
       "Syllable": "oi",
-      "Bytes": [
+      "BytesInt": [
         131,
         147
       ],
-      "BytesString": "ン"
+      "BytesString": "ン",
+      "UnicodeCodePoint": "0x30F3"
     },
     {
       "Syllable": "ui",
-      "Bytes": [
+      "BytesInt": [
         131,
         148
       ],
-      "BytesString": "ヴ"
+      "BytesString": "ヴ",
+      "UnicodeCodePoint": "0x30F4"
     },
     {
       "Syllable": "et",
-      "Bytes": [
+      "BytesInt": [
         131,
         149
       ],
-      "BytesString": "ヵ"
+      "BytesString": "ヵ",
+      "UnicodeCodePoint": "0x30F5"
     },
     {
       "Syllable": "nn",
-      "Bytes": [
+      "BytesInt": [
         131,
         150
       ],
-      "BytesString": "ヶ"
+      "BytesString": "ヶ",
+      "UnicodeCodePoint": "0x30F6"
     },
     {
       "Syllable": "pp",
-      "Bytes": [
+      "BytesInt": [
         129,
         69
       ],
-      "BytesString": "・"
+      "BytesString": "・",
+      "UnicodeCodePoint": "0x30FB"
     },
     {
       "Syllable": "sp",
-      "Bytes": [
+      "BytesInt": [
         129,
         91
       ],
-      "BytesString": "ー"
+      "BytesString": "ー",
+      "UnicodeCodePoint": "0x30FC"
     },
     {
       "Syllable": "ff",
-      "Bytes": [
+      "BytesInt": [
         129,
         82
       ],
-      "BytesString": "ヽ"
+      "BytesString": "ヽ",
+      "UnicodeCodePoint": "0x30FD"
     },
     {
       "Syllable": "gn",
-      "Bytes": [
+      "BytesInt": [
         129,
         83
       ],
-      "BytesString": "ヾ"
+      "BytesString": "ヾ",
+      "UnicodeCodePoint": "0x30FE"
     },
     {
       "Syllable": "ie",
-      "Bytes": [
-        136,
-        234
+      "BytesInt": [
+        135,
+        138
       ],
-      "BytesString": "一"
+      "BytesString": "㈱",
+      "UnicodeCodePoint": "0x3231"
     },
     {
       "Syllable": "rt",
-      "Bytes": [
-        146,
-        154
+      "BytesInt": [
+        135,
+        139
       ],
-      "BytesString": "丁"
+      "BytesString": "㈲",
+      "UnicodeCodePoint": "0x3232"
     },
     {
       "Syllable": "rd",
-      "Bytes": [
-        142,
-        181
+      "BytesInt": [
+        135,
+        140
       ],
-      "BytesString": "七"
+      "BytesString": "㈹",
+      "UnicodeCodePoint": "0x3239"
     },
     {
       "Syllable": "rs",
-      "Bytes": [
-        150,
-        156
+      "BytesInt": [
+        135,
+        133
       ],
-      "BytesString": "万"
+      "BytesString": "㊤",
+      "UnicodeCodePoint": "0x32A4"
     },
     {
       "Syllable": "'s",
-      "Bytes": [
-        137,
-        78
+      "BytesInt": [
+        135,
+        134
       ],
-      "BytesString": "丑"
+      "BytesString": "㊥",
+      "UnicodeCodePoint": "0x32A5"
     },
     {
       "Syllable": "'r",
-      "Bytes": [
-        138,
-        142
+      "BytesInt": [
+        135,
+        135
       ],
-      "BytesString": "且"
+      "BytesString": "㊦",
+      "UnicodeCodePoint": "0x32A6"
     },
     {
       "Syllable": "'v",
-      "Bytes": [
-        144,
-        162
+      "BytesInt": [
+        135,
+        136
       ],
-      "BytesString": "世"
+      "BytesString": "㊧",
+      "UnicodeCodePoint": "0x32A7"
     },
     {
       "Syllable": "'d",
-      "Bytes": [
-        153,
-        192
+      "BytesInt": [
+        135,
+        137
       ],
-      "BytesString": "丗"
+      "BytesString": "㊨",
+      "UnicodeCodePoint": "0x32A8"
     },
     {
       "Syllable": "'l",
-      "Bytes": [
-        139,
-        117
+      "BytesInt": [
+        135,
+        101
       ],
-      "BytesString": "丘"
+      "BytesString": "㌃",
+      "UnicodeCodePoint": "0x3303"
     },
     {
       "Syllable": "i'",
-      "Bytes": [
-        149,
-        184
+      "BytesInt": [
+        135,
+        105
       ],
-      "BytesString": "丙"
+      "BytesString": "㌍",
+      "UnicodeCodePoint": "0x330D"
     },
     {
       "Syllable": "'n",
-      "Bytes": [
-        143,
-        229
+      "BytesInt": [
+        135,
+        96
       ],
-      "BytesString": "丞"
+      "BytesString": "㌔",
+      "UnicodeCodePoint": "0x3314"
     },
     {
       "Syllable": "'e",
-      "Bytes": [
-        151,
-        188
+      "BytesInt": [
+        135,
+        99
       ],
-      "BytesString": "両"
+      "BytesString": "㌘",
+      "UnicodeCodePoint": "0x3318"
     },
     {
       "Syllable": "'c",
-      "Bytes": [
-        149,
-        192
+      "BytesInt": [
+        135,
+        97
       ],
-      "BytesString": "並"
+      "BytesString": "㌢",
+      "UnicodeCodePoint": "0x3322"
     },
     {
       "Syllable": "'t",
-      "Bytes": [
-        146,
-        134
+      "BytesInt": [
+        135,
+        107
       ],
-      "BytesString": "中"
+      "BytesString": "㌣",
+      "UnicodeCodePoint": "0x3323"
     },
     {
       "Syllable": "'a",
-      "Bytes": [
-        139,
-        248
+      "BytesInt": [
+        135,
+        106
       ],
-      "BytesString": "串"
+      "BytesString": "㌦",
+      "UnicodeCodePoint": "0x3326"
     },
     {
       "Syllable": "'u",
-      "Bytes": [
-        138,
-        219
+      "BytesInt": [
+        135,
+        100
       ],
-      "BytesString": "丸"
+      "BytesString": "㌧",
+      "UnicodeCodePoint": "0x3327"
     },
     {
       "Syllable": "l'",
-      "Bytes": [
-        146,
-        79
+      "BytesInt": [
+        135,
+        108
       ],
-      "BytesString": "丹"
+      "BytesString": "㌫",
+      "UnicodeCodePoint": "0x332B"
     },
     {
       "Syllable": "av",
-      "Bytes": [
-        142,
-        229
+      "BytesInt": [
+        135,
+        102
       ],
-      "BytesString": "主"
+      "BytesString": "㌶",
+      "UnicodeCodePoint": "0x3336"
     },
     {
       "Syllable": "ay",
-      "Bytes": [
-        152,
-        165
+      "BytesInt": [
+        135,
+        110
       ],
-      "BytesString": "丼"
+      "BytesString": "㌻",
+      "UnicodeCodePoint": "0x333B"
     },
     {
       "Syllable": "ed",
-      "Bytes": [
-        152,
-        166
+      "BytesInt": [
+        135,
+        95
       ],
-      "BytesString": "丿"
+      "BytesString": "㍉",
+      "UnicodeCodePoint": "0x3349"
     },
     {
       "Syllable": "ec",
-      "Bytes": [
-        152,
-        167
+      "BytesInt": [
+        135,
+        109
       ],
-      "BytesString": "乂"
+      "BytesString": "㍊",
+      "UnicodeCodePoint": "0x334A"
     },
     {
-      "Syllable": "lk",
-      "Bytes": [
-        148,
-        84
+      "Syllable": "mg",
+      "BytesInt": [
+        135,
+        114
       ],
-      "BytesString": "乃"
+      "BytesString": "㎎",
+      "UnicodeCodePoint": "0x338E"
     },
     {
-      "Syllable": "lt",
-      "Bytes": [
-        139,
-        118
+      "Syllable": "kg",
+      "BytesInt": [
+        135,
+        115
       ],
-      "BytesString": "久"
+      "BytesString": "㎏",
+      "UnicodeCodePoint": "0x338F"
+    },
+    {
+      "Syllable": "mm",
+      "BytesInt": [
+        135,
+        111
+      ],
+      "BytesString": "㎜",
+      "UnicodeCodePoint": "0x339C"
+    },
+    {
+      "Syllable": "cm",
+      "BytesInt": [
+        135,
+        112
+      ],
+      "BytesString": "㎝",
+      "UnicodeCodePoint": "0x339D"
+    },
+    {
+      "Syllable": "km",
+      "BytesInt": [
+        135,
+        113
+      ],
+      "BytesString": "㎞",
+      "UnicodeCodePoint": "0x339E"
+    },
+    {
+      "Syllable": "cc",
+      "BytesInt": [
+        135,
+        116
+      ],
+      "BytesString": "㏄",
+      "UnicodeCodePoint": "0x33C4"
+    },
+    {
+      "Syllable": "K.K.",
+      "BytesInt": [
+        135,
+        131
+      ],
+      "BytesString": "㏍",
+      "UnicodeCodePoint": "0x33CD"
     }
   ],
   "FileReplacements": [

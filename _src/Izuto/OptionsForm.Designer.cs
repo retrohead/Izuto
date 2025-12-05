@@ -50,6 +50,7 @@
             columnHeader2 = new ColumnHeader();
             columnHeader5 = new ColumnHeader();
             columnHeader6 = new ColumnHeader();
+            columnHeader3 = new ColumnHeader();
             btnAddTextTranslation = new Button();
             btnRemoveTextTranslation = new Button();
             btnModifyTextTranslation = new Button();
@@ -266,7 +267,7 @@
             // 
             // listViewTextTranslation
             // 
-            listViewTextTranslation.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader5, columnHeader6 });
+            listViewTextTranslation.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader5, columnHeader6, columnHeader3 });
             tableLayoutPanel2.SetColumnSpan(listViewTextTranslation, 5);
             listViewTextTranslation.Dock = DockStyle.Fill;
             listViewTextTranslation.FullRowSelect = true;
@@ -295,6 +296,11 @@
             // 
             columnHeader6.Text = "Replacement Hex";
             columnHeader6.Width = 150;
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.Text = "Unicode Code Point";
+            columnHeader3.Width = 200;
             // 
             // btnAddTextTranslation
             // 
@@ -413,5 +419,6 @@
         private Button btnRemoveAllFileReplacements;
         private Button btnModifyFileReplacement;
         private Button btnSaveAs;
+        private ColumnHeader columnHeader3;
     }
 }

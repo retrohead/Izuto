@@ -15,6 +15,9 @@ https://github.com/FanTranslatorsInternational/Kuriimu2
 Latest stable version usually compiled into the repo here:
 https://github.com/retrohead/Izuto/tree/main/Izuto
 
+## Change Log:
+https://github.com/retrohead/Izuto/blob/main/_src/Izuto/CHANGELOG.MD
+
 ## Getting Started
 
 - First you should load the included izuto_options.json file which will pre-load our custom font and configuration used to manipulate the game to read more characters.

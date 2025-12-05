@@ -1,5 +1,4 @@
-﻿using Ekona;
-using Izuto.Extensions;
+﻿using Izuto.Extensions;
 using plugin_level5.N3DS.Archive;
 using System.Diagnostics;
 using System.Reflection;
@@ -16,7 +15,7 @@ namespace Izuto
         public static MainForm? Self;
         public static List<OptionsFileData.FileReplacementEntry> QueuedImports = new List<OptionsFileData.FileReplacementEntry>();
         private ProgressPanel progressPanel = new ProgressPanel();
-        public static System.Drawing.Bitmap Logo;
+        public static Bitmap Logo;
         public enum iconTypes
         {
             Unknown,
@@ -124,6 +123,7 @@ namespace Izuto
             Logo = Properties.Resources.IzutoLogo;
             pictureBoxLogo.Image = Logo;
             RecentFiles.Init();
+
         }
 
         /// <summary>

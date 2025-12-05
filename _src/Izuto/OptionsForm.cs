@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using Izuto.Extensions;
+using System;
+using System.Text;
 using static Izuto.Extensions.OptionsFileData;
 using static Izuto.Extensions.TextTranslation;
 
@@ -39,7 +41,12 @@ namespace Izuto
                     var newItem = new ListViewItem() { Text = textTranslation.Syllable, Tag = textTranslation };
                     newItem.SubItems.Add(textTranslation.BytesString);
                     newItem.SubItems.Add(MainForm.BytesToHexString(Encoding.UTF8.GetBytes(textTranslation.Syllable), " "));
-                    newItem.SubItems.Add(MainForm.BytesToHexString(textTranslation.GetBytes(), " "));
+
+                    var bytes = textTranslation.GetBytes();
+                    newItem.SubItems.Add(MainForm.BytesToHexString(bytes, " "));
+
+                    newItem.SubItems.Add(textTranslation.UnicodeCodePoint);
+
                     listViewTextTranslation.Items.Add(newItem);
                     if (listViewTextTranslation.Items.Count == selectedTranslationsIndex + 1)
                     {

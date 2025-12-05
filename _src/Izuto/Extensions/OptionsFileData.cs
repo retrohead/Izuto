@@ -70,6 +70,7 @@ namespace Izuto.Extensions
             }
             FilePath = fileName;
             Config = tryconfig;
+            Config.TranslationTable.Sort((a, b) => a.UnicodeCodePoint.CompareTo(b.UnicodeCodePoint));
             return true;
         }
 
