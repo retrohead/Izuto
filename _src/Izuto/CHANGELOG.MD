@@ -1,6 +1,7 @@
 ﻿### Version 1.0.0.9
 - Added uncicode code point to text translation page for easier matching with font setup in Fontendo or NintyFont.
-
+- Fixed font file.
+- Fixed example settings file.
 
  ### Version 1.0.0.8
 - Added log file during importing text.
