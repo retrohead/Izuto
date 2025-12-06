@@ -16,6 +16,8 @@ namespace Izuto
         public static List<OptionsFileData.FileReplacementEntry> QueuedImports = new List<OptionsFileData.FileReplacementEntry>();
         private ProgressPanel progressPanel = new ProgressPanel();
         public static Bitmap Logo;
+        public static string lastLoadedPACName = "";
+
         public enum iconTypes
         {
             Unknown,

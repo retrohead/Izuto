@@ -298,6 +298,8 @@ namespace Izuto
             // extract the PAC file
             PKB.FileEntry textPACFileInfo = await PKB.ExtractPACFileFromPKB_Async(textPKBFileData, textPac, pkbContentsDir);
 
+            if (textPACFileInfo == null)
+                return;
             // launch another copy of this form
             int left = -1;
             int top = -1;
@@ -407,7 +409,10 @@ namespace Izuto
                 Directory.CreateDirectory(pkbContentsDir);
 
             // extract the pac file from the archive
-            PKB.FileEntry SourcePACFileInfo = await PKB.ExtractPACFileFromPKB_Async(pkbSource, sourcePacFile, pkbContentsDir);
+            PKB.FileEntry? SourcePACFileInfo = await PKB.ExtractPACFileFromPKB_Async(pkbSource, sourcePacFile, pkbContentsDir);
+
+            if (SourcePACFileInfo == null)
+                return;
 
             // ask the user how to perform the changes
             PAC SourcePAC = new PAC();

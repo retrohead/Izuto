@@ -25,7 +25,7 @@ public class PKB
     }
 
 
-    public static async Task<FileEntry> ExtractPACFileFromPKB_Async(FileEntry PKBFileInfo, sFile fileToExtract, string outputDirectory)
+    public static async Task<FileEntry?> ExtractPACFileFromPKB_Async(FileEntry PKBFileInfo, sFile fileToExtract, string outputDirectory)
     {
         if (!Directory.Exists(outputDirectory))
             Directory.CreateDirectory(outputDirectory);
@@ -37,16 +37,26 @@ public class PKB
         string magicString = "";
         await Task.Run(() =>
         {
-
-            using (var br = new BinaryReader(File.OpenRead(PKBFileInfo.FileData.path)))
+            try
             {
-                br.BaseStream.Position = pkbitem.offset;
-                byte[] magicbytes = br.ReadBytes(2);
-                magicString = System.Text.Encoding.GetEncoding("shift_jis").GetString(magicbytes);
-                br.BaseStream.Position = pkbitem.offset;
-                File.WriteAllBytes(compressedFileName, br.ReadBytes((int)pkbitem.size));
+                using (var br = new BinaryReader(File.OpenRead(PKBFileInfo.FileData.path)))
+                {
+                    br.BaseStream.Position = pkbitem.offset;
+                    byte[] magicbytes = br.ReadBytes(2);
+                    magicString = System.Text.Encoding.GetEncoding("shift_jis").GetString(magicbytes);
+                    br.BaseStream.Position = pkbitem.offset;
+                    File.WriteAllBytes(compressedFileName, br.ReadBytes((int)pkbitem.size));
+                }
+            } catch (Exception e)
+            {
+                magicString = "";
+                MessageBox.Show("Error extracting file from PKB: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         });
+        if (magicString == "")
+            return null;
+
+
         FileEntry PACFileInfo = new FileEntry();
         PACFileInfo.FileData.path = compressedFileName + "_decompressed";
         PACFileInfo.FileData.name = pkbitem.name + "_decompressed";

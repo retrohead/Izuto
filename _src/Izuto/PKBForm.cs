@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -35,6 +36,8 @@ namespace Izuto
             textBox1.Text = SourceArchiveFile.FilePath.FullName;
             listView1.BeginUpdate();
             listView1.Items.Clear();
+            // disconnect event from the list while updating
+            listView1.ItemSelectionChanged -= listView1_ItemSelectionChanged;
             for (int i = 0; i < PKBFileInfo.PKBContents.FolderContents.files.Count; i++)
             {
                 var file = PKBFileInfo.PKBContents.FolderContents.files[i];
@@ -44,10 +47,17 @@ namespace Izuto
                 pkbitem.SubItems.Add(file.size.ToString());
                 pkbitem.SubItems.Add(MainForm.BytesToHexString(PKBFileInfo.PKBContents.Identifiers[i].ID, ""));
                 pkbitem.SubItems.Add(PKBFileInfo.PKBContents.Identifiers[i].subID.ToString());
+                if(MainForm.lastLoadedPACName == file.name)
+                    pkbitem.Selected = true;
+
                 listView1.Items.Add(pkbitem);
             }
-
             listView1.EndUpdate();
+            if (listView1.SelectedItems.Count > 0)
+                listView1.SelectedItems[0].EnsureVisible();
+            // Re-attach event
+            listView1.ItemSelectionChanged += listView1_ItemSelectionChanged;
+
         }
         PKB.FileEntry? PACFileInfo;
         private async Task exploreSelectedPAC()
@@ -64,7 +74,10 @@ namespace Izuto
                 Directory.CreateDirectory(pkbContentsDir);
 
             PACFileInfo = await PKB.ExtractPACFileFromPKB_Async(PKBFileInfo, file, pkbContentsDir);
-
+            if(PACFileInfo == null)
+            {
+                return;
+            }
             int left = -1;
             int top = -1;
             if (pacform != null)
@@ -83,6 +96,7 @@ namespace Izuto
             {
                 pacform.StartPosition = FormStartPosition.CenterParent;
             }
+            MainForm.lastLoadedPACName = file.name;
             pacform.Show(this);
             this.Activate();
         }
