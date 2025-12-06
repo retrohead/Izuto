@@ -47,7 +47,7 @@ namespace Izuto
                 pkbitem.SubItems.Add(file.size.ToString());
                 pkbitem.SubItems.Add(MainForm.BytesToHexString(PKBFileInfo.PKBContents.Identifiers[i].ID, ""));
                 pkbitem.SubItems.Add(PKBFileInfo.PKBContents.Identifiers[i].subID.ToString());
-                if(MainForm.lastLoadedPACName == file.name)
+                if(Properties.Settings.Default.LastLoadedPAC == file.name)
                     pkbitem.Selected = true;
 
                 listView1.Items.Add(pkbitem);
@@ -96,7 +96,8 @@ namespace Izuto
             {
                 pacform.StartPosition = FormStartPosition.CenterParent;
             }
-            MainForm.lastLoadedPACName = file.name;
+            Properties.Settings.Default.LastLoadedPAC = file.name;
+            Properties.Settings.Default.Save();
             pacform.Show(this);
             this.Activate();
         }

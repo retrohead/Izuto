@@ -70,5 +70,17 @@ namespace Izuto.Properties {
                 this["RecentFiles"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastLoadedPAC {
+            get {
+                return ((string)(this["LastLoadedPAC"]));
+            }
+            set {
+                this["LastLoadedPAC"] = value;
+            }
+        }
     }
 }

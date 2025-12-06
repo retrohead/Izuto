@@ -1,5 +1,8 @@
-﻿### Version 1.0.1.0
-- Added remeber last PAC file that was opened and reselect it.
+﻿### Version 1.0.1.1
+- Save last PAC file that was opened and reselect it even after closing the app.
+
+### Version 1.0.1.0
+- Added remember last PAC file that was opened and reselect it.
 
 ### Version 1.0.0.9
 - Added uncicode code point to text translation page for easier matching with font setup in Fontendo or NintyFont.

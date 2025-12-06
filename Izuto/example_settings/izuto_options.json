@@ -1749,20 +1749,20 @@
     {
       "Syllable": "av",
       "BytesInt": [
-        135,
-        102
+        136,
+        234
       ],
-      "BytesString": "㌶",
-      "UnicodeCodePoint": "0x3336"
+      "BytesString": "一",
+      "UnicodeCodePoint": "0x4E00"
     },
     {
       "Syllable": "ay",
       "BytesInt": [
-        135,
-        110
+        146,
+        154
       ],
-      "BytesString": "㌻",
-      "UnicodeCodePoint": "0x333B"
+      "BytesString": "丁",
+      "UnicodeCodePoint": "0x4E01"
     },
     {
       "Syllable": "ed",
