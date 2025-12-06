@@ -1783,6 +1783,51 @@
       "UnicodeCodePoint": "0x334A"
     },
     {
+      "Syllable": "\" ",
+      "BytesInt": [
+        135,
+        98
+      ],
+      "BytesString": "㍍",
+      "UnicodeCodePoint": "0x334D"
+    },
+    {
+      "Syllable": " \"",
+      "BytesInt": [
+        135,
+        103
+      ],
+      "BytesString": "㍑",
+      "UnicodeCodePoint": "0x3351"
+    },
+    {
+      "Syllable": ", ",
+      "BytesInt": [
+        135,
+        104
+      ],
+      "BytesString": "㍗",
+      "UnicodeCodePoint": "0x3357"
+    },
+    {
+      "Syllable": "! ",
+      "BytesInt": [
+        135,
+        126
+      ],
+      "BytesString": "㍻",
+      "UnicodeCodePoint": "0x337B"
+    },
+    {
+      "Syllable": "at",
+      "BytesInt": [
+        135,
+        143
+      ],
+      "BytesString": "㍼",
+      "UnicodeCodePoint": "0x337C"
+    },
+    {
       "Syllable": "mg",
       "BytesInt": [
         135,
