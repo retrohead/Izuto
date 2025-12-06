@@ -116,9 +116,10 @@ namespace Izuto
         {
             InitializeComponent();
             // Get the version from the assembly
-            string? fileVersion = FileVersionInfo
-                .GetVersionInfo(Assembly.GetExecutingAssembly().Location)
-                .FileVersion;
+            string? fileVersion = Assembly
+                    .GetEntryAssembly()?
+                    .GetCustomAttribute<AssemblyFileVersionAttribute>()?
+                    .Version;
             // Display it in the form header
             this.Text = $"Izuto - Version {fileVersion}";
             Self = this;
