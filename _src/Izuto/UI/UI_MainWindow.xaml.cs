@@ -340,7 +340,7 @@ namespace Izuto.UI
             // add a blank item showing no recent files
             menuRecent.Items.Add(new System.Windows.Controls.MenuItem()
             {
-                Header = "No Recent Projects",
+                Header = "No Recent Archives",
                 IsEnabled = false,
                 Icon = null,
                 Style = style,
