@@ -1596,159 +1596,6 @@
     {
       "Syllable": "ie",
       "BytesInt": [
-        135,
-        138
-      ],
-      "BytesString": "㈱",
-      "UnicodeCodePoint": "0x3231"
-    },
-    {
-      "Syllable": "rt",
-      "BytesInt": [
-        135,
-        139
-      ],
-      "BytesString": "㈲",
-      "UnicodeCodePoint": "0x3232"
-    },
-    {
-      "Syllable": "rd",
-      "BytesInt": [
-        135,
-        140
-      ],
-      "BytesString": "㈹",
-      "UnicodeCodePoint": "0x3239"
-    },
-    {
-      "Syllable": "rs",
-      "BytesInt": [
-        135,
-        133
-      ],
-      "BytesString": "㊤",
-      "UnicodeCodePoint": "0x32A4"
-    },
-    {
-      "Syllable": "'s",
-      "BytesInt": [
-        135,
-        134
-      ],
-      "BytesString": "㊥",
-      "UnicodeCodePoint": "0x32A5"
-    },
-    {
-      "Syllable": "'r",
-      "BytesInt": [
-        135,
-        135
-      ],
-      "BytesString": "㊦",
-      "UnicodeCodePoint": "0x32A6"
-    },
-    {
-      "Syllable": "'v",
-      "BytesInt": [
-        135,
-        136
-      ],
-      "BytesString": "㊧",
-      "UnicodeCodePoint": "0x32A7"
-    },
-    {
-      "Syllable": "'d",
-      "BytesInt": [
-        135,
-        137
-      ],
-      "BytesString": "㊨",
-      "UnicodeCodePoint": "0x32A8"
-    },
-    {
-      "Syllable": "'l",
-      "BytesInt": [
-        135,
-        101
-      ],
-      "BytesString": "㌃",
-      "UnicodeCodePoint": "0x3303"
-    },
-    {
-      "Syllable": "i'",
-      "BytesInt": [
-        135,
-        105
-      ],
-      "BytesString": "㌍",
-      "UnicodeCodePoint": "0x330D"
-    },
-    {
-      "Syllable": "'n",
-      "BytesInt": [
-        135,
-        96
-      ],
-      "BytesString": "㌔",
-      "UnicodeCodePoint": "0x3314"
-    },
-    {
-      "Syllable": "'e",
-      "BytesInt": [
-        135,
-        99
-      ],
-      "BytesString": "㌘",
-      "UnicodeCodePoint": "0x3318"
-    },
-    {
-      "Syllable": "'c",
-      "BytesInt": [
-        135,
-        97
-      ],
-      "BytesString": "㌢",
-      "UnicodeCodePoint": "0x3322"
-    },
-    {
-      "Syllable": "'t",
-      "BytesInt": [
-        135,
-        107
-      ],
-      "BytesString": "㌣",
-      "UnicodeCodePoint": "0x3323"
-    },
-    {
-      "Syllable": "'a",
-      "BytesInt": [
-        135,
-        106
-      ],
-      "BytesString": "㌦",
-      "UnicodeCodePoint": "0x3326"
-    },
-    {
-      "Syllable": "'u",
-      "BytesInt": [
-        135,
-        100
-      ],
-      "BytesString": "㌧",
-      "UnicodeCodePoint": "0x3327"
-    },
-    {
-      "Syllable": "l'",
-      "BytesInt": [
-        135,
-        108
-      ],
-      "BytesString": "㌫",
-      "UnicodeCodePoint": "0x332B"
-    },
-    {
-      "Syllable": "av",
-      "BytesInt": [
         136,
         234
       ],
@@ -1756,7 +1603,7 @@
       "UnicodeCodePoint": "0x4E00"
     },
     {
-      "Syllable": "ay",
+      "Syllable": "rt",
       "BytesInt": [
         146,
         154
@@ -1765,130 +1612,868 @@
       "UnicodeCodePoint": "0x4E01"
     },
     {
-      "Syllable": "ed",
+      "Syllable": "rd",
       "BytesInt": [
-        135,
-        95
+        142,
+        181
       ],
-      "BytesString": "㍉",
-      "UnicodeCodePoint": "0x3349"
+      "BytesString": "七",
+      "UnicodeCodePoint": "0x4E03"
     },
     {
-      "Syllable": "ec",
+      "Syllable": "rs",
       "BytesInt": [
-        135,
-        109
+        150,
+        156
       ],
-      "BytesString": "㍊",
-      "UnicodeCodePoint": "0x334A"
+      "BytesString": "万",
+      "UnicodeCodePoint": "0x4E07"
     },
     {
       "Syllable": "\" ",
       "BytesInt": [
-        135,
-        98
+        143,
+        228
       ],
-      "BytesString": "㍍",
-      "UnicodeCodePoint": "0x334D"
+      "BytesString": "丈",
+      "UnicodeCodePoint": "0x4E08"
     },
     {
       "Syllable": " \"",
       "BytesInt": [
-        135,
-        103
+        142,
+        79
       ],
-      "BytesString": "㍑",
-      "UnicodeCodePoint": "0x3351"
+      "BytesString": "三",
+      "UnicodeCodePoint": "0x4E09"
+    },
+    {
+      "Syllable": "\"",
+      "BytesInt": [
+        143,
+        227
+      ],
+      "BytesString": "上",
+      "UnicodeCodePoint": "0x4E0A"
     },
     {
       "Syllable": ", ",
       "BytesInt": [
-        135,
-        104
+        137,
+        186
       ],
-      "BytesString": "㍗",
-      "UnicodeCodePoint": "0x3357"
+      "BytesString": "下",
+      "UnicodeCodePoint": "0x4E0B"
     },
     {
       "Syllable": "! ",
       "BytesInt": [
-        135,
-        126
+        149,
+        115
       ],
-      "BytesString": "㍻",
-      "UnicodeCodePoint": "0x337B"
+      "BytesString": "不",
+      "UnicodeCodePoint": "0x4E0D"
     },
     {
       "Syllable": "at",
       "BytesInt": [
-        135,
-        143
+        151,
+        94
       ],
-      "BytesString": "㍼",
-      "UnicodeCodePoint": "0x337C"
+      "BytesString": "与",
+      "UnicodeCodePoint": "0x4E0E"
     },
     {
-      "Syllable": "mg",
+      "Syllable": "'r",
       "BytesInt": [
-        135,
-        114
+        137,
+        78
       ],
-      "BytesString": "㎎",
-      "UnicodeCodePoint": "0x338E"
+      "BytesString": "丑",
+      "UnicodeCodePoint": "0x4E11"
     },
     {
-      "Syllable": "kg",
+      "Syllable": "'l",
       "BytesInt": [
-        135,
-        115
+        144,
+        162
       ],
-      "BytesString": "㎏",
-      "UnicodeCodePoint": "0x338F"
+      "BytesString": "世",
+      "UnicodeCodePoint": "0x4E16"
     },
     {
-      "Syllable": "mm",
+      "Syllable": "i'",
       "BytesInt": [
-        135,
-        111
+        153,
+        192
       ],
-      "BytesString": "㎜",
-      "UnicodeCodePoint": "0x339C"
+      "BytesString": "丗",
+      "UnicodeCodePoint": "0x4E17"
     },
     {
-      "Syllable": "cm",
+      "Syllable": "'n",
       "BytesInt": [
-        135,
-        112
+        139,
+        117
       ],
-      "BytesString": "㎝",
-      "UnicodeCodePoint": "0x339D"
+      "BytesString": "丘",
+      "UnicodeCodePoint": "0x4E18"
     },
     {
-      "Syllable": "km",
+      "Syllable": "'e",
       "BytesInt": [
-        135,
-        113
+        149,
+        184
       ],
-      "BytesString": "㎞",
-      "UnicodeCodePoint": "0x339E"
+      "BytesString": "丙",
+      "UnicodeCodePoint": "0x4E19"
     },
     {
-      "Syllable": "cc",
+      "Syllable": "'c",
       "BytesInt": [
-        135,
+        143,
+        229
+      ],
+      "BytesString": "丞",
+      "UnicodeCodePoint": "0x4E1E"
+    },
+    {
+      "Syllable": "'t",
+      "BytesInt": [
+        151,
+        188
+      ],
+      "BytesString": "両",
+      "UnicodeCodePoint": "0x4E21"
+    },
+    {
+      "Syllable": "'a",
+      "BytesInt": [
+        149,
+        192
+      ],
+      "BytesString": "並",
+      "UnicodeCodePoint": "0x4E26"
+    },
+    {
+      "Syllable": "l'",
+      "BytesInt": [
+        146,
+        134
+      ],
+      "BytesString": "中",
+      "UnicodeCodePoint": "0x4E2D"
+    },
+    {
+      "Syllable": "ay",
+      "BytesInt": [
+        139,
+        248
+      ],
+      "BytesString": "串",
+      "UnicodeCodePoint": "0x4E32"
+    },
+    {
+      "Syllable": "ec",
+      "BytesInt": [
+        138,
+        219
+      ],
+      "BytesString": "丸",
+      "UnicodeCodePoint": "0x4E38"
+    },
+    {
+      "Syllable": "lk",
+      "BytesInt": [
+        146,
+        79
+      ],
+      "BytesString": "丹",
+      "UnicodeCodePoint": "0x4E39"
+    },
+    {
+      "Syllable": "lt",
+      "BytesInt": [
+        142,
+        229
+      ],
+      "BytesString": "主",
+      "UnicodeCodePoint": "0x4E3B"
+    },
+    {
+      "Syllable": "'s",
+      "BytesInt": [
+        152,
+        165
+      ],
+      "BytesString": "丼",
+      "UnicodeCodePoint": "0x4E3C"
+    },
+    {
+      "Syllable": "'v",
+      "BytesInt": [
+        152,
+        166
+      ],
+      "BytesString": "丿",
+      "UnicodeCodePoint": "0x4E3F"
+    },
+    {
+      "Syllable": "'d",
+      "BytesInt": [
+        152,
+        167
+      ],
+      "BytesString": "乂",
+      "UnicodeCodePoint": "0x4E42"
+    },
+    {
+      "Syllable": "'u",
+      "BytesInt": [
+        148,
+        84
+      ],
+      "BytesString": "乃",
+      "UnicodeCodePoint": "0x4E43"
+    },
+    {
+      "Syllable": "av",
+      "BytesInt": [
+        139,
+        118
+      ],
+      "BytesString": "久",
+      "UnicodeCodePoint": "0x4E45"
+    },
+    {
+      "Syllable": "ed",
+      "BytesInt": [
+        148,
+        86
+      ],
+      "BytesString": "之",
+      "UnicodeCodePoint": "0x4E4B"
+    },
+    {
+      "Syllable": "Co",
+      "BytesInt": [
+        147,
+        225
+      ],
+      "BytesString": "乍",
+      "UnicodeCodePoint": "0x4E4D"
+    },
+    {
+      "Syllable": "if",
+      "BytesInt": [
+        140,
+        193
+      ],
+      "BytesString": "乎",
+      "UnicodeCodePoint": "0x4E4E"
+    },
+    {
+      "Syllable": "up",
+      "BytesInt": [
+        150,
+        82
+      ],
+      "BytesString": "乏",
+      "UnicodeCodePoint": "0x4E4F"
+    },
+    {
+      "Syllable": "ly",
+      "BytesInt": [
+        229,
+        104
+      ],
+      "BytesString": "乕",
+      "UnicodeCodePoint": "0x4E55"
+    },
+    {
+      "Syllable": "ah",
+      "BytesInt": [
+        152,
+        168
+      ],
+      "BytesString": "乖",
+      "UnicodeCodePoint": "0x4E56"
+    },
+    {
+      "Syllable": "Ye",
+      "BytesInt": [
+        143,
+        230
+      ],
+      "BytesString": "乗",
+      "UnicodeCodePoint": "0x4E57"
+    },
+    {
+      "Syllable": "Ma",
+      "BytesInt": [
+        152,
+        169
+      ],
+      "BytesString": "乘",
+      "UnicodeCodePoint": "0x4E58"
+    },
+    {
+      "Syllable": "ac",
+      "BytesInt": [
+        137,
+        179
+      ],
+      "BytesString": "乙",
+      "UnicodeCodePoint": "0x4E59"
+    },
+    {
+      "Syllable": "Pr",
+      "BytesInt": [
+        139,
+        227
+      ],
+      "BytesString": "九",
+      "UnicodeCodePoint": "0x4E5D"
+    },
+    {
+      "Syllable": "ad",
+      "BytesInt": [
+        140,
+        238
+      ],
+      "BytesString": "乞",
+      "UnicodeCodePoint": "0x4E5E"
+    },
+    {
+      "Syllable": "dy",
+      "BytesInt": [
+        150,
+        231
+      ],
+      "BytesString": "也",
+      "UnicodeCodePoint": "0x4E5F"
+    },
+    {
+      "Syllable": "ys",
+      "BytesInt": [
+        155,
+        164
+      ],
+      "BytesString": "乢",
+      "UnicodeCodePoint": "0x4E62"
+    },
+    {
+      "Syllable": "Pl",
+      "BytesInt": [
+        151,
+        144
+      ],
+      "BytesString": "乱",
+      "UnicodeCodePoint": "0x4E71"
+    },
+    {
+      "Syllable": "I'",
+      "BytesInt": [
+        147,
+        251
+      ],
+      "BytesString": "乳",
+      "UnicodeCodePoint": "0x4E73"
+    },
+    {
+      "Syllable": "ub",
+      "BytesInt": [
+        138,
+        163
+      ],
+      "BytesString": "乾",
+      "UnicodeCodePoint": "0x4E7E"
+    },
+    {
+      "Syllable": "hy",
+      "BytesInt": [
+        139,
+        84
+      ],
+      "BytesString": "亀",
+      "UnicodeCodePoint": "0x4E80"
+    },
+    {
+      "Syllable": "rk",
+      "BytesInt": [
+        152,
+        170
+      ],
+      "BytesString": "亂",
+      "UnicodeCodePoint": "0x4E82"
+    },
+    {
+      "Syllable": " a",
+      "BytesInt": [
+        152,
+        171
+      ],
+      "BytesString": "亅",
+      "UnicodeCodePoint": "0x4E85"
+    },
+    {
+      "Syllable": " b",
+      "BytesInt": [
+        151,
+        185
+      ],
+      "BytesString": "了",
+      "UnicodeCodePoint": "0x4E86"
+    },
+    {
+      "Syllable": " c",
+      "BytesInt": [
+        151,
+        92
+      ],
+      "BytesString": "予",
+      "UnicodeCodePoint": "0x4E88"
+    },
+    {
+      "Syllable": " d",
+      "BytesInt": [
+        145,
+        136
+      ],
+      "BytesString": "争",
+      "UnicodeCodePoint": "0x4E89"
+    },
+    {
+      "Syllable": " e",
+      "BytesInt": [
+        152,
+        173
+      ],
+      "BytesString": "亊",
+      "UnicodeCodePoint": "0x4E8A"
+    },
+    {
+      "Syllable": " f",
+      "BytesInt": [
+        142,
+        150
+      ],
+      "BytesString": "事",
+      "UnicodeCodePoint": "0x4E8B"
+    },
+    {
+      "Syllable": " g",
+      "BytesInt": [
+        147,
+        241
+      ],
+      "BytesString": "二",
+      "UnicodeCodePoint": "0x4E8C"
+    },
+    {
+      "Syllable": " h",
+      "BytesInt": [
+        152,
+        176
+      ],
+      "BytesString": "于",
+      "UnicodeCodePoint": "0x4E8E"
+    },
+    {
+      "Syllable": " i",
+      "BytesInt": [
+        137,
+        93
+      ],
+      "BytesString": "云",
+      "UnicodeCodePoint": "0x4E91"
+    },
+    {
+      "Syllable": " j",
+      "BytesInt": [
+        140,
+        221
+      ],
+      "BytesString": "互",
+      "UnicodeCodePoint": "0x4E92"
+    },
+    {
+      "Syllable": " k",
+      "BytesInt": [
+        140,
+        220
+      ],
+      "BytesString": "五",
+      "UnicodeCodePoint": "0x4E94"
+    },
+    {
+      "Syllable": " l",
+      "BytesInt": [
+        136,
+        228
+      ],
+      "BytesString": "井",
+      "UnicodeCodePoint": "0x4E95"
+    },
+    {
+      "Syllable": " m",
+      "BytesInt": [
+        152,
+        106
+      ],
+      "BytesString": "亘",
+      "UnicodeCodePoint": "0x4E98"
+    },
+    {
+      "Syllable": " n",
+      "BytesInt": [
+        152,
+        105
+      ],
+      "BytesString": "亙",
+      "UnicodeCodePoint": "0x4E99"
+    },
+    {
+      "Syllable": " o",
+      "BytesInt": [
+        141,
+        177
+      ],
+      "BytesString": "些",
+      "UnicodeCodePoint": "0x4E9B"
+    },
+    {
+      "Syllable": " p",
+      "BytesInt": [
+        136,
+        159
+      ],
+      "BytesString": "亜",
+      "UnicodeCodePoint": "0x4E9C"
+    },
+    {
+      "Syllable": " q",
+      "BytesInt": [
+        152,
+        177
+      ],
+      "BytesString": "亞",
+      "UnicodeCodePoint": "0x4E9E"
+    },
+    {
+      "Syllable": " r",
+      "BytesInt": [
+        152,
+        178
+      ],
+      "BytesString": "亟",
+      "UnicodeCodePoint": "0x4E9F"
+    },
+    {
+      "Syllable": " s",
+      "BytesInt": [
+        152,
+        179
+      ],
+      "BytesString": "亠",
+      "UnicodeCodePoint": "0x4EA0"
+    },
+    {
+      "Syllable": " t",
+      "BytesInt": [
+        150,
+        83
+      ],
+      "BytesString": "亡",
+      "UnicodeCodePoint": "0x4EA1"
+    },
+    {
+      "Syllable": " u",
+      "BytesInt": [
+        152,
+        180
+      ],
+      "BytesString": "亢",
+      "UnicodeCodePoint": "0x4EA2"
+    },
+    {
+      "Syllable": " v",
+      "BytesInt": [
+        140,
+        240
+      ],
+      "BytesString": "交",
+      "UnicodeCodePoint": "0x4EA4"
+    },
+    {
+      "Syllable": " w",
+      "BytesInt": [
+        136,
+        229
+      ],
+      "BytesString": "亥",
+      "UnicodeCodePoint": "0x4EA5"
+    },
+    {
+      "Syllable": " x",
+      "BytesInt": [
+        150,
+        146
+      ],
+      "BytesString": "亦",
+      "UnicodeCodePoint": "0x4EA6"
+    },
+    {
+      "Syllable": " y",
+      "BytesInt": [
+        139,
+        156
+      ],
+      "BytesString": "亨",
+      "UnicodeCodePoint": "0x4EA8"
+    },
+    {
+      "Syllable": " z",
+      "BytesInt": [
+        139,
+        157
+      ],
+      "BytesString": "享",
+      "UnicodeCodePoint": "0x4EAB"
+    },
+    {
+      "Syllable": "a ",
+      "BytesInt": [
+        139,
+        158
+      ],
+      "BytesString": "京",
+      "UnicodeCodePoint": "0x4EAC"
+    },
+    {
+      "Syllable": "b ",
+      "BytesInt": [
+        146,
+        224
+      ],
+      "BytesString": "亭",
+      "UnicodeCodePoint": "0x4EAD"
+    },
+    {
+      "Syllable": "c ",
+      "BytesInt": [
+        151,
+        186
+      ],
+      "BytesString": "亮",
+      "UnicodeCodePoint": "0x4EAE"
+    },
+    {
+      "Syllable": "d ",
+      "BytesInt": [
+        152,
+        181
+      ],
+      "BytesString": "亰",
+      "UnicodeCodePoint": "0x4EB0"
+    },
+    {
+      "Syllable": "e ",
+      "BytesInt": [
+        152,
+        182
+      ],
+      "BytesString": "亳",
+      "UnicodeCodePoint": "0x4EB3"
+    },
+    {
+      "Syllable": "f ",
+      "BytesInt": [
+        152,
+        183
+      ],
+      "BytesString": "亶",
+      "UnicodeCodePoint": "0x4EB6"
+    },
+    {
+      "Syllable": "g ",
+      "BytesInt": [
+        144,
+        108
+      ],
+      "BytesString": "人",
+      "UnicodeCodePoint": "0x4EBA"
+    },
+    {
+      "Syllable": "h ",
+      "BytesInt": [
+        143,
+        89
+      ],
+      "BytesString": "什",
+      "UnicodeCodePoint": "0x4EC0"
+    },
+    {
+      "Syllable": "i ",
+      "BytesInt": [
+        144,
+        109
+      ],
+      "BytesString": "仁",
+      "UnicodeCodePoint": "0x4EC1"
+    },
+    {
+      "Syllable": "j ",
+      "BytesInt": [
+        152,
+        188
+      ],
+      "BytesString": "仂",
+      "UnicodeCodePoint": "0x4EC2"
+    },
+    {
+      "Syllable": "k ",
+      "BytesInt": [
+        152,
+        186
+      ],
+      "BytesString": "仄",
+      "UnicodeCodePoint": "0x4EC4"
+    },
+    {
+      "Syllable": "l ",
+      "BytesInt": [
+        152,
+        187
+      ],
+      "BytesString": "仆",
+      "UnicodeCodePoint": "0x4EC6"
+    },
+    {
+      "Syllable": "m ",
+      "BytesInt": [
+        139,
+        119
+      ],
+      "BytesString": "仇",
+      "UnicodeCodePoint": "0x4EC7"
+    },
+    {
+      "Syllable": "n ",
+      "BytesInt": [
+        141,
+        161
+      ],
+      "BytesString": "今",
+      "UnicodeCodePoint": "0x4ECA"
+    },
+    {
+      "Syllable": "o ",
+      "BytesInt": [
+        137,
+        238
+      ],
+      "BytesString": "介",
+      "UnicodeCodePoint": "0x4ECB"
+    },
+    {
+      "Syllable": "p ",
+      "BytesInt": [
+        152,
+        185
+      ],
+      "BytesString": "仍",
+      "UnicodeCodePoint": "0x4ECD"
+    },
+    {
+      "Syllable": "q ",
+      "BytesInt": [
+        152,
+        184
+      ],
+      "BytesString": "从",
+      "UnicodeCodePoint": "0x4ECE"
+    },
+    {
+      "Syllable": "r ",
+      "BytesInt": [
+        149,
+        167
+      ],
+      "BytesString": "仏",
+      "UnicodeCodePoint": "0x4ECF"
+    },
+    {
+      "Syllable": "s ",
+      "BytesInt": [
+        142,
+        101
+      ],
+      "BytesString": "仔",
+      "UnicodeCodePoint": "0x4ED4"
+    },
+    {
+      "Syllable": "t ",
+      "BytesInt": [
+        142,
+        100
+      ],
+      "BytesString": "仕",
+      "UnicodeCodePoint": "0x4ED5"
+    },
+    {
+      "Syllable": "u ",
+      "BytesInt": [
+        145,
+        188
+      ],
+      "BytesString": "他",
+      "UnicodeCodePoint": "0x4ED6"
+    },
+    {
+      "Syllable": "v ",
+      "BytesInt": [
+        152,
+        189
+      ],
+      "BytesString": "仗",
+      "UnicodeCodePoint": "0x4ED7"
+    },
+    {
+      "Syllable": "w ",
+      "BytesInt": [
+        149,
         116
       ],
-      "BytesString": "㏄",
-      "UnicodeCodePoint": "0x33C4"
+      "BytesString": "付",
+      "UnicodeCodePoint": "0x4ED8"
     },
     {
-      "Syllable": "K.K.",
+      "Syllable": "x ",
       "BytesInt": [
-        135,
-        131
+        144,
+        229
       ],
-      "BytesString": "㏍",
-      "UnicodeCodePoint": "0x33CD"
+      "BytesString": "仙",
+      "UnicodeCodePoint": "0x4ED9"
+    },
+    {
+      "Syllable": "y ",
+      "BytesInt": [
+        129,
+        87
+      ],
+      "BytesString": "仝",
+      "UnicodeCodePoint": "0x4EDD"
+    },
+    {
+      "Syllable": "z ",
+      "BytesInt": [
+        152,
+        190
+      ],
+      "BytesString": "仞",
+      "UnicodeCodePoint": "0x4EDE"
     }
   ],
   "FileReplacements": [

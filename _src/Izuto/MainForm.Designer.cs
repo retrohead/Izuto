@@ -126,7 +126,6 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel1.Size = new Size(534, 565);
             tableLayoutPanel1.TabIndex = 7;
             // 
@@ -162,7 +161,7 @@
             // openToolStripMenuItem
             // 
             openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(180, 22);
+            openToolStripMenuItem.Size = new Size(146, 22);
             openToolStripMenuItem.Text = "Open Archive";
             openToolStripMenuItem.Click += btnBrowseArchiveFA_Click;
             // 
@@ -170,25 +169,25 @@
             // 
             toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { noRecentItemsToolStripMenuItem });
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(180, 22);
+            toolStripMenuItem1.Size = new Size(146, 22);
             toolStripMenuItem1.Text = "Recent Items";
             // 
             // noRecentItemsToolStripMenuItem
             // 
             noRecentItemsToolStripMenuItem.Enabled = false;
             noRecentItemsToolStripMenuItem.Name = "noRecentItemsToolStripMenuItem";
-            noRecentItemsToolStripMenuItem.Size = new Size(180, 22);
+            noRecentItemsToolStripMenuItem.Size = new Size(161, 22);
             noRecentItemsToolStripMenuItem.Text = "No Recent Items";
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(177, 6);
+            toolStripSeparator1.Size = new Size(143, 6);
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(180, 22);
+            exitToolStripMenuItem.Size = new Size(146, 22);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
