@@ -2,6 +2,15 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Izuto.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
+    <Setting Name="SelectedTheme" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-1</Value>
+    </Setting>
+    <Setting Name="ThemeColours" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FullSize" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
     <Setting Name="OptionsFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
@@ -16,6 +25,9 @@
     </Setting>
     <Setting Name="LastLoadedPAC" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="AnimationSpeed" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -1,9 +1,12 @@
 ﻿using Ekona;
 using Izuto;
 using Izuto.Extensions;
+using Izuto.UI;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Text;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Windows;
 
 public class PAC
 {
@@ -86,7 +89,7 @@ public class PAC
                 {
 
                 }
-                MessageBox.Show("PAC file not currently supported", "PAC File Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("PAC file not currently supported", "PAC File Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return false;
             }
             // compressed file
@@ -446,7 +449,7 @@ public class PAC
         {
             sourceText = TextTranslation.ConvertBackTextString(SourceTranslationOptions.Config.TranslationTable, sourceText);
         }
-        DestPAC.StringEntries[destPacIndex].Text = UpdateString(TextTranslation.ConvertTextString(MainForm.OptionsFile.Config.TranslationTable, sourceText));
+        DestPAC.StringEntries[destPacIndex].Text = UpdateString(TextTranslation.ConvertTextString(UI_MainWindow.OptionsFile.Config.TranslationTable, sourceText));
 
 
         DestPAC.StringEntries[destPacIndex].Type = SourceEntry.Type;
@@ -517,10 +520,10 @@ public class PAC
         {
             if (failedCopies.Count() == 0)
             {
-                MessageBox.Show($"The copy process completed\n\nAll {copiedStringCount} strings were updated", "Copy Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"The copy process completed\n\nAll {copiedStringCount} strings were updated", "Copy Completed", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            if (MessageBox.Show($"The copy process completed\n\n{copiedStringCount} strings were updated\n{failedCopies.Count()} strings failed to update.\n\nDo you want to view the log file?", "Copy Completed", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            if (MessageBox.Show($"The copy process completed\n\n{copiedStringCount} strings were updated\n{failedCopies.Count()} strings failed to update.\n\nDo you want to view the log file?", "Copy Completed", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
             {
                 return;
             }
@@ -536,7 +539,7 @@ public class PAC
                     logbuilder.AppendLine($"Text:");
                     logbuilder.AppendLine($"{fail.Text}\n");
                 }
-                string logpath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath) ?? "", $"izuto_copy_string_log_{DateTime.Now.ToString("yyyyMMddhhmmss")}.txt");
+                string logpath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location) ?? "", $"izuto_copy_string_log_{DateTime.Now.ToString("yyyyMMddhhmmss")}.txt");
 
 
                 // Decide encoding: ASCII if all chars < 128, otherwise Shift-JIS
@@ -550,12 +553,12 @@ public class PAC
                     FileName = logpath,
                     UseShellExecute = true
                 });
-                MessageBox.Show($"Log file saved to:\n\n{logpath}", "Copy Log", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Log file saved to:\n\n{logpath}", "Copy Log", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
         else
         {
-            MessageBox.Show($"No matching strings were found. Are you you sure the selected file contains the same PAC ID?", "Copy Completed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"No matching strings were found. Are you you sure the selected file contains the same PAC ID?", "Copy Completed", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

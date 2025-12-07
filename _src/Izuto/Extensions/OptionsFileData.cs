@@ -1,9 +1,12 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows;
 using static Izuto.Extensions.TextTranslation;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -94,7 +97,7 @@ namespace Izuto.Extensions
                     Title = "Save Izuto options configuration"
                 };
 
-                if (dialog.ShowDialog(MainForm.Self) == DialogResult.OK)
+                if (dialog.ShowDialog(MainWindow.Self) == true)
                 {
                     targetPath = dialog.FileName;
                     if(path == "")
@@ -114,8 +117,8 @@ namespace Izuto.Extensions
 
             MessageBox.Show($"Configuration saved to:\n\n{targetPath}",
                                            "Save Successful",
-                                           MessageBoxButtons.OK,
-                                           MessageBoxIcon.Information);
+                                           MessageBoxButton.OK,
+                                           MessageBoxImage.Information);
             return true;
         }
 

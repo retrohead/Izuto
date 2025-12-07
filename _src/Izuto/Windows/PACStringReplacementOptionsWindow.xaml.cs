@@ -1,0 +1,119 @@
+﻿using Izuto.Extensions;
+using Izuto.UI;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace Izuto
+{
+    /// <summary>
+    /// Interaction logic for PKBForm.xaml
+    /// </summary>
+    public partial class PACStringReplacementOptionsWindow : Window
+    {
+        public enum ReplacementPriorityType
+        {
+            LoadedFile,
+            Source
+        }
+        public class ReplacementOptionsType
+        {
+            public ReplacementPriorityType ReplacementPriority = ReplacementPriorityType.Source;
+            public string SourceTranslationFilePath = "";
+        }
+
+        public ReplacementOptionsType ReplacementOptions = new ReplacementOptionsType();
+        public PACStringReplacementOptionsWindow(PAC SourcePAC, PAC LoadedPAC)
+        {
+            InitializeComponent();
+
+            Theme.loadTheme(this, "Theme_00.xaml");
+            Theme.loadTheme(this, "Theme_Templates.xaml");
+            Theme.applyTheme(this);
+
+            textMessage.Text =
+            "Everything seems to be going well!" + Environment.NewLine
+            + Environment.NewLine
+            + "I found a package with the same ID as the one loaded. All that remains is for you to choose your transfer option and an optional Izuto configuration file to use when loading the file." + Environment.NewLine
+            + Environment.NewLine
+            + $"Source String Count: {SourcePAC.StringEntries.FindAll(s => !s.IsLinked).Count()}" + Environment.NewLine
+            + $"Loaded File String Count {LoadedPAC.StringEntries.FindAll(s => !s.IsLinked).Count()}";
+            radioSource.IsChecked = Properties.Settings.Default.ImportPACOption == (int)ReplacementPriorityType.Source;
+            textTranslateFile.Text = Properties.Settings.Default.TranslateSourceFilePath;
+            checkTextTranslateSource.IsChecked = !string.IsNullOrEmpty(Properties.Settings.Default.TranslateSourceFilePath);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            DarkTitleBar.Apply(this);
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+            Close();
+        }
+
+        private void btnContinue_Click(object sender, RoutedEventArgs e)
+        {
+            ReplacementOptions.ReplacementPriority = ReplacementPriorityType.LoadedFile;
+            if (radioSource.IsChecked == true)
+                ReplacementOptions.ReplacementPriority = ReplacementPriorityType.Source;
+            ReplacementOptions.SourceTranslationFilePath = "";
+            if (checkTextTranslateSource.IsChecked == true)
+            {
+                if (string.IsNullOrEmpty(textTranslateFile.Text))
+                {
+                    MessageBox.Show("You must select a translation options file when choosing to translate the source", "Source Translation Options File Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
+                if (!System.IO.File.Exists(textTranslateFile.Text))
+                {
+                    MessageBox.Show("The selected translation options file does not exist", "Source Translation Options File Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
+                ReplacementOptions.SourceTranslationFilePath = textTranslateFile.Text;
+            }
+            DialogResult = true;
+            Close();
+        }
+
+        private void checkTextTranslateSource_Checked(object sender, RoutedEventArgs e)
+        {
+            if (textTranslateFile == null)
+                return;
+            textTranslateFile.Visibility = checkTextTranslateSource.IsChecked == true ? Visibility.Visible : Visibility.Hidden;
+            btnBrowseOptionsFile.Visibility = checkTextTranslateSource.IsChecked == true ? Visibility.Visible : Visibility.Hidden;
+            textTranslateFile.IsEnabled = checkTextTranslateSource.IsChecked ?? false;
+            btnBrowseOptionsFile.IsEnabled = checkTextTranslateSource.IsChecked ?? false;
+            if (checkTextTranslateSource.IsChecked == true && textTranslateFile.Text == "")
+            {
+                btnBrowseOptionsFile_Click(this, null);
+            }
+        }
+
+        private void btnBrowseOptionsFile_Click(object sender, RoutedEventArgs? e)
+        {
+            string translateOptionsFile = UI_MainWindow.BrowseForFile(OptionsFileData.OptionsFileFilter);
+            if (translateOptionsFile == "")
+            {
+                checkTextTranslateSource.IsChecked = false;
+                return;
+            }
+            textTranslateFile.Text = translateOptionsFile;
+            Properties.Settings.Default.TranslateSourceFilePath = translateOptionsFile;
+            Properties.Settings.Default.ImportPACOption = (int)(radioSource.IsChecked == true ? ReplacementPriorityType.Source : ReplacementPriorityType.LoadedFile);
+            Properties.Settings.Default.Save();
+        }
+    }
+}

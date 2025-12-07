@@ -2,6 +2,8 @@
 using plugin_level5.N3DS.Archive;
 using Konnect.Extensions;
 using Pack;
+using System.IO;
+using Izuto.UI;
 
 namespace Izuto.Extensions
 {
@@ -107,7 +109,7 @@ namespace Izuto.Extensions
                         int importedFileCount = 0;
                         foreach (var fileToReplace in FileReplacements)
                         {
-                            MainForm.Self.UpdateProgress("Importing Files", importedFileCount, FileReplacements.Count);
+                            UI_MainWindow.Self.UpdateProgress("Importing Files", importedFileCount, FileReplacements.Count);
                             importedFileCount++;
                             openstreams.Add(File.OpenRead(fileToReplace.ReplacementFilePath));
                             // find original archive
@@ -119,7 +121,7 @@ namespace Izuto.Extensions
                             files[fileIndex].SetFileData(openstreams[openstreams.Count - 1]);
                         }
                         // save the new archive
-                        MainForm.Self.UpdateProgress("Saving New Archive",0,1);
+                        UI_MainWindow.Self.UpdateProgress("Saving New Archive",0,1);
                         archive_fa.Save(destStream, files);
                         sourceStream.Close();
                         destStream.Close();

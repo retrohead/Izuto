@@ -4,54 +4,70 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon>Izuto Icon.ico</ApplicationIcon>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\izuto.ico</ApplicationIcon>
+    <FileVersion>2.0.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Extensions\Level5_PAC.cs" />
-    <Compile Remove="Extensions\PluginHost.cs" />
+    <None Remove="Resources\accept_green.png" />
+    <None Remove="Resources\cancel_round.png" />
+    <None Remove="Resources\file_txt.png" />
+    <None Remove="Resources\file_unk.png" />
+    <None Remove="Resources\file_zip.png" />
+    <None Remove="Resources\izuto.ico" />
+    <None Remove="Resources\IzutoLogo.png" />
+    <None Remove="Resources\IzutoLogoMedium.png" />
+    <None Remove="Resources\IzutoLogoSmall.png" />
+    <None Remove="Resources\theme.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Izuto Icon.ico" />
+    <Resource Include="Resources\accept_green.png" />
+    <Resource Include="Resources\cancel_round.png" />
+    <Resource Include="Resources\file_txt.png" />
+    <Resource Include="Resources\file_unk.png" />
+    <Resource Include="Resources\file_zip.png" />
+    <Resource Include="Resources\izuto.ico" />
+    <Resource Include="Resources\IzutoLogo.png" />
+    <Resource Include="Resources\IzutoLogoMedium.png" />
+    <Resource Include="Resources\IzutoLogoSmall.png" />
+    <Resource Include="Resources\theme.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="System.Drawing.Common" Version="10.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Kuriimu2\plugins\Level5\plugin_level5\plugin_level5.csproj" />
     <ProjectReference Include="..\Kuriimu2\plugins\Level5\plugin_level5_preview\plugin_level5_preview.csproj" />
     <ProjectReference Include="..\Kuriimu2\plugins\Nintendo\plugin_nintendo\plugin_nintendo.csproj" />
-    <ProjectReference Include="..\Tinke\Ekona\Ekona.csproj" />
-    <ProjectReference Include="..\Tinke\Plugins\DSDecmp\DSDecmp\DSDecmp.csproj" />
-    <ProjectReference Include="..\Tinke\Plugins\INAZUMA11\INAZUMA11\INAZUMA11.csproj" />
-    <ProjectReference Include="..\Tinke\Plugins\Pack\Pack\Pack.csproj" />
+    <ProjectReference Include="..\tinke\Ekona\Ekona.csproj" />
+    <ProjectReference Include="..\tinke\Plugins\DSDecmp\DSDecmp\DSDecmp.csproj" />
+    <ProjectReference Include="..\tinke\Plugins\INAZUMA11\INAZUMA11\INAZUMA11.csproj" />
+    <ProjectReference Include="..\tinke\Plugins\Pack\Pack\Pack.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
+    <Compile Update="Windows\StringWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\PACStringReplacementOptionsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\PACWindow.xaml.cs">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

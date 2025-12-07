@@ -1,4 +1,7 @@
-﻿### Version 1.0.1.1
+﻿### Version 2.0.0.0
+- Ported application to WPF and implemented theming.
+
+### Version 1.0.1.1
 - Save last PAC file that was opened and reselect it even after closing the app.
 
 ### Version 1.0.1.0

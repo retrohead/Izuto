@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Izuto.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -99,7 +100,7 @@ namespace Izuto.Extensions
                     string decoded = sjis.GetString(_bytes);
                     // Get the UTF-16 code unit (UInt16)
                     ushort unicodeCode = decoded[0]; // since you expect only one character
-                    return "0x" + MainForm.BytesToHexString(new byte[] { BitConverter.GetBytes(unicodeCode)[1], BitConverter.GetBytes(unicodeCode)[0] }, "");
+                    return "0x" + MainWindow.BytesToHexString(new byte[] { BitConverter.GetBytes(unicodeCode)[1], BitConverter.GetBytes(unicodeCode)[0] }, "");
                 }
             }
         }

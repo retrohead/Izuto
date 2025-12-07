@@ -3,9 +3,10 @@ using INAZUMA11;
 using Izuto.Extensions;
 using Konnect.Extensions;
 using plugin_level5.N3DS.Archive;
+using System.IO;
 using System.Text;
 using System.Threading;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Windows;
 
 public class PKB
 {
@@ -50,7 +51,7 @@ public class PKB
             } catch (Exception e)
             {
                 magicString = "";
-                MessageBox.Show("Error extracting file from PKB: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error extracting file from PKB: " + e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         });
         if (magicString == "")
