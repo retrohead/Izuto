@@ -21,7 +21,7 @@ namespace Izuto.UI
         public static dynamic? loadedTab = null;
         public int RecentItem_Clicked { get; private set; }
 
-        private listViewDataType pkbList;
+        private listViewDataType? pkbList;
         public static UI_MainWindow? self;
         public static string CurrentWorkingDirectory = "";
         public static OptionsFileData OptionsFile = new OptionsFileData();

@@ -77,7 +77,8 @@ namespace Izuto
                 "System.Data.Odbc.resources.dll",
                 "System.Net.Security.resources.dll",
                 "System.Net.Http.resources.dll",
-                "System.Formats.Nrbf.dll"
+                "System.Formats.Nrbf.dll",
+                "System.Reflection.Metadata.dll"
             };
 
             string finalname = args.Name.Substring(0, args.Name.IndexOf(',')) + ".dll";

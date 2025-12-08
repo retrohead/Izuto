@@ -47,7 +47,7 @@
                         <local:TextBoxEnterKeyUpdateBehavior />
                     </i:Interaction.Behaviors>
                 </TextBox>
-                <Button Content="..." Grid.Column="3" Background="{DynamicResource WindowBackgroundBrushMedium}" x:Name="btnBrowseProject" Margin="1,0,0,0" ToolTip="Open Archive File" Height="27" HorizontalAlignment="Stretch" Cursor="Hand" Style="{DynamicResource ButtonStyleImage}" Click="MenuItem_Open_Click" />
+                <Button Content="..." Grid.Column="3" Background="{DynamicResource WindowBackgroundBrushMedium}" x:Name="btnOpenArchive" Margin="1,0,0,0" ToolTip="Open Archive File" Height="27" HorizontalAlignment="Stretch" Cursor="Hand" Style="{DynamicResource ButtonStyleImage}" Click="MenuItem_Open_Click" />
 
                 <ListView VerticalAlignment="Stretch" x:Name="listView1" ItemsSource="{Binding Items}" SelectedItem="{Binding Path=SelectedListItem}" SelectionMode="Single" Width="Auto" Height="Auto" Margin="5,10,5,5" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Style="{DynamicResource ListViewStyle1}" ItemContainerStyle="{DynamicResource ListViewItemStyle1}"  FontSize="12" FontFamily="{DynamicResource IzutoFont}">
                     <ListView.View>
