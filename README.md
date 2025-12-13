@@ -1,4 +1,4 @@
-![Izuto Logo](https://github.com/retrohead/Izuto/raw/main/_src/Izuto/Resources/IzutoLogo1.png)
+![Izuto Logo](https://github.com/retrohead/Izuto/raw/main/_src/Izuto/Resources/IzutoLogo.png)
 
 # Izuto
 Izuto is a tool to help with translating Inazuma Eleven 123
