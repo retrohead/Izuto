@@ -97,7 +97,7 @@ namespace Izuto.Extensions
                     Title = "Save Izuto options configuration"
                 };
 
-                if (dialog.ShowDialog(MainWindow.Self) == true)
+                if (dialog.ShowDialog(MainWindow.Self.Window) == true)
                 {
                     targetPath = dialog.FileName;
                     if(path == "")

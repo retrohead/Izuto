@@ -1,4 +1,6 @@
-﻿using Izuto.Extensions;
+﻿using Izuto.Controls;
+using Izuto.DockManager;
+using Izuto.Extensions;
 using Izuto.UI;
 using System;
 using System.Collections.Generic;
@@ -23,7 +25,7 @@ namespace Izuto
     /// <summary>
     /// Interaction logic for OptionsWindow.xaml
     /// </summary>
-    public partial class OptionsWindow : Window
+    public partial class OptionsWindow : CustomWindowContentBase
     {
         listViewDataType textTranslationListData;
         listViewDataType fileReplacementListData;
@@ -34,9 +36,6 @@ namespace Izuto
         public OptionsWindow()
         {
             InitializeComponent();
-            Theme.loadTheme(this, "Theme_00.xaml");
-            Theme.loadTheme(this, "Theme_Templates.xaml");
-            Theme.applyTheme(this);
 
             textTranslationListData = new listViewDataType(MainWindow.Self, ref listViewTextTranslation);
             listViewTextTranslation.DataContext = textTranslationListData;
@@ -49,8 +48,8 @@ namespace Izuto
         {
             if (!UI_MainWindow.OptionsFile.Save())
                 return;
-            Properties.Settings.Default.OptionsFilePath = UI_MainWindow.OptionsFile.FilePath;
-            Properties.Settings.Default.Save();
+            SettingsManager.Settings.OptionsFilePath = UI_MainWindow.OptionsFile.FilePath;
+            SettingsManager.Save();
             Close();
         }
 
@@ -58,8 +57,8 @@ namespace Izuto
         {
             if (!UI_MainWindow.OptionsFile.Save(""))
                 return;
-            Properties.Settings.Default.OptionsFilePath = UI_MainWindow.OptionsFile.FilePath;
-            Properties.Settings.Default.Save();
+            SettingsManager.Settings.OptionsFilePath = UI_MainWindow.OptionsFile.FilePath;
+            SettingsManager.Save();
             Close();
         }
 
@@ -79,7 +78,7 @@ namespace Izuto
 
         private void Window_Loaded(object sender, RoutedEventArgs? e)
         {
-            DarkTitleBar.Apply(this);
+            Title = "Izuto Options";
             textOptionsFilePath.Text = UI_MainWindow.OptionsFile.FilePath;
 
             // loading text translations
@@ -142,10 +141,14 @@ namespace Izuto
                 MessageBox.Show("You must save or load an existing options file before you can add file replacements", "No Options File Loaded", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
+
+            CustomWindow win = DockHandler.CreateCustomWindow(Window, new CustomWindowOptions() { WindowType = CustomWindow.WindowTypes.Fixed });
             ReplaceFileWindow f = new ReplaceFileWindow(new FileReplacementEntry());
-            f.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            f.Owner = this;
-            f.ShowDialog();
+            win.ApplyContent(f);
+            win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            win.Loaded += UI_MainWindow.CustomWindow_Loaded;
+            win.ShowDialog();
+
             if (f.DialogResult == false) return;
             if (f.FileReplacement == null) return;
 
@@ -204,10 +207,15 @@ namespace Izuto
             if (selectedItem.Tag?.GetType() != typeof(FileReplacementEntry)) return;
             FileReplacementEntry entry = ((FileReplacementEntry?)selectedItem.Tag) ?? new FileReplacementEntry();
             if (entry.PathToReplace == "") return;
+
+
+            CustomWindow win = DockHandler.CreateCustomWindow(Window, new CustomWindowOptions() { WindowType = CustomWindow.WindowTypes.Fixed });
             ReplaceFileWindow replaceForm = new ReplaceFileWindow(entry);
-            replaceForm.Owner = this;
-            replaceForm.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            replaceForm.ShowDialog();
+            win.ApplyContent(replaceForm);
+            win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            win.Loaded += UI_MainWindow.CustomWindow_Loaded;
+            win.ShowDialog();
+
             if (replaceForm.DialogResult == false) return;
             entry = replaceForm.FileReplacement;
             selectedFileReplacementIndex = UI_MainWindow.OptionsFile.Config.FileReplacements.IndexOf(entry);
@@ -218,10 +226,13 @@ namespace Izuto
 
         private void btnAddTextTranslation_Click(object sender, EventArgs e)
         {
+            CustomWindow win = DockHandler.CreateCustomWindow(Window, new CustomWindowOptions() { WindowType = CustomWindow.WindowTypes.Fixed });
             TextTranslationWindow translationForm = new TextTranslationWindow(new TranslationEntry());
-            translationForm.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            translationForm.Owner = this;
-            translationForm.ShowDialog();
+            win.ApplyContent(translationForm);
+            win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            win.Loaded += UI_MainWindow.CustomWindow_Loaded;
+            win.ShowDialog();
+
             if (translationForm.DialogResult == false) return;
             UI_MainWindow.OptionsFile.Config.TranslationTable.Add(translationForm.FontTranslation);
             selectedTranslationsIndex = UI_MainWindow.OptionsFile.Config.TranslationTable.IndexOf(translationForm.FontTranslation);
@@ -281,10 +292,15 @@ namespace Izuto
             if (selectedItem.Tag?.GetType() != typeof(TranslationEntry)) return;
             TranslationEntry entry = ((TranslationEntry?)selectedItem.Tag) ?? new TranslationEntry();
             if (entry.Syllable == "") return;
+
+
+            CustomWindow win = DockHandler.CreateCustomWindow(Window, new CustomWindowOptions() { WindowType = CustomWindow.WindowTypes.Fixed });
             TextTranslationWindow translationForm = new TextTranslationWindow(entry);
-            translationForm.Owner = this;
-            translationForm.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            translationForm.ShowDialog();
+            win.ApplyContent(translationForm);
+            win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            win.Loaded += UI_MainWindow.CustomWindow_Loaded;
+            win.ShowDialog();
+
             if (translationForm.DialogResult == false) return;
             entry = translationForm.FontTranslation;
             selectedTranslationsIndex = UI_MainWindow.OptionsFile.Config.TranslationTable.IndexOf(entry);

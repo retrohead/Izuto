@@ -1,4 +1,5 @@
-﻿using Izuto.UI;
+﻿using Izuto.Extensions;
+using Izuto.UI;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -76,7 +77,7 @@ namespace Izuto
             }
         }
 
-        public static ObservableCollection<RecentFile>? RecentFiles = Newtonsoft.Json.JsonConvert.DeserializeObject<ObservableCollection<RecentFile>>(Properties.Settings.Default.RecentFiles);
+        public static ObservableCollection<RecentFile>? RecentFiles = Newtonsoft.Json.JsonConvert.DeserializeObject<ObservableCollection<RecentFile>>(SettingsManager.Settings.RecentFiles);
 
         public static void AddRecentFile(string filePath, string? name)
         {
@@ -98,8 +99,8 @@ namespace Izuto
             }
 
             // Save back to settings
-            Properties.Settings.Default.RecentFiles = Newtonsoft.Json.JsonConvert.SerializeObject(RecentFiles, Newtonsoft.Json.Formatting.None);
-            Properties.Settings.Default.Save();
+            SettingsManager.Settings.RecentFiles = Newtonsoft.Json.JsonConvert.SerializeObject(RecentFiles, Newtonsoft.Json.Formatting.None);
+            SettingsManager.Save();
         }
         public static void RemoveRecentFile(string filePath)
         {

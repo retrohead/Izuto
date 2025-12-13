@@ -1,4 +1,5 @@
-﻿using Izuto.Extensions;
+﻿using Izuto.DockManager;
+using Izuto.Extensions;
 using Izuto.UI;
 using System;
 using System.Collections.Generic;
@@ -21,16 +22,13 @@ namespace Izuto
     /// <summary>
     /// Interaction logic for TextTranslationWindow.xaml
     /// </summary>
-    public partial class TextTranslationWindow : Window
+    public partial class TextTranslationWindow : CustomWindowContentBase
     {
         public TranslationEntry FontTranslation;
         public TextTranslationWindow(TranslationEntry FontTranslation)
         {
             this.FontTranslation = FontTranslation;
             InitializeComponent();
-            Theme.loadTheme(this, "Theme_00.xaml");
-            Theme.loadTheme(this, "Theme_Templates.xaml");
-            Theme.applyTheme(this);
             textOrigHex.Text = MainWindow.BytesToHexString(Encoding.GetEncoding("utf-8").GetBytes(FontTranslation.Syllable));
             textReplacementHex.Text = MainWindow.BytesToHexString(Encoding.GetEncoding("shift_jis").GetBytes(FontTranslation.BytesString));
 
@@ -69,7 +67,7 @@ namespace Izuto
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            DarkTitleBar.Apply(this);
+            Title = "Izuto Text Translation Configuration";
         }
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)

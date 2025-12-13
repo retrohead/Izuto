@@ -1,4 +1,5 @@
-﻿using Izuto.Extensions;
+﻿using Izuto.DockManager;
+using Izuto.Extensions;
 using Izuto.UI;
 using plugin_level5.N3DS.Archive;
 using System;
@@ -20,16 +21,13 @@ namespace Izuto
     /// <summary>
     /// Interaction logic for PKBFileSelectForm.xaml
     /// </summary>
-    public partial class PKBFileSelectWindow : Window
+    public partial class PKBFileSelectWindow : CustomWindowContentBase
     {
         public string SelectedFilePath = "";
         treeViewDataType treeViewData;
         public PKBFileSelectWindow()
         {
             InitializeComponent();
-            Theme.loadTheme(this, "Theme_00.xaml");
-            Theme.loadTheme(this, "Theme_Templates.xaml");
-            Theme.applyTheme(this);
             treeViewData = new treeViewDataType(treeFiles);
             treeFiles.DataContext = treeViewData;
         }
@@ -55,7 +53,7 @@ namespace Izuto
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            DarkTitleBar.Apply(this);
+            Title = "Izuto Pick PKB File Browser";
             treeViewData.Items = new System.Collections.ObjectModel.ObservableCollection<treeViewItemDataType>();
 
             var sortedArchives = UI_MainWindow.ArchiveFiles.OrderBy(p => p.FilePath.FullName);

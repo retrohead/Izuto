@@ -5,9 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:local="clr-namespace:Izuto"
+             xmlns:controls="clr-namespace:Izuto.Controls"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:Themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit"
-             mc:Ignorable="d" d:DesignWidth="800" Height="421.238" MinWidth="800" MinHeight="325">
+             mc:Ignorable="d" d:DesignWidth="800" Height="421.238" MinWidth="800" MinHeight="421">
     <UserControl.Resources>
     </UserControl.Resources>
     <DockPanel>
@@ -55,8 +56,8 @@
                                         </Grid.RowDefinitions>
 
                                         <Label Content="Speed" Grid.Row="0" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
-                                        <ComboBox x:Name="comboAnimationSpeed" Grid.Row="0" Grid.Column="1" DisplayMemberPath="Text" FontSize="12" Width="Auto" Height="25" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedComboItem}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Style="{DynamicResource ComboBoxStyle1}" FontFamily="{DynamicResource IzutoFont}" ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}" />
-                                        <Button x:Name="btnTestAnimations" Height="25" HorizontalAlignment="Left" Cursor="Hand" Grid.Row="2" Grid.Column="1" Style="{DynamicResource ButtonStyleText}" Click="btnTestAnimations_Click" Content="Test Animations" FontSize="12" />
+                                        <ComboBox x:Name="comboAnimationSpeed" Grid.Row="0" Grid.Column="1" DisplayMemberPath="Text" FontSize="12" Width="Auto" Height="27" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedComboItem}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Style="{DynamicResource ComboBoxStyle1}" FontFamily="{DynamicResource IzutoFont}" ItemContainerStyle="{DynamicResource ComboBoxItemStyle1}" />
+                                        <Button x:Name="btnTestAnimations" Height="27" HorizontalAlignment="Left" Cursor="Hand" Grid.Row="2" Grid.Column="1" Style="{DynamicResource ButtonStyleText}" Click="btnTestAnimations_Click" Content="Test Animations" FontSize="12" />
                                     </Grid>
                                 </GroupBox>
                             </DockPanel>
@@ -125,88 +126,60 @@
                                             <RowDefinition Height="32"/>
                                         </Grid.RowDefinitions>
                                         <Label Content="Light Colour" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
-                                        <xctk:ColorPicker x:Name="ColorLight" Grid.Row="0" Grid.Column="1" SelectedColorChanged="color_SelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorLight}" UsingAlphaChannel="False" DisplayColorAndName="False"
-                                                              Width="32" ShowTabHeaders="False" ShowDropDownButton="False" Cursor="Hand" Foreground="{DynamicResource LabelTextBrush}" FontSize="12" FontFamily="{DynamicResource IzutoFont}"
-                                                                Style="{DynamicResource ColorPickerStyle1}"
-                                                              />
+                                        <controls:ColorPickerButton x:Name="ColorLight" Grid.Row="0" Grid.Column="1" SelectedColorChanged="Color_SelectedColorChanged" PreviewSelectedColorChanged="Color_PreviewSelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorLight}" EnableAlphaChannel="False"
+                                                              Width="25" Height="25" Cursor="Hand" />
 
                                         <Label Content="Medium Colour" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
-                                        <xctk:ColorPicker x:Name="ColorMedium" Grid.Row="1" Grid.Column="1" SelectedColorChanged="color_SelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorMedium}" UsingAlphaChannel="False" DisplayColorAndName="False"
-                                                              Width="32" ShowTabHeaders="False" ShowDropDownButton="False" Cursor="Hand" Foreground="{DynamicResource LabelTextBrush}" FontSize="12" FontFamily="{DynamicResource IzutoFont}"
-                                                                Style="{DynamicResource ColorPickerStyle1}"
-                                                              />
+                                        <controls:ColorPickerButton x:Name="ColorMedium" Grid.Row="1" Grid.Column="1" SelectedColorChanged="Color_SelectedColorChanged" PreviewSelectedColorChanged="Color_PreviewSelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorMedium}" EnableAlphaChannel="False"
+                                                              Width="25" Height="25" Cursor="Hand" />
 
                                         <Label Content="Dark Colour" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
-                                        <xctk:ColorPicker x:Name="ColorDark" Grid.Row="2" Grid.Column="1" SelectedColorChanged="color_SelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorDark}" UsingAlphaChannel="False" DisplayColorAndName="False" 
-                                                               Width="32" ShowTabHeaders="False" ShowDropDownButton="False" Cursor="Hand" Foreground="{DynamicResource LabelTextBrush}" FontSize="12" FontFamily="{DynamicResource IzutoFont}"
-                                                                Style="{DynamicResource ColorPickerStyle1}"
-                                                              />
+                                        <controls:ColorPickerButton x:Name="ColorDark" Grid.Row="2" Grid.Column="1" SelectedColorChanged="Color_SelectedColorChanged" PreviewSelectedColorChanged="Color_PreviewSelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorDark}" EnableAlphaChannel="False" 
+                                                               Width="25" Height="25" Cursor="Hand" />
 
                                         <Label Content="Transparency Colour" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
-                                        <xctk:ColorPicker x:Name="ColorPanelAlpha" Grid.Row="3" Grid.Column="1" SelectedColorChanged="color_SelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorPanelAlpha}" DisplayColorAndName="False"
-                                                               Width="32" ShowTabHeaders="False" ShowDropDownButton="False" Cursor="Hand" Foreground="{DynamicResource LabelTextBrush}" FontSize="12" FontFamily="{DynamicResource IzutoFont}"
-                                                                Style="{DynamicResource ColorPickerStyle1}"
-                                                              />
+                                        <controls:ColorPickerButton x:Name="ColorPanelAlpha" Grid.Row="3" Grid.Column="1" SelectedColorChanged="Color_SelectedColorChanged" PreviewSelectedColorChanged="Color_PreviewSelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorPanelAlpha}" 
+                                                               Width="25" Height="25" Cursor="Hand" />
                                         <Label Content="Selected Colour" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
-                                        <xctk:ColorPicker x:Name="ColorSelected" Grid.Row="4" Grid.Column="1" SelectedColorChanged="color_SelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorSelected}" DisplayColorAndName="False"
-                                                               Width="32" ShowTabHeaders="False" ShowDropDownButton="False" Cursor="Hand" Foreground="{DynamicResource LabelTextBrush}" FontSize="12" FontFamily="{DynamicResource IzutoFont}"
-                                                                Style="{DynamicResource ColorPickerStyle1}"
-                                                             />
+                                        <controls:ColorPickerButton x:Name="ColorSelected" Grid.Row="4" Grid.Column="1" SelectedColorChanged="Color_SelectedColorChanged" PreviewSelectedColorChanged="Color_PreviewSelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorSelected}" 
+                                                               Width="25" Height="25" Cursor="Hand" />
 
                                         <Label Content="Highlight Colour" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
-                                        <xctk:ColorPicker x:Name="ColorHighlight" Grid.Row="5" Grid.Column="1" SelectedColorChanged="color_SelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorHighlight}" DisplayColorAndName="False" 
-                                                              Width="32" ShowTabHeaders="False" ShowDropDownButton="False" Cursor="Hand" Foreground="{DynamicResource LabelTextBrush}" FontSize="12" FontFamily="{DynamicResource IzutoFont}"
-                                                                Style="{DynamicResource ColorPickerStyle1}"
-                                                              />
+                                        <controls:ColorPickerButton x:Name="ColorHighlight" Grid.Row="5" Grid.Column="1" SelectedColorChanged="Color_SelectedColorChanged" PreviewSelectedColorChanged="Color_PreviewSelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorHighlight}" 
+                                                              Width="25" Height="25" Cursor="Hand" />
 
 
                                         <Label Content="Header Text / Icon Colour" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
-                                        <xctk:ColorPicker x:Name="ColorHeaderText" Grid.Row="0" Grid.Column="3" SelectedColorChanged="color_SelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorHeaderText}" UsingAlphaChannel="False" DisplayColorAndName="False" 
-                                                              Width="32" ShowTabHeaders="False" ShowDropDownButton="False" Cursor="Hand" Foreground="{DynamicResource LabelTextBrush}" FontSize="12" FontFamily="{DynamicResource IzutoFont}"
-                                                                Style="{DynamicResource ColorPickerStyle1}"
-                                                              />
+                                        <controls:ColorPickerButton x:Name="ColorHeaderText" Grid.Row="0" Grid.Column="3" SelectedColorChanged="Color_SelectedColorChanged" PreviewSelectedColorChanged="Color_PreviewSelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorHeaderText}" EnableAlphaChannel="False"
+                                                              Width="25" Height="25" Cursor="Hand" />
 
                                         <Label Content="Label Colour" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
-                                        <xctk:ColorPicker x:Name="ColorLabelText" Grid.Row="1" Grid.Column="3" SelectedColorChanged="color_SelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorLabelText}" UsingAlphaChannel="False" DisplayColorAndName="False" 
-                                                              Width="32" ShowTabHeaders="False" ShowDropDownButton="False" Cursor="Hand" Foreground="{DynamicResource LabelTextBrush}" FontSize="12" FontFamily="{DynamicResource IzutoFont}"
-                                                                Style="{DynamicResource ColorPickerStyle1}"
-                                                              />
+                                        <controls:ColorPickerButton x:Name="ColorLabelText" Grid.Row="1" Grid.Column="3" SelectedColorChanged="Color_SelectedColorChanged" PreviewSelectedColorChanged="Color_PreviewSelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorLabelText}" EnableAlphaChannel="False"
+                                                              Width="25" Height="25" Cursor="Hand" />
 
                                         <Label Content="Active Text Colour" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
-                                        <xctk:ColorPicker x:Name="ColorActiveText" Grid.Row="2" Grid.Column="3" SelectedColorChanged="color_SelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorActiveText}" UsingAlphaChannel="False" DisplayColorAndName="False" 
-                                                              Width="32" ShowTabHeaders="False" ShowDropDownButton="False" Cursor="Hand" Foreground="{DynamicResource LabelTextBrush}" FontSize="12" FontFamily="{DynamicResource IzutoFont}"
-                                                                Style="{DynamicResource ColorPickerStyle1}"
-                                                              />
+                                        <controls:ColorPickerButton x:Name="ColorActiveText" Grid.Row="2" Grid.Column="3" SelectedColorChanged="Color_SelectedColorChanged" PreviewSelectedColorChanged="Color_PreviewSelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorActiveText}" EnableAlphaChannel="False"
+                                                              Width="25" Height="25" Cursor="Hand" />
 
                                         <Label Content="Inactive Text Colour" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
-                                        <xctk:ColorPicker x:Name="ColorInactiveText" Grid.Row="3" Grid.Column="3" SelectedColorChanged="color_SelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorInactiveText}" UsingAlphaChannel="False" DisplayColorAndName="False" 
-                                                              Width="32" ShowTabHeaders="False" ShowDropDownButton="False" Cursor="Hand" Foreground="{DynamicResource LabelTextBrush}" FontSize="12" FontFamily="{DynamicResource IzutoFont}"
-                                                                Style="{DynamicResource ColorPickerStyle1}"
-                                                              />
+                                        <controls:ColorPickerButton x:Name="ColorInactiveText" Grid.Row="3" Grid.Column="3" SelectedColorChanged="Color_SelectedColorChanged" PreviewSelectedColorChanged="Color_PreviewSelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorInactiveText}" EnableAlphaChannel="False"
+                                                              Width="25" Height="25" Cursor="Hand" />
 
-                                        <Label Content="Positive Currency Colour" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
-                                        <xctk:ColorPicker x:Name="ColorPositiveText" Grid.Row="4" Grid.Column="3" SelectedColorChanged="color_SelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorPositiveText}" DisplayColorAndName="False" 
-                                                              Width="32" ShowTabHeaders="False" ShowDropDownButton="False" Cursor="Hand" UsingAlphaChannel="False" Foreground="{DynamicResource LabelTextBrush}" FontSize="12" FontFamily="{DynamicResource IzutoFont}"
-                                                                Style="{DynamicResource ColorPickerStyle1}"
-                                                              />
+                                        <Label Content="Positive Colour" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="2" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
+                                        <controls:ColorPickerButton x:Name="ColorPositiveText" Grid.Row="4" Grid.Column="3" SelectedColorChanged="Color_SelectedColorChanged" PreviewSelectedColorChanged="Color_PreviewSelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorPositiveText}" EnableAlphaChannel="False" 
+                                                              Width="25" Height="25" Cursor="Hand" />
 
-                                        <Label Content="Negative Currency Colour" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
-                                        <xctk:ColorPicker x:Name="ColorNegativeText" Grid.Row="5" Grid.Column="3" SelectedColorChanged="color_SelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorNegativeText}" DisplayColorAndName="False" 
-                                                              Width="32" ShowTabHeaders="False" ShowDropDownButton="False" Cursor="Hand" UsingAlphaChannel="False" Foreground="{DynamicResource LabelTextBrush}" FontSize="12" FontFamily="{DynamicResource IzutoFont}"
-                                                                Style="{DynamicResource ColorPickerStyle1}"
-                                                              />
+                                        <Label Content="Negative Colour" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="2" Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
+                                        <controls:ColorPickerButton x:Name="ColorNegativeText" Grid.Row="5" Grid.Column="3" SelectedColorChanged="Color_SelectedColorChanged" PreviewSelectedColorChanged="Color_PreviewSelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorNegativeText}" EnableAlphaChannel="False" 
+                                                              Width="25" Height="25" Cursor="Hand" />
 
-                                        <Label Content="Control Border Colour" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="4" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
-                                        <xctk:ColorPicker x:Name="ColorControlBorder" Grid.Row="0" Grid.Column="5" SelectedColorChanged="color_SelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorControlBorder}" DisplayColorAndName="False" 
-                                                              Width="32" ShowTabHeaders="False" ShowDropDownButton="False" Cursor="Hand" Foreground="{DynamicResource LabelTextBrush}" FontSize="12" FontFamily="{DynamicResource IzutoFont}"
-                                                                Style="{DynamicResource ColorPickerStyle1}"
-                                                              />
+                                        <Label Content="Border Colour" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="4" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
+                                        <controls:ColorPickerButton x:Name="ColorControlBorder" Grid.Row="0" Grid.Column="5" SelectedColorChanged="Color_SelectedColorChanged" PreviewSelectedColorChanged="Color_PreviewSelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorControlBorder}" 
+                                                              Width="25" Height="25" Cursor="Hand" />
 
-                                        <Label Content="Control Border Active Colour" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
-                                        <xctk:ColorPicker x:Name="ColorControlHighlightBorder" Grid.Row="1" Grid.Column="5" SelectedColorChanged="color_SelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorControlHighlightBorder}" DisplayColorAndName="False" 
-                                                              Width="32" ShowTabHeaders="False" ShowDropDownButton="False" Cursor="Hand" Foreground="{DynamicResource LabelTextBrush}" FontSize="12" FontFamily="{DynamicResource IzutoFont}"
-                                                                Style="{DynamicResource ColorPickerStyle1}"
-                                                              />
+                                        <Label Content="Border Active Colour" Foreground="{DynamicResource LabelTextBrush}" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="12" FontFamily="{DynamicResource IzutoFont}" />
+                                        <controls:ColorPickerButton x:Name="ColorControlHighlightBorder" Grid.Row="1" Grid.Column="5" SelectedColorChanged="Color_SelectedColorChanged" PreviewSelectedColorChanged="Color_PreviewSelectedColorChanged" Margin="0,2,0,2" SelectedColor="{DynamicResource ColorControlHighlightBorder}"
+                                                              Width="25" Height="25" Cursor="Hand" />
                                     </Grid>
                                 </GroupBox>
                             </DockPanel>
@@ -215,7 +188,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <Button x:Name="btnSaveTheme" Height="25" HorizontalAlignment="Left" Cursor="Hand" Grid.Row="0" Style="{DynamicResource ButtonStyleText}" Click="btnSaveTheme_Click" Content="Save Theme To Collection" FontSize="12" />
+                                <Button x:Name="btnSaveTheme" Height="27" HorizontalAlignment="Left" Cursor="Hand" Grid.Row="0" Style="{DynamicResource ButtonStyleText}" Click="btnSaveTheme_Click" Content="Save Theme To Collection" FontSize="12" />
                             </Grid>
                         </Grid>
 
@@ -226,12 +199,8 @@
 
             <StackPanel x:Name="buttons" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
                 <Grid HorizontalAlignment="Right">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="27"/>
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Button x:Name="btnAccept" Width="25" Height="25" HorizontalAlignment="Right" Cursor="Hand" Grid.Column="0" Style="{DynamicResource ButtonStyleImage}" Click="btnAccept_Click">
-                        <Image HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Source="/Resources/accept_green.png" Width="16" Height="16"/>
+                    <Button x:Name="btnAccept" Style="{DynamicResource PopUpAcceptButtonStyle}" Click="btnAccept_Click">
+                        
                     </Button>
                 </Grid>
             </StackPanel>

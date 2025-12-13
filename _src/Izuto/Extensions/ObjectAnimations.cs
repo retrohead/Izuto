@@ -1,4 +1,5 @@
 ﻿using Izuto;
+using Izuto.Extensions;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -244,7 +245,7 @@ public class objectAnimations
 
     public static void panelAppear(ref MainWindow? mainFrm, object? obj, bool blockFormActions, dynamic onCompleteFunctionObj, Action onCompleteFunctionDelegate, object onCompleteFunctionParams, dynamic delayCompleteFunctionObj, Action delayCompleteFunctionDelegate, object delayCompleteFunctionParams)
     {
-        prepareAppear(ref mainFrm, obj, (animSpeed)Izuto.Properties.Settings.Default.AnimationSpeed, blockFormActions, onCompleteFunctionObj, onCompleteFunctionDelegate, onCompleteFunctionParams);
+        prepareAppear(ref mainFrm, obj, (animSpeed)SettingsManager.Settings.AnimationSpeed, blockFormActions, onCompleteFunctionObj, onCompleteFunctionDelegate, onCompleteFunctionParams);
 
         if (MainWindow.objectAnim != null)
         {
@@ -258,7 +259,7 @@ public class objectAnimations
 
     public static void makeAppear(ref MainWindow mainFrm, dynamic? obj, bool blockFormActions, dynamic? onCompleteFunctionObj, Action onCompleteFunctionDelegate, object? onCompleteFunctionParams = null, double animSpeedMulitpler = 1)
     {
-        animSpeed animSpeed = (animSpeed)Izuto.Properties.Settings.Default.AnimationSpeed;
+        animSpeed animSpeed = (animSpeed)SettingsManager.Settings.AnimationSpeed;
         prepareAppear(ref mainFrm, obj, animSpeed,  blockFormActions, onCompleteFunctionObj, onCompleteFunctionDelegate, onCompleteFunctionParams, animSpeedMulitpler);
         MainWindow.objectAnim?.run();
     }
@@ -281,7 +282,7 @@ public class objectAnimations
         }
         obj.Opacity = 1;
         obj.Visibility = Visibility.Visible;
-        animSpeed animSpeed = (animSpeed)Izuto.Properties.Settings.Default.AnimationSpeed;
+        animSpeed animSpeed = (animSpeed)SettingsManager.Settings.AnimationSpeed;
         MainWindow.objectAnim = new objectAnimations(mainFrm, obj, animTypes.disappear, animSpeed, blockFormActions, onCompleteFunctionObj, onCompleteFunctionDelegate, onCompleteFunctionParams, animSpeedMulitpler);
         MainWindow.objectAnim.run();
     }

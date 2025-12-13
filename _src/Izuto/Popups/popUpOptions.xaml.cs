@@ -8,6 +8,8 @@ using Microsoft.VisualBasic;
 using System.ComponentModel;
 using System.Windows.Media;
 using Izuto.Extensions;
+using Izuto.DockManager;
+using Izuto.UI;
 
 namespace Izuto
 {
@@ -57,7 +59,7 @@ namespace Izuto
             comboAnimationSpeedData.Items.Add(new comboData("Instant", ((int)objectAnimations.animSpeed.instant).ToString()));
             comboAnimationSpeed.DataContext = comboAnimationSpeedData;
 
-            int index = Properties.Settings.Default.AnimationSpeed;
+            int index = SettingsManager.Settings.AnimationSpeed;
             comboAnimationSpeedData.SelectedComboItem = comboAnimationSpeedData.Items[index];
             comboAnimationSpeed.DataContext = comboAnimationSpeedData;
             initialanimSpeed = index;
@@ -119,7 +121,6 @@ namespace Izuto
             item.SubItems.Add(new listViewColumnDataType(item, themeFile._createdon));
             return item;
         }
-
 
         private void bgWorkLoadThemes_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -240,15 +241,8 @@ namespace Izuto
 
         private void fieldWasChanged(object o)
         {
-            if ((popUpObj.IsOpen & popUpObj.panelPopupContentPanel.Opacity == 1))
+            if ((popUpObj.IsOpen & popUpObj.window.panelPopupContentPanel.Opacity == 1))
                 changesMade = true;
-        }
-        private void color_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
-        {
-            if ((e.NewValue == null))
-                return;
-            Theme.overwriteResource(mainWindow, ((dynamic)sender).Name, e.NewValue.ToString());
-            fieldWasChanged(sender);
         }
 
         private void applyListViewTheme(object sender)
@@ -270,6 +264,8 @@ namespace Izuto
                 ColorControlHighlightBorder.SelectedColor = (Color)ColorConverter.ConvertFromString(themeFile._themeColors.ColorControlHighlightBorder);
                 ColorPositiveText.SelectedColor = (Color)ColorConverter.ConvertFromString(themeFile._themeColors.ColorPositiveText);
                 ColorNegativeText.SelectedColor = (Color)ColorConverter.ConvertFromString(themeFile._themeColors.ColorNegativeText);
+
+                DockHandler.ApplyThemeColorsToOpenWindows(Theme.getThemeColorsFromWindowResources(mainWindow));
             }
             catch
             {
@@ -288,9 +284,6 @@ namespace Izuto
                 fieldWasChanged(sender);
             }
         }
-
-
-
 
         private void lstThemesColumn_Click(object sender, RoutedEventArgs e)
         {
@@ -470,9 +463,10 @@ namespace Izuto
         {
             if ((mainWindow.canLoseChanges(this) == false))
                 return;
-            Properties.Settings.Default.AnimationSpeed = initialanimSpeed;
+            SettingsManager.Settings.AnimationSpeed = initialanimSpeed;
             changesMade = false;
             Theme.applyTheme(mainWindow);
+            DockHandler.ApplyThemeColorsToOpenWindows(Theme.getThemeColorsFromWindowResources(mainWindow));
             popUpObj.closePopUp(null, null);
         }
         private void setThemeEditorAsSelectedTheme()
@@ -497,7 +491,7 @@ namespace Izuto
         {
             setThemeEditorAsSelectedTheme();
 
-            Properties.Settings.Default.AnimationSpeed = int.Parse(comboAnimationSpeedData.SelectedComboItem.Value);
+            SettingsManager.Settings.AnimationSpeed = int.Parse(comboAnimationSpeedData.SelectedComboItem.Value);
             popUpObj.closePopUp(fadeCompleted, null);
         }
 
@@ -526,27 +520,39 @@ namespace Izuto
             Theme.selectedTheme = Theme.loadedTheme;
 
             Theme.selectedTheme = -1; // this is no longer needed once the user has saved their own custom colours, reset to dark theme
-            Properties.Settings.Default.SelectedTheme = Theme.selectedTheme;
-            Properties.Settings.Default.ThemeColours = selectedThemeColoursString();
-            Properties.Settings.Default.Save();
+            SettingsManager.Settings.SelectedTheme = Theme.selectedTheme;
+            SettingsManager.Settings.ThemeColours = selectedThemeColoursString();
+            SettingsManager.Save();
         }
 
         private void btnTestAnimations_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.AnimationSpeed = int.Parse(comboAnimationSpeedData.SelectedComboItem.Value);
+            SettingsManager.Settings.AnimationSpeed = int.Parse(comboAnimationSpeedData.SelectedComboItem.Value);
             mainWindow.enablePopUp(false);
-            objectAnimations.makeDisappear(mainWindow, popUpObj.panelPopupContentPanel, false, this, testAnim_FadeOut_Completed);
+            objectAnimations.makeDisappear(mainWindow, popUpObj.window, false, this, testAnim_FadeOut_Completed);
         }
 
         private void testAnim_FadeOut_Completed()
         {
-            objectAnimations.makeAppear(ref mainWindow, popUpObj.panelPopupContentPanel, false, this, testAnim_Completed);
+            objectAnimations.makeAppear(ref mainWindow, popUpObj.window, false, this, testAnim_Completed);
         }
 
         private void testAnim_Completed()
         {
             mainWindow.enablePopUp(true);
-            Properties.Settings.Default.AnimationSpeed = initialanimSpeed;
+            SettingsManager.Settings.AnimationSpeed = initialanimSpeed;
+        }
+
+        private void Color_SelectedColorChanged(object sender, Controls.ColorPicker.ColorChangedEventArgs e)
+        {
+            Theme.overwriteResource(mainWindow, ((dynamic)sender).Name, e.SelectedColor.ToString());
+            fieldWasChanged(sender);
+        }
+
+        private void Color_PreviewSelectedColorChanged(object sender, Controls.ColorPicker.ColorChangedEventArgs e)
+        {
+            Theme.overwriteResource(mainWindow, ((dynamic)sender).Name, e.SelectedColor.ToString());
+            DockHandler.ApplyThemeColorsToOpenWindows(Theme.getThemeColorsFromWindowResources(mainWindow));
         }
     }
 

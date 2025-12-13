@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
 using Izuto;
+using Izuto.UI;
 
 public class Theme
 {
@@ -43,25 +44,31 @@ public class Theme
 
     public static ThemeColorsType selectedThemeColours = new ThemeColorsType();
     public static List<ThemeColorsType> defaultThemeColours = new List<ThemeColorsType>();
-    public static void initTheme(MainWindow mainFrm)
+
+    public static ThemeColorsType getThemeColorsFromWindowResources(Control window)
+    {
+        ThemeColorsType themeColours = new ThemeColorsType();
+        themeColours.ColorDark = getResourceVal(window, "ColorDark");
+        themeColours.ColorMedium = getResourceVal(window, "ColorMedium");
+        themeColours.ColorLight = getResourceVal(window, "ColorLight");
+        themeColours.ColorPanelAlpha = getResourceVal(window, "ColorPanelAlpha");
+        themeColours.ColorSelected = getResourceVal(window, "ColorSelected");
+        themeColours.ColorHighlight = getResourceVal(window, "ColorHighlight");
+        themeColours.ColorHeaderText = getResourceVal(window, "ColorHeaderText");
+        themeColours.ColorLabelText = getResourceVal(window, "ColorLabelText");
+        themeColours.ColorActiveText = getResourceVal(window, "ColorActiveText");
+        themeColours.ColorInactiveText = getResourceVal(window, "ColorInactiveText");
+        themeColours.ColorControlBorder = getResourceVal(window, "ColorControlBorder");
+        themeColours.ColorControlHighlightBorder = getResourceVal(window, "ColorControlHighlightBorder");
+        themeColours.ColorPositiveText = getResourceVal(window, "ColorPositiveText");
+        themeColours.ColorNegativeText = getResourceVal(window, "ColorNegativeText");
+        return themeColours;
+    }
+
+    public static void initTheme(Window mainFrm)
     {
         // standard theme
-        ThemeColorsType themeColour = new ThemeColorsType();
-        themeColour.ColorDark = getResourceVal(mainFrm, "ColorDark");
-        themeColour.ColorMedium = getResourceVal(mainFrm, "ColorMedium");
-        themeColour.ColorLight = getResourceVal(mainFrm, "ColorLight");
-        themeColour.ColorPanelAlpha = getResourceVal(mainFrm, "ColorPanelAlpha");
-        themeColour.ColorSelected = getResourceVal(mainFrm, "ColorSelected");
-        themeColour.ColorHighlight = getResourceVal(mainFrm, "ColorHighlight");
-        themeColour.ColorHeaderText = getResourceVal(mainFrm, "ColorHeaderText");
-        themeColour.ColorLabelText = getResourceVal(mainFrm, "ColorLabelText");
-        themeColour.ColorActiveText = getResourceVal(mainFrm, "ColorActiveText");
-        themeColour.ColorInactiveText = getResourceVal(mainFrm, "ColorInactiveText");
-        themeColour.ColorControlBorder = getResourceVal(mainFrm, "ColorControlBorder");
-        themeColour.ColorControlHighlightBorder = getResourceVal(mainFrm, "ColorControlHighlightBorder");
-        themeColour.ColorPositiveText = getResourceVal(mainFrm, "ColorPositiveText");
-        themeColour.ColorNegativeText = getResourceVal(mainFrm, "ColorNegativeText");
-        defaultThemeColours.Add(themeColour);
+        defaultThemeColours.Add(getThemeColorsFromWindowResources(mainFrm));
 
         // dark theme
         ThemeColorsType themeColour1 = new ThemeColorsType();
@@ -69,8 +76,8 @@ public class Theme
         themeColour1.ColorMedium = "#FF2D2C2C";
         themeColour1.ColorLight = "#FF383838";
         themeColour1.ColorPanelAlpha = "#44000000";
-        themeColour1.ColorSelected = "#FF12356A";
-        themeColour1.ColorHighlight = "#830F3C80";
+        themeColour1.ColorSelected = "#FF568C37";
+        themeColour1.ColorHighlight = "#9F568C37";
         themeColour1.ColorHeaderText = "#E6E6E6";
         themeColour1.ColorLabelText = "#C4C4C4";
         themeColour1.ColorActiveText = "#E6E6E6";
@@ -134,44 +141,62 @@ public class Theme
         selectedThemeColours.ColorPositiveText = defaultTheme.ColorPositiveText;
         selectedThemeColours.ColorNegativeText = defaultTheme.ColorNegativeText;
     }
-    public static string getResourceVal(dynamic? obj, string name)
+    public static string getResourceVal(Control? control, string name)
     {
-        ResourceDictionary? res = obj?.Resources;
+        ResourceDictionary? res = control?.Resources;
         return res?[name].ToString() ?? "";
     }
 
-    public static void overwriteResource(dynamic obj, string name, string? value)
+    public static void overwriteResource(Control control, string name, string? value)
     {
-        ResourceDictionary res = obj.Resources;
+        if (value == "")
+            return;
+        ResourceDictionary res = control.Resources;
         res[name] = ColorConverter.ConvertFromString(value);
     }
 
-    public static void loadTheme(dynamic obj, string themeFile)
+    public static void loadTheme(Window window, string themeFile)
     {
         Uri Uri = new Uri("/Izuto;component/Resources/Themes/" + themeFile, UriKind.Relative);
         ResourceDictionary rs;
         rs = (ResourceDictionary)Application.LoadComponent(Uri);
-        obj.Resources.MergedDictionaries.Add(rs);
+        window.Resources.MergedDictionaries.Add(rs);
     }
 
-    public static void applyTheme(object? obj)
+    public static void applyThemeColors(Window window, ThemeColorsType themeColours)
     {
-        if (obj == null)
-            return;
-        overwriteResource(obj, "ColorDark", selectedThemeColours.ColorDark);
-        overwriteResource(obj, "ColorMedium", selectedThemeColours.ColorMedium);
-        overwriteResource(obj, "ColorLight", selectedThemeColours.ColorLight);
-        overwriteResource(obj, "ColorPanelAlpha", selectedThemeColours.ColorPanelAlpha);
-        overwriteResource(obj, "ColorSelected", selectedThemeColours.ColorSelected);
-        overwriteResource(obj, "ColorHighlight", selectedThemeColours.ColorHighlight);
-        overwriteResource(obj, "ColorHeaderText", selectedThemeColours.ColorHeaderText);
-        overwriteResource(obj, "ColorLabelText", selectedThemeColours.ColorLabelText);
-        overwriteResource(obj, "ColorActiveText", selectedThemeColours.ColorActiveText);
-        overwriteResource(obj, "ColorInactiveText", selectedThemeColours.ColorInactiveText);
-        overwriteResource(obj, "ColorControlBorder", selectedThemeColours.ColorControlBorder);
-        overwriteResource(obj, "ColorControlHighlightBorder", selectedThemeColours.ColorControlHighlightBorder);
-        overwriteResource(obj, "ColorPositiveText", selectedThemeColours.ColorPositiveText);
-        overwriteResource(obj, "ColorNegativeText", selectedThemeColours.ColorNegativeText);
+        overwriteResource(window, "ColorDark", themeColours.ColorDark);
+        overwriteResource(window, "ColorMedium", themeColours.ColorMedium);
+        overwriteResource(window, "ColorLight", themeColours.ColorLight);
+        overwriteResource(window, "ColorPanelAlpha", themeColours.ColorPanelAlpha);
+        overwriteResource(window, "ColorSelected", themeColours.ColorSelected);
+        overwriteResource(window, "ColorHighlight", themeColours.ColorHighlight);
+        overwriteResource(window, "ColorHeaderText", themeColours.ColorHeaderText);
+        overwriteResource(window, "ColorLabelText", themeColours.ColorLabelText);
+        overwriteResource(window, "ColorActiveText", themeColours.ColorActiveText);
+        overwriteResource(window, "ColorInactiveText", themeColours.ColorInactiveText);
+        overwriteResource(window, "ColorControlBorder", themeColours.ColorControlBorder);
+        overwriteResource(window, "ColorControlHighlightBorder", themeColours.ColorControlHighlightBorder);
+        overwriteResource(window, "ColorPositiveText", themeColours.ColorPositiveText);
+        overwriteResource(window, "ColorNegativeText", themeColours.ColorNegativeText);
+    }
+
+    public static void applyTheme(Control control)
+    {
+        overwriteResource(control, "ColorDark", selectedThemeColours.ColorDark);
+        overwriteResource(control, "ColorMedium", selectedThemeColours.ColorMedium);
+        overwriteResource(control, "ColorLight", selectedThemeColours.ColorLight);
+        overwriteResource(control, "ColorPanelAlpha", selectedThemeColours.ColorPanelAlpha);
+        overwriteResource(control, "ColorSelected", selectedThemeColours.ColorSelected);
+        overwriteResource(control, "ColorHighlight", selectedThemeColours.ColorHighlight);
+        overwriteResource(control, "ColorHeaderText", selectedThemeColours.ColorHeaderText);
+        overwriteResource(control, "ColorLabelText", selectedThemeColours.ColorLabelText);
+        overwriteResource(control, "ColorActiveText", selectedThemeColours.ColorActiveText);
+        overwriteResource(control, "ColorInactiveText", selectedThemeColours.ColorInactiveText);
+        overwriteResource(control, "ColorControlBorder", selectedThemeColours.ColorControlBorder);
+        overwriteResource(control, "ColorControlHighlightBorder", selectedThemeColours.ColorControlHighlightBorder);
+        overwriteResource(control, "ColorPositiveText", selectedThemeColours.ColorPositiveText);
+        overwriteResource(control, "ColorNegativeText", selectedThemeColours.ColorNegativeText);
     }
 
 

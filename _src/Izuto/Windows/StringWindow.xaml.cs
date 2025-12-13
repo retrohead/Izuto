@@ -1,4 +1,5 @@
-﻿using Izuto.Extensions;
+﻿using Izuto.DockManager;
+using Izuto.Extensions;
 using Izuto.UI;
 using System;
 using System.Collections.Generic;
@@ -19,24 +20,20 @@ namespace Izuto
     /// <summary>
     /// Interaction logic for PKBForm.xaml
     /// </summary>
-    public partial class StringWindow : Window
+    public partial class StringWindow : CustomWindowContentBase
     {
         public string ModifiedString { get; private set; } = "";
         string OriginalString;
         public StringWindow(string StringToMomdify, string searchForString = "")
         {
             InitializeComponent();
-
-            Theme.loadTheme(this, "Theme_00.xaml");
-            Theme.loadTheme(this, "Theme_Templates.xaml");
-            Theme.applyTheme(this);
             this.OriginalString = StringToMomdify;
             UpdateText();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            DarkTitleBar.Apply(this);
+            Title = "Izuto String Editor";
         }
         private void UpdateText()
         {

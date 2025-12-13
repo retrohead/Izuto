@@ -179,6 +179,10 @@ namespace Izuto
 
         public void Thumb_DragDelta(object sender, DragCompletedEventArgs e)
         {
+            if (sender.GetType() != typeof(Thumb))
+                return;
+            if (((Thumb)sender).GetType() != typeof(GridViewColumnHeader))
+                return;
             GridViewColumnHeader header = (GridViewColumnHeader)((Thumb)sender).TemplatedParent;
             if ((header.Column.ActualWidth < 30))
                 header.Column.Width = 30;

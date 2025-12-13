@@ -1,30 +1,22 @@
 ﻿using Ekona;
+using Izuto.Controls;
+using Izuto.DockManager;
 using Izuto.Extensions;
 using Izuto.UI;
 using Microsoft.Win32;
 using plugin_level5.N3DS.Archive;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using static Izuto.UI.UI_MainWindow;
 
 namespace Izuto
 {
     /// <summary>
     /// Interaction logic for PKBForm.xaml
     /// </summary>
-    public partial class PKBWindow : Window
+    public partial class PKBWindow : CustomWindowContentBase
     {
         PKB.FileEntry PKBFileInfo;
         B123ArchiveFile SourceArchiveFile;
@@ -36,10 +28,6 @@ namespace Izuto
         public PKBWindow(PKB.FileEntry PKBFileInfo, B123ArchiveFile SourceArchiveFile)
         {
             InitializeComponent();
-
-            Theme.loadTheme(this, "Theme_00.xaml");
-            Theme.loadTheme(this, "Theme_Templates.xaml");
-            Theme.applyTheme(this);
             this.PKBFileInfo = PKBFileInfo;
             this.SourceArchiveFile = SourceArchiveFile;
             UI_MainWindow.QueuedImports.Clear();
@@ -49,7 +37,7 @@ namespace Izuto
 
         private void Window_Loaded(object sender, RoutedEventArgs? e)
         {
-            DarkTitleBar.Apply(this);
+            Title = "Izuto PKB Browser";
             textPKBPath.Text = SourceArchiveFile.FilePath.FullName;
             pkbContentsList.Items = new System.Collections.ObjectModel.ObservableCollection<listViewItemDataType>();
             // disconnect event from the list while updating
@@ -65,7 +53,7 @@ namespace Izuto
                 pkbitem.SubItems.Add(new listViewColumnDataType(pkbitem, file.size.ToString()));
                 pkbitem.SubItems.Add(new listViewColumnDataType(pkbitem, MainWindow.BytesToHexString(PKBFileInfo.PKBContents.Identifiers[i].ID, "")));
                 pkbitem.SubItems.Add(new listViewColumnDataType(pkbitem, PKBFileInfo.PKBContents.Identifiers[i].subID.ToString()));
-                if (Properties.Settings.Default.LastLoadedPAC == file.name)
+                if (SettingsManager.Settings.LastLoadedPAC == file.name)
                     pkbContentsList.SelectedListItem = pkbitem;
 
                 pkbContentsList.AddItem(pkbitem);
@@ -101,26 +89,29 @@ namespace Izuto
             double top = -1;
             if (pacform != null)
             {
-                left = pacform.Left;
-                top = pacform.Top;
+                left = pacform.Window.Left;
+                top = pacform.Window.Top;
                 pacform.Close();
             }
+            CustomWindow win = new CustomWindow(Window, new CustomWindowOptions() { WindowType = CustomWindow.WindowTypes.Resizable });
             pacform = new PACWindow(this, PKBFileInfo, PACFileInfo, SourceArchiveFile);
             if (left != -1)
             {
-                pacform.WindowStartupLocation = WindowStartupLocation.Manual;
-                pacform.Left = left;
-                pacform.Top = top;
+                win.WindowStartupLocation = WindowStartupLocation.Manual;
+                win.Left = left;
+                win.Top = top;
             }
             else
             {
-                pacform.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             }
-            pacform.Owner = this;
-            Properties.Settings.Default.LastLoadedPAC = file.name;
-            Properties.Settings.Default.Save();
-            pacform.Show();
-            this.Activate();
+            SettingsManager.Settings.LastLoadedPAC = file.name;
+            SettingsManager.Save();
+
+            win.ApplyContent(pacform);
+            win.Loaded += UI_MainWindow.CustomWindow_Loaded;
+            win.ShowDialog();
+            win.Activate();
         }
 
         public async Task ImportModifiedFile()

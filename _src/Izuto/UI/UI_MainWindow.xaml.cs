@@ -1,7 +1,10 @@
 ﻿using Izuto;
+using Izuto.Controls;
+using Izuto.DockManager;
 using Izuto.Extensions;
 using Microsoft.Win32;
 using plugin_level5.N3DS.Archive;
+using SevenZip.Compression.LZ;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -136,7 +139,7 @@ namespace Izuto.UI
                 RestoreDirectory = true
             };
 
-            if (openFileDialog.ShowDialog(MainWindow.Self) == true)
+            if (openFileDialog.ShowDialog(MainWindow.Self.Window) == true)
             {
                 filePath = openFileDialog.FileName;
             }
@@ -156,7 +159,7 @@ namespace Izuto.UI
                 Title = description,
             };
 
-            if (folderDialog.ShowDialog(MainWindow.Self) == true)
+            if (folderDialog.ShowDialog(MainWindow.Self.Window) == true)
             {
                 folderPath = folderDialog.FolderName;
             }
@@ -239,10 +242,15 @@ namespace Izuto.UI
             //---------------
             // OPENING FORM
             //---------------
+
+            CustomWindow win = DockHandler.CreateCustomWindow(MainWindow.Self.Window, new CustomWindowOptions() { WindowType = CustomWindow.WindowTypes.Resizable });
+            win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
             PKBWindow pkbform = new PKBWindow(pkbFileData, file);
-            pkbform.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            pkbform.Owner = MainWindow.Self;
-            pkbform.ShowDialog();
+            win.ApplyContent(pkbform);
+            win.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            win.Loaded += CustomWindow_Loaded;
+            win.ShowDialog();
             if (pkbform.DialogResult == false || doNotSave) return;
 
             await Task.Run(async ()=>
@@ -306,6 +314,12 @@ namespace Izuto.UI
             MainWindow.Self.updateProgress(value, maxValue);
             MainWindow.Self.enableForm(false);
         }
+        public static void CustomWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            Theme.initTheme((Window)sender!);
+            Theme.applyCustomTheme(SettingsManager.Settings.SelectedTheme, SettingsManager.Settings.ThemeColours);
+            DockHandler.ApplyThemeColorsToOpenWindows(Theme.getThemeColorsFromWindowResources(MainWindow.Self!));
+        }
 
         public void EndProgressUpdates()
         {
@@ -315,21 +329,21 @@ namespace Izuto.UI
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.OptionsFilePath))
+            if (!string.IsNullOrEmpty(SettingsManager.Settings.OptionsFilePath))
             {
-                if (!File.Exists(Properties.Settings.Default.OptionsFilePath))
+                if (!File.Exists(SettingsManager.Settings.OptionsFilePath))
                 {
-                    MessageBox.Show("Failed to load options, the file no longer exists\n\n:" + Properties.Settings.Default.OptionsFilePath, "Options File Error", MessageBoxButton.OK,  MessageBoxImage.Warning);
-                    Properties.Settings.Default.OptionsFilePath = "";
-                    Properties.Settings.Default.Save();
+                    MessageBox.Show("Failed to load options, the file no longer exists\n\n:" + SettingsManager.Settings.OptionsFilePath, "Options File Error", MessageBoxButton.OK,  MessageBoxImage.Warning);
+                    SettingsManager.Settings.OptionsFilePath = "";
+                    SettingsManager.Save();
                 }
                 else
                 {
-                    if (!OptionsFile.Load(Properties.Settings.Default.OptionsFilePath))
+                    if (!OptionsFile.Load(SettingsManager.Settings.OptionsFilePath))
                     {
-                        MessageBox.Show("The options file appears to be corrupted\n\n:" + Properties.Settings.Default.OptionsFilePath, "Options File Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        Properties.Settings.Default.OptionsFilePath = "";
-                        Properties.Settings.Default.Save();
+                        MessageBox.Show("The options file appears to be corrupted\n\n:" + SettingsManager.Settings.OptionsFilePath, "Options File Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        SettingsManager.Settings.OptionsFilePath = "";
+                        SettingsManager.Save();
                     }
                 }
             }
@@ -461,10 +475,11 @@ namespace Izuto.UI
 
         private void MenutItem_Settings_Click(object sender, RoutedEventArgs e)
         {
-            OptionsWindow optionsForm = new OptionsWindow();
-            optionsForm.Owner = MainWindow.Self;
-            optionsForm.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            optionsForm.ShowDialog();
+            CustomWindow win = DockHandler.CreateCustomWindow(MainWindow.Self.Window, new CustomWindowOptions() { WindowType = CustomWindow.WindowTypes.Resizable });
+            win.ApplyContent(new OptionsWindow());
+            win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            win.Loaded += CustomWindow_Loaded;
+            win.ShowDialog();
         }
 
         private void MenutItem_Theme_Click(object sender, RoutedEventArgs e)
@@ -476,21 +491,21 @@ namespace Izuto.UI
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.OptionsFilePath))
+            if (!string.IsNullOrEmpty(SettingsManager.Settings.OptionsFilePath))
             {
-                if (!File.Exists(Properties.Settings.Default.OptionsFilePath))
+                if (!File.Exists(SettingsManager.Settings.OptionsFilePath))
                 {
-                    MessageBox.Show("Failed to load options, the file no longer exists\n\n:" + Properties.Settings.Default.OptionsFilePath, "Options File Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    Properties.Settings.Default.OptionsFilePath = "";
-                    Properties.Settings.Default.Save();
+                    MessageBox.Show("Failed to load options, the file no longer exists\n\n:" + SettingsManager.Settings.OptionsFilePath, "Options File Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    SettingsManager.Settings.OptionsFilePath = "";
+                    SettingsManager.Save();
                 }
                 else
                 {
-                    if (!OptionsFile.Load(Properties.Settings.Default.OptionsFilePath))
+                    if (!OptionsFile.Load(SettingsManager.Settings.OptionsFilePath))
                     {
-                        MessageBox.Show("The options file appears to be corrupted\n\n:" + Properties.Settings.Default.OptionsFilePath, "Options File Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                        Properties.Settings.Default.OptionsFilePath = "";
-                        Properties.Settings.Default.Save();
+                        MessageBox.Show("The options file appears to be corrupted\n\n:" + SettingsManager.Settings.OptionsFilePath, "Options File Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        SettingsManager.Settings.OptionsFilePath = "";
+                        SettingsManager.Save();
                     }
                 }
             }

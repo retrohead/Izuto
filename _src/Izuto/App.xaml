@@ -4,7 +4,7 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:local="clr-namespace:Izuto"
              xmlns:Themes="clr-namespace:Xceed.Wpf.Toolkit.Themes;assembly=Xceed.Wpf.Toolkit"
-             StartupUri="MainWindow.xaml">
+             StartupUri="HiddenWindow.xaml">
     <Application.Resources>
         <Style TargetType="Thumb">
             <EventSetter Event="DragCompleted" Handler="Thumb_DragDelta"/>

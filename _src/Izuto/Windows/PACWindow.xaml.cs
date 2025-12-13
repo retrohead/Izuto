@@ -1,4 +1,6 @@
 ﻿using Ekona;
+using Izuto.Controls;
+using Izuto.DockManager;
 using Izuto.Extensions;
 using Izuto.UI;
 using Microsoft.Win32;
@@ -27,7 +29,7 @@ namespace Izuto
     /// <summary>
     /// Interaction logic for PKBForm.xaml
     /// </summary>
-    public partial class PACWindow : Window
+    public partial class PACWindow : CustomWindowContentBase
     {
         PKB.FileEntry PKBFileInfo;
         PKB.FileEntry PACFileInfo;
@@ -45,10 +47,6 @@ namespace Izuto
         public PACWindow(PKBWindow? pkbForm, PKB.FileEntry PKBFileInfo, PKB.FileEntry PACFileInfo, B123ArchiveFile SourceArchiveFile, LinkedScriptEntry? LinkedScript = null)
         {
             InitializeComponent();
-
-            Theme.loadTheme(this, "Theme_00.xaml");
-            Theme.loadTheme(this, "Theme_Templates.xaml");
-            Theme.applyTheme(this);
             this.SourceArchiveFile = SourceArchiveFile;
             this.PKBFileInfo = PKBFileInfo;
             this.PACFileInfo = PACFileInfo;
@@ -66,15 +64,14 @@ namespace Izuto
             var pacItem = PKBFileInfo.PKBContents.FolderContents.files.FirstOrDefault(f => f.name.Equals(PACFileInfo.FileData.name.Replace("_decompressed", "")));
             var pacItemIndex = PKBFileInfo.PKBContents.FolderContents.files.IndexOf(pacItem);
             LoadedPACID = MainWindow.BytesToHexString(PKBFileInfo.PKBContents.Identifiers[pacItemIndex].ID);
-            Title += $" ({LoadedPACID})";
-
-            if (LinkedScript != null)
-                Title += " [Linked]";
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs? e)
         {
-            DarkTitleBar.Apply(this);
+            Title = "Izuto PAC Browser";
+            Title += $" ({LoadedPACID})";
+            if (LinkedScript != null)
+                Title += " [Linked]";
 
             PACData = new PAC();
             if (!PACData.Load(PACFileInfo.FileData.path))
@@ -242,7 +239,7 @@ namespace Izuto
         {
 
             if (listViewLinkedScripts.SelectedItems.Count == 0) return;
-            listViewItemDataType? selectedItem = (listViewItemDataType?)listViewTextScripts.SelectedItems[0];
+            listViewItemDataType? selectedItem = (listViewItemDataType?)listViewLinkedScripts.SelectedItems[0];
             if (selectedItem == null) return;
 
             if (selectedItem.Tag == null) return;
@@ -301,22 +298,27 @@ namespace Izuto
             double top = -1;
             if (linkedTextForm != null)
             {
-                left = linkedTextForm.Left;
-                top = linkedTextForm.Top;
+                left = linkedTextForm.Window.Left;
+                top = linkedTextForm.Window.Top;
                 linkedTextForm.Close();
             }
+            CustomWindow win = new CustomWindow(Window, new CustomWindowOptions() { WindowType = CustomWindow.WindowTypes.Resizable });
             linkedTextForm = new PACWindow(null, textPKBFileData, textPACFileInfo, SourceArchiveFile, linkedEntry);
             if (left != -1)
             {
-                linkedTextForm.Owner = this;
-                linkedTextForm.Left = left;
-                linkedTextForm.Top = top;
+                win.Owner = Window;
+                win.Left = left;
+                win.Top = top;
             }
             else
             {
-                linkedTextForm.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             }
-            linkedTextForm.ShowDialog();
+            win.ApplyContent(linkedTextForm);
+            win.Loaded += UI_MainWindow.CustomWindow_Loaded;
+            win.ShowDialog();
+            win.Activate();
+
             if (linkedTextForm.DialogResult == false) return;
 
 
@@ -359,10 +361,15 @@ namespace Izuto
             int index = ((int?)selectedItem.Tag) ?? -1;
             if (index >= PACData.StringEntries.Count) return;
             PAC.ScriptEntry entry = PACData.StringEntries[index];
+
+            CustomWindow win = new CustomWindow(Window, new CustomWindowOptions() { WindowType = CustomWindow.WindowTypes.Fixed });
             StringWindow stringform = new StringWindow(entry.Text);
-            stringform.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            stringform.Owner = this;
-            stringform.ShowDialog();
+            win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            win.ApplyContent(stringform);
+            win.Loaded += UI_MainWindow.CustomWindow_Loaded;
+            win.ShowDialog();
+            win.Activate();
+
             if (stringform.DialogResult == false) return;
             bool changed = entry.Text != stringform.ModifiedString;
             string newText = stringform.ModifiedString;
@@ -442,10 +449,14 @@ namespace Izuto
             // ask the user how to perform the changes
             PAC SourcePAC = new PAC();
             SourcePAC.Load(SourcePACFileInfo.FileData.path);
+
+            CustomWindow win = new CustomWindow(Window, new CustomWindowOptions() { WindowType = CustomWindow.WindowTypes.Fixed });
             PACStringReplacementOptionsWindow f = new PACStringReplacementOptionsWindow(SourcePAC, PACData);
-            f.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-            f.Owner = this;
-            f.ShowDialog();
+            win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            win.ApplyContent(f);
+            win.Loaded += UI_MainWindow.CustomWindow_Loaded;
+            win.ShowDialog();
+            win.Activate();
             if (f.DialogResult == false) return;
 
             ReplacementOptionsType replacementOptions = f.ReplacementOptions;

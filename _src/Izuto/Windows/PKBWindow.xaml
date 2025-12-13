@@ -1,4 +1,4 @@
-﻿<Window x:Class="Izuto.PKBWindow"
+﻿<dckm:CustomWindowContentBase x:Class="Izuto.PKBWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,11 +6,12 @@
         xmlns:local="clr-namespace:Izuto"
         xmlns:ui="clr-namespace:Izuto.UI"
         xmlns:controls="clr-namespace:Izuto.Controls"
+        xmlns:dckm="clr-namespace:Izuto.DockManager"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Background="{DynamicResource WindowBackgroundBrushDark}"
-        Title="Izuto PKB Browser" Height="519" Width="800" Loaded="Window_Loaded">
+        MinHeight="519" MinWidth="800" Loaded="Window_Loaded">
     <Grid Background="{DynamicResource WindowBackgroundBrushDark}">
         <Grid Margin="10,10,10,10">
             <Grid.RowDefinitions>
@@ -83,4 +84,4 @@
             </Grid>
         </Grid>
     </Grid>
-</Window>
+</dckm:CustomWindowContentBase>

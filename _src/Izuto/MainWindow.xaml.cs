@@ -1,31 +1,23 @@
-﻿using Izuto.Extensions;
+﻿using Izuto.DockManager;
+using Izuto.Extensions;
 using Izuto.UI;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using static Izuto.App;
 
 namespace Izuto
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : CustomWindowContentBase
     {
         public static MainWindow? Self;
         public const string appname = "Izuto";
         public static string appDataPath = "";
-        public const string appver = "2.0.0.0";
+        public const string appver = "2.0.0.1";
         public const string appdeveloper = "retrohead";
         public const string appfirstyear = "2025";
         public static objectAnimations? objectAnim;
@@ -212,7 +204,6 @@ namespace Izuto
 
             // initialize form and load
             InitializeComponent();
-            Title = appname;
 
             lblCopy.DataContext = formFields;
             formFields.Copyright = "Application version " + appver + " ©️ " + appdeveloper + " " + appfirstyear + " - " + DateTime.Now.Year;
@@ -223,22 +214,11 @@ namespace Izuto
             mainProgress.DataContext = formFields;
             queueProgress.DataContext = formFields;
 
-            if (Properties.Settings.Default.FullSize)
+            if (SettingsManager.Settings.FullSize)
                 WindowState = WindowState.Maximized;
 
             updateProgressQueue(0, 0);
             updateProgress(0, 0);
-
-            // Load progress bar
-            lblProgress.DataContext = formFields;
-            formFields.Status = "Initialising";
-
-            mainProgress.DataContext = formFields;
-            queueProgress.DataContext = formFields;
-
-            Theme.initTheme(this);
-            Theme.applyCustomTheme(Properties.Settings.Default.SelectedTheme, Properties.Settings.Default.ThemeColours);
-            Theme.applyTheme(this);
         }
 
         /// <summary>
@@ -246,10 +226,14 @@ namespace Izuto
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        public  void Window_Loaded(object sender, RoutedEventArgs e)
         {
             panelSmallProgress.Visibility = Visibility.Hidden;
-            DarkTitleBar.Apply(this);
+            Title = appname;
+
+
+            Window.StateChanged += Window_StateChanged;
+            Window.Closing += Window_Closing;
         }
 
         /// <summary>
@@ -282,13 +266,13 @@ namespace Izuto
         {
             if (WindowState == WindowState.Maximized)
             {
-                Properties.Settings.Default.FullSize = true;
-                Properties.Settings.Default.Save();
+                SettingsManager.Settings.FullSize = true;
+                SettingsManager.Save();
             }
             else if (WindowState == WindowState.Normal)
             {
-                Properties.Settings.Default.FullSize = false;
-                Properties.Settings.Default.Save();
+                SettingsManager.Settings.FullSize = false;
+                SettingsManager.Save();
             }
         }
 

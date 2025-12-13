@@ -1,4 +1,8 @@
-﻿### Version 2.0.0.0
+﻿### Version 2.0.0.1
+- Theme and app base updated to latest version.
+- Fixed loading linked scripts broke in 2.0.0.0.
+
+### Version 2.0.0.0
 - Ported application to WPF and implemented theming.
 
 ### Version 1.0.1.1
@@ -8,7 +12,7 @@
 - Added remember last PAC file that was opened and reselect it.
 
 ### Version 1.0.0.9
-- Added uncicode code point to text translation page for easier matching with font setup in Fontendo or NintyFont.
+- Added uncicode code point to text translation page for easier matching with font setup in Izuto or NintyFont.
 - Fixed font file.
 - Fixed example settings file.
 

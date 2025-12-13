@@ -1,4 +1,5 @@
-﻿using Izuto.Extensions;
+﻿using Izuto.DockManager;
+using Izuto.Extensions;
 using Izuto.UI;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace Izuto
     /// <summary>
     /// Interaction logic for PKBForm.xaml
     /// </summary>
-    public partial class PACStringReplacementOptionsWindow : Window
+    public partial class PACStringReplacementOptionsWindow : CustomWindowContentBase
     {
         public enum ReplacementPriorityType
         {
@@ -37,10 +38,6 @@ namespace Izuto
         {
             InitializeComponent();
 
-            Theme.loadTheme(this, "Theme_00.xaml");
-            Theme.loadTheme(this, "Theme_Templates.xaml");
-            Theme.applyTheme(this);
-
             textMessage.Text =
             "Everything seems to be going well!" + Environment.NewLine
             + Environment.NewLine
@@ -48,14 +45,14 @@ namespace Izuto
             + Environment.NewLine
             + $"Source String Count: {SourcePAC.StringEntries.FindAll(s => !s.IsLinked).Count()}" + Environment.NewLine
             + $"Loaded File String Count {LoadedPAC.StringEntries.FindAll(s => !s.IsLinked).Count()}";
-            radioSource.IsChecked = Properties.Settings.Default.ImportPACOption == (int)ReplacementPriorityType.Source;
-            textTranslateFile.Text = Properties.Settings.Default.TranslateSourceFilePath;
-            checkTextTranslateSource.IsChecked = !string.IsNullOrEmpty(Properties.Settings.Default.TranslateSourceFilePath);
+            radioSource.IsChecked = SettingsManager.Settings.ImportPACOption == (int)ReplacementPriorityType.Source;
+            textTranslateFile.Text = SettingsManager.Settings.TranslateSourceFilePath;
+            checkTextTranslateSource.IsChecked = !string.IsNullOrEmpty(SettingsManager.Settings.TranslateSourceFilePath);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            DarkTitleBar.Apply(this);
+            Title = "Izuto PAC String Replacement Options";
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -111,9 +108,9 @@ namespace Izuto
                 return;
             }
             textTranslateFile.Text = translateOptionsFile;
-            Properties.Settings.Default.TranslateSourceFilePath = translateOptionsFile;
-            Properties.Settings.Default.ImportPACOption = (int)(radioSource.IsChecked == true ? ReplacementPriorityType.Source : ReplacementPriorityType.LoadedFile);
-            Properties.Settings.Default.Save();
+            SettingsManager.Settings.TranslateSourceFilePath = translateOptionsFile;
+            SettingsManager.Settings.ImportPACOption = (int)(radioSource.IsChecked == true ? ReplacementPriorityType.Source : ReplacementPriorityType.LoadedFile);
+            SettingsManager.Save();
         }
     }
 }
