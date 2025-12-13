@@ -76,8 +76,8 @@ public class Theme
         themeColour1.ColorMedium = "#FF2D2C2C";
         themeColour1.ColorLight = "#FF383838";
         themeColour1.ColorPanelAlpha = "#44000000";
-        themeColour1.ColorSelected = "#FF568C37";
-        themeColour1.ColorHighlight = "#9F568C37";
+        themeColour1.ColorSelected = "#FFAD6C11";
+        themeColour1.ColorHighlight = "#55E09C16";
         themeColour1.ColorHeaderText = "#E6E6E6";
         themeColour1.ColorLabelText = "#C4C4C4";
         themeColour1.ColorActiveText = "#E6E6E6";
