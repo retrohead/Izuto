@@ -2474,12 +2474,34 @@
       ],
       "BytesString": "仞",
       "UnicodeCodePoint": "0x4EDE"
+    },
+    {
+      "Syllable": "In",
+      "BytesInt": [
+        152,
+        192
+      ],
+      "BytesString": "仟",
+      "UnicodeCodePoint": "0x4EDF"
+    },
+    {
+      "Syllable": "rm",
+      "BytesInt": [
+        145,
+        227
+      ],
+      "BytesString": "代",
+      "UnicodeCodePoint": "0x4EE3"
     }
   ],
   "FileReplacements": [
     {
       "PathToReplace": "/font/FONT12.bcfnt",
       "RelativePath": "FONT12.bcfnt"
+    },
+    {
+      "PathToReplace": "/font/FONT8.bcfnt",
+      "RelativePath": "FONT8.bcfnt"
     }
   ]
 }

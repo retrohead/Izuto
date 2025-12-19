@@ -82,5 +82,36 @@ namespace Izuto.Extensions.BinaryTools
                 return (uint)(temp[0] << 24 | temp[1] << 16 | temp[2] << 8 | temp[3]);
             }
         }
+
+        public int ReadNullTerminatedString(Encoding endoding, out string output)
+        {
+            // 1. Read bytes until null terminator
+            List<byte> bytes = new List<byte>();
+            byte b;
+            while ((b = base.ReadByte()) != 0)
+                bytes.Add(b);
+
+            // 2. Convert to ASCII
+            output = endoding.GetString(bytes.ToArray());
+            return bytes.Count() + 1;
+        }
+        public string ReadNullTerminatedString(Encoding encoding)
+        {
+            string str = "";
+            ReadNullTerminatedString(encoding, out str);
+            return str;
+        }
+
+        public string ReadAlignedString(int alignment, Encoding endoding)
+        {
+            string str;
+            int total = ReadNullTerminatedString(endoding, out str);
+
+            // 3. Skip padding to 4-byte alignment
+            long padding = (alignment - (base.BaseStream.Position % alignment)) % alignment;
+            base.BaseStream.Position += padding;
+
+            return str;
+        }
     }
 }

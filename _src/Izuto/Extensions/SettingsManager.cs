@@ -15,6 +15,7 @@ namespace Izuto.Extensions
         public string OptionsFilePath { get; set; } = "";
         public string LastLoadedPAC { get; set; } = "";
         public string TranslateSourceFilePath { get; set; } = "";
+        public string RSAKeysFilePath { get; set; } = "";
     }
     public static class SettingsManager
     {

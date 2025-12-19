@@ -2496,7 +2496,7 @@
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border x:Name="outerborder" BorderBrush="Transparent" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="3">
                         <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" CornerRadius="3">
-                            <ScrollViewer x:Name="PART_ContentHost" Margin="3" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" Style="{DynamicResource TextBoxScrollViewerStyle1}"/>
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="3" Focusable="false" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Style="{DynamicResource TextBoxScrollViewerStyle1}"/>
                         </Border>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -2596,7 +2596,7 @@
                 <Setter Property="Height"
               Value="18" />
                 <Setter Property="Template"
-              Value="{DynamicResource HorizontalScrollBarWithRectangle}" />
+              Value="{DynamicResource HorizontalScrollBar}" />
             </Trigger>
             <Trigger Property="Orientation"
              Value="Vertical">

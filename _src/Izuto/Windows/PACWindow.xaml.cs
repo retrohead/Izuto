@@ -2,6 +2,7 @@
 using Izuto.Controls;
 using Izuto.DockManager;
 using Izuto.Extensions;
+using Izuto.Inazuma11;
 using Izuto.UI;
 using Microsoft.Win32;
 using plugin_level5.N3DS.Archive;
@@ -9,20 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using static Izuto.Inazuma11.PAC;
 using static Izuto.PACStringReplacementOptionsWindow;
-using static PAC;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Izuto
 {
@@ -79,7 +70,10 @@ namespace Izuto
                 Close();
                 return;
             }
-            txtPACFilePath.Text = SourceArchiveFile.FilePath.FullName + ":" + PACFileInfo.FileData.name.Replace("_decompressed", "");
+            if(SourceArchiveFile == null)
+                txtPACFilePath.Text = PACFileInfo.FileData.path.Replace("_decompressed", "");
+            else
+                txtPACFilePath.Text = SourceArchiveFile.FilePath.FullName + ":" + PACFileInfo.FileData.name.Replace("_decompressed", "");
 
             objectList.Items = new System.Collections.ObjectModel.ObservableCollection<listViewItemDataType>();
             for (int i = 0; i < PACData.BinaryEntries.Count; i++)
@@ -216,7 +210,7 @@ namespace Izuto
                 PACData.SaveAs(sfd.FileName);
             }
         }
-        private ushort AlignStringTo4Bytes(ref string input)
+        public static ushort AlignStringTo4Bytes(ref string input)
         {
             string newText = input;
             byte[] text = Encoding.GetEncoding("shift_jis").GetBytes(newText);
@@ -256,14 +250,14 @@ namespace Izuto
             LinkedScriptEntry linkedEntry = new LinkedScriptEntry(entry.Text);
             // try to find a corresponding text archive
             string textFileName = SourceArchiveFile.FilePath.FullName.Replace(".pkb", "t.pkb");
-            B123ArchiveFile? textFile = UI_MainWindow.ArchiveFiles.Find(f => f.FilePath.FullName.Equals(textFileName));
+            B123ArchiveFile? textFile = UI_ArchiveFA.ArchiveFiles.Find(f => f.FilePath.FullName.Equals(textFileName));
             if (textFile == null)
             {
                 MessageBox.Show($"No corresponding text PKB file was found for this record.\n\n{textFileName}", "Failed to find text archive", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return;
             }
             // unpack the text archive
-            PKB.FileEntry textPKBFileData = await PKB.UnpackPKBFromArchiveFA_Async(UI_MainWindow.LoadedArchiveFilePath, textFile, UI_MainWindow.CurrentWorkingDirectory);
+            PKB.FileEntry textPKBFileData = await PKB.UnpackPKBFromArchiveFA_Async(UI_ArchiveFA.LoadedArchiveFilePath, textFile, UI_MainWindow.CurrentWorkingDirectory);
             // search for the ID in the new archive
             var textPacIdentifiers = textPKBFileData.PKBContents.Identifiers.FindAll(
                 tp => BitConverter.ToInt32(tp.ID, 0).ToString("X8").Equals(BitConverter.ToInt32(identifier.ID, 0).ToString("X8"))
@@ -343,8 +337,8 @@ namespace Izuto
             }
 
             // add the text pkb and pkh to the queue for importing
-            UI_MainWindow.QueuedImports.Add(new Extensions.OptionsFileData.FileReplacementEntry() { RelativePath = textFile.FilePath.FullName, PathToReplace = textPKBFileData.FileData.path });
-            UI_MainWindow.QueuedImports.Add(new Extensions.OptionsFileData.FileReplacementEntry() { RelativePath = textFile.FilePath.FullName.Replace(".pkb", ".pkh"), PathToReplace = textPKBFileData.FileData.path.Replace(".pkb", ".pkh") });
+            UI_ArchiveFA.QueuedImports.Add(new Extensions.OptionsFileData.FileReplacementEntry() { RelativePath = textFile.FilePath.FullName, PathToReplace = textPKBFileData.FileData.path });
+            UI_ArchiveFA.QueuedImports.Add(new Extensions.OptionsFileData.FileReplacementEntry() { RelativePath = textFile.FilePath.FullName.Replace(".pkb", ".pkh"), PathToReplace = textPKBFileData.FileData.path.Replace(".pkb", ".pkh") });
 
             // automatically save this form now
             btnAccept_Click(this,null);
@@ -363,7 +357,7 @@ namespace Izuto
             PAC.ScriptEntry entry = PACData.StringEntries[index];
 
             CustomWindow win = new CustomWindow(Window, new CustomWindowOptions() { WindowType = CustomWindow.WindowTypes.Fixed });
-            StringWindow stringform = new StringWindow(entry.Text);
+            StringWindow stringform = new StringWindow(entry.Text, true);
             win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             win.ApplyContent(stringform);
             win.Loaded += UI_MainWindow.CustomWindow_Loaded;

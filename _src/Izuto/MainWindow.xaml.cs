@@ -214,8 +214,6 @@ namespace Izuto
             mainProgress.DataContext = formFields;
             queueProgress.DataContext = formFields;
 
-            if (SettingsManager.Settings.FullSize)
-                WindowState = WindowState.Maximized;
 
             updateProgressQueue(0, 0);
             updateProgress(0, 0);
@@ -231,6 +229,8 @@ namespace Izuto
             panelSmallProgress.Visibility = Visibility.Hidden;
             Title = appname;
 
+            if (SettingsManager.Settings.FullSize)
+                WindowState = WindowState.Maximized;
 
             Window.StateChanged += Window_StateChanged;
             Window.Closing += Window_Closing;
@@ -255,6 +255,8 @@ namespace Izuto
                 e.Cancel = true;
                 return;
             }
+
+            UI_MainWindow.DeleteTempDirs();
         }
 
         /// <summary>

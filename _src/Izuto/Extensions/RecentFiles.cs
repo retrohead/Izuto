@@ -110,29 +110,5 @@ namespace Izuto
                 RecentFiles?.Remove(file);
         }
 
-        public static async void LoadRecentFile(string filePath)
-        {
-            var file = RecentFiles?.FirstOrDefault(f => f.FilePath.Equals(filePath, StringComparison.OrdinalIgnoreCase));
-            if(file == null)
-            {
-                App.CustomMessageBox.Show("There was an error finding the file in your recent files list.\n\n" + file?.FilePath, "Recent File Error",  MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (!File.Exists(file?.FilePath))
-            {
-                if (App.CustomMessageBox.Show("The selected file no longer exists.\n\n" +
-                    file?.FilePath + "\n\n" +
-                    "Would you like to remove it from your recent files list?", "File no longer exists", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
-                {
-                    if (file != null)
-                    {
-                        RemoveRecentFile(file.FilePath);
-                    }
-                }
-                return;
-            }
-            await UI_MainWindow.self?.OpenRecentFile(file.FilePath);
-        }
-
     }
 }

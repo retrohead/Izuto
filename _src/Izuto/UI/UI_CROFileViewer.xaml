@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="Izuto.UI.UI_CROFileViewer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Izuto.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*" />
+            <ColumnDefinition Width="50*" />
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="txtParams" Padding="10" Margin="10,10,0,10" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Style="{DynamicResource TextBoxStyle1}" Foreground="{DynamicResource ControlTextInactive}" Background="{DynamicResource WindowBackgroundBrushDark}" IsReadOnly="True" />
+
+        <Grid Grid.Column="1" Margin="10,11,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ListView x:Name="listViewMenuStrings" ItemsSource="{Binding Items}" Margin="0,0,0,5" SelectedItem="{Binding Path=SelectedListItem}" SelectionMode="Single" Width="Auto" Height="Auto" Grid.Row="0" Style="{DynamicResource ListViewStyle1}" ItemContainerStyle="{DynamicResource ListViewItemStyle1}"  FontSize="12" FontFamily="{DynamicResource IzutoFont}">
+                <ListView.View>
+
+                    <GridView ColumnHeaderContainerStyle="{DynamicResource GridViewColumnHeaderStyle}">
+                        <GridViewColumn Header="String Name" DisplayMemberBinding="{Binding SubItems, ConverterParameter=0, Converter={StaticResource ListConverter}}" Width="Auto" />
+                        <GridViewColumn Header="Offset" DisplayMemberBinding="{Binding SubItems, ConverterParameter=1, Converter={StaticResource ListConverter}}" Width="Auto" />
+                        <GridViewColumn Header="Text (Shift-JIS)" DisplayMemberBinding="{Binding SubItems, ConverterParameter=2, Converter={StaticResource ListConverter}}" Width="Auto" />
+                        <GridViewColumn Header="Text (Unicode Concersion)" DisplayMemberBinding="{Binding SubItems, ConverterParameter=3, Converter={StaticResource ListConverter}}" Width="Auto" />
+                        <GridViewColumn Header="Size" DisplayMemberBinding="{Binding SubItems, ConverterParameter=4, Converter={StaticResource ListConverter}}" Width="Auto" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <Button Content="Modify Selected String" Width="150" HorizontalAlignment="Left" Background="{DynamicResource WindowBackgroundBrushMedium}" x:Name="btnOpenArchive" Margin="0,0,0,0" ToolTip="Modify Selected String" Height="27" Cursor="Hand" Style="{DynamicResource ButtonStyleImage}" Click="btnModifyString_Click" />
+                <Button Content="Verify CRR" Width="150" HorizontalAlignment="Left" Background="{DynamicResource WindowBackgroundBrushMedium}" x:Name="btnVerifyCRR" Margin="5,0,0,0" ToolTip="Verify static.crr file" Height="27" Cursor="Hand" Style="{DynamicResource ButtonStyleImage}" Click="btnVerifyCRR_Click" />
+                <Button Content="Rehash CRR" Width="150" HorizontalAlignment="Left" Background="{DynamicResource WindowBackgroundBrushMedium}" x:Name="btnRehashCRR" Margin="5,0,0,0" ToolTip="Rehash files" Height="27" Cursor="Hand" Style="{DynamicResource ButtonStyleImage}" Click="btnRehashCRR_Click" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

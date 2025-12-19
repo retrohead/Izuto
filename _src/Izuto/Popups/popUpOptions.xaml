@@ -199,9 +199,7 @@
 
             <StackPanel x:Name="buttons" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
                 <Grid HorizontalAlignment="Right">
-                    <Button x:Name="btnAccept" Style="{DynamicResource PopUpAcceptButtonStyle}" Click="btnAccept_Click">
-                        
-                    </Button>
+                    <Button x:Name="btnAccept" Content="Save" Style="{DynamicResource PopUpAcceptButtonStyle}" Click="btnAccept_Click" />
                 </Grid>
             </StackPanel>
         </Grid>

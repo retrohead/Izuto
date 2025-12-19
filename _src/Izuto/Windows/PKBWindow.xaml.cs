@@ -2,6 +2,7 @@
 using Izuto.Controls;
 using Izuto.DockManager;
 using Izuto.Extensions;
+using Izuto.Inazuma11;
 using Izuto.UI;
 using Microsoft.Win32;
 using plugin_level5.N3DS.Archive;
@@ -19,26 +20,31 @@ namespace Izuto
     public partial class PKBWindow : CustomWindowContentBase
     {
         PKB.FileEntry PKBFileInfo;
-        B123ArchiveFile SourceArchiveFile;
+        B123ArchiveFile? SourceArchiveFile;
         PACWindow? pacform;
         Brush? previousColour;
         listViewDataType pkbContentsList;
         PKB.FileEntry? PACFileInfo;
 
-        public PKBWindow(PKB.FileEntry PKBFileInfo, B123ArchiveFile SourceArchiveFile)
+        public PKBWindow(PKB.FileEntry PKBFileInfo, B123ArchiveFile? SourceArchiveFile)
         {
             InitializeComponent();
             this.PKBFileInfo = PKBFileInfo;
             this.SourceArchiveFile = SourceArchiveFile;
-            UI_MainWindow.QueuedImports.Clear();
+            UI_ArchiveFA.QueuedImports.Clear();
             pkbContentsList = new listViewDataType(MainWindow.Self, ref listView1);
             listView1.DataContext = pkbContentsList;
+            if (SourceArchiveFile == null)
+                btnImportPKB.Content = "Close Form";
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs? e)
         {
             Title = "Izuto PKB Browser";
-            textPKBPath.Text = SourceArchiveFile.FilePath.FullName;
+            if(SourceArchiveFile == null)
+                textPKBPath.Text = PKBFileInfo.FileData.path;
+            else
+               textPKBPath.Text = SourceArchiveFile.FilePath.FullName;
             pkbContentsList.Items = new System.Collections.ObjectModel.ObservableCollection<listViewItemDataType>();
             // disconnect event from the list while updating
             listView1.SelectionChanged -= listView1_SelectionChanged;
@@ -87,31 +93,40 @@ namespace Izuto
             }
             double left = -1;
             double top = -1;
+            double width = -1;
+            double height = -1;
+            CustomWindow.WindowTypes windowType = CustomWindow.WindowTypes.Resizable;
             if (pacform != null)
             {
                 left = pacform.Window.Left;
                 top = pacform.Window.Top;
+                width = pacform.Window.Width;
+                height = pacform.Window.Height;
+                if (pacform.Window.WindowState == WindowState.Maximized)
+                    windowType = CustomWindow.WindowTypes.Fullscreen;
                 pacform.Close();
             }
-            CustomWindow win = new CustomWindow(Window, new CustomWindowOptions() { WindowType = CustomWindow.WindowTypes.Resizable });
+            CustomWindow win = new CustomWindow(Window, new CustomWindowOptions() { WindowType = windowType });
             pacform = new PACWindow(this, PKBFileInfo, PACFileInfo, SourceArchiveFile);
+            SettingsManager.Settings.LastLoadedPAC = file.name;
+            SettingsManager.Save();
+
+            win.ApplyContent(pacform);
             if (left != -1)
             {
                 win.WindowStartupLocation = WindowStartupLocation.Manual;
                 win.Left = left;
                 win.Top = top;
+                win.Width = width;
+                win.Height = height;
             }
             else
             {
                 win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             }
-            SettingsManager.Settings.LastLoadedPAC = file.name;
-            SettingsManager.Save();
-
-            win.ApplyContent(pacform);
             win.Loaded += UI_MainWindow.CustomWindow_Loaded;
-            win.ShowDialog();
-            win.Activate();
+            win.Show();
+            this.Window!.Activate(); // dont activate, better for moving with keyboard to see strings
         }
 
         public async Task ImportModifiedFile()

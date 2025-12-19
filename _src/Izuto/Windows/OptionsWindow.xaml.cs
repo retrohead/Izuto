@@ -131,7 +131,7 @@ namespace Izuto
         }
         private void btnAddFileReplacement_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(UI_MainWindow.LoadedArchiveFilePath))
+            if (string.IsNullOrEmpty(UI_ArchiveFA.LoadedArchiveFilePath))
             {
                 MessageBox.Show("You must load an archive file before you can add file replacements", "No Archive Loaded", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;

@@ -350,9 +350,6 @@ public class listViewItemDataType : INotifyPropertyChanged
         SubItems.Add(new listViewColumnDataType(this, text));
     }
 
-    public listViewItemDataType()
-    {
-    }
     public event PropertyChangedEventHandler? PropertyChanged;
     public void OnPropertyChanged(PropertyChangedEventArgs e)
     {

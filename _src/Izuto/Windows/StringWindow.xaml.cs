@@ -1,5 +1,6 @@
 ﻿using Izuto.DockManager;
 using Izuto.Extensions;
+using Izuto.Inazuma11;
 using Izuto.UI;
 using System;
 using System.Collections.Generic;
@@ -24,8 +25,10 @@ namespace Izuto
     {
         public string ModifiedString { get; private set; } = "";
         string OriginalString;
-        public StringWindow(string StringToMomdify, string searchForString = "")
+        bool AlignTo4Bytes = false;
+        public StringWindow(string StringToMomdify, bool alignTo4Bytes)
         {
+            AlignTo4Bytes = alignTo4Bytes;
             InitializeComponent();
             this.OriginalString = StringToMomdify;
             UpdateText();
@@ -53,7 +56,7 @@ namespace Izuto
             ModifiedString = txtString.Text;
             if (UI_MainWindow.OptionsFile.IsLoaded())
                 ModifiedString = TextTranslation.ConvertTextString(UI_MainWindow.OptionsFile.Config.TranslationTable, ModifiedString);
-            ModifiedString = PAC.UpdateString(ModifiedString);
+            ModifiedString = PAC.UpdateString(ModifiedString, AlignTo4Bytes);
 
             this.DialogResult = true;
             this.Close();
@@ -65,7 +68,7 @@ namespace Izuto
             ModifiedString = txtString.Text;
             if (UI_MainWindow.OptionsFile.IsLoaded())
                 ModifiedString = TextTranslation.ConvertTextString(UI_MainWindow.OptionsFile.Config.TranslationTable, ModifiedString);
-            ModifiedString = PAC.UpdateString(ModifiedString);
+            ModifiedString = PAC.UpdateString(ModifiedString, AlignTo4Bytes);
 
             this.DialogResult = true;
             this.Close();

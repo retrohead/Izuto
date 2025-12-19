@@ -56,7 +56,7 @@ namespace Izuto
             Title = "Izuto Pick PKB File Browser";
             treeViewData.Items = new System.Collections.ObjectModel.ObservableCollection<treeViewItemDataType>();
 
-            var sortedArchives = UI_MainWindow.ArchiveFiles.OrderBy(p => p.FilePath.FullName);
+            var sortedArchives = UI_ArchiveFA.ArchiveFiles.OrderBy(p => p.FilePath.FullName);
             
             foreach (var item in sortedArchives)
             {
@@ -74,7 +74,7 @@ namespace Izuto
                     if (foundNode == null)
                     {
                         // Create new node if not found
-                        int id = UI_MainWindow.ArchiveFiles.IndexOf(item);
+                        int id = UI_ArchiveFA.ArchiveFiles.IndexOf(item);
                         foundNode = new treeViewItemDataType(id);
                         foundNode.text = part;
                         foundNode.TagObj = item;
@@ -85,7 +85,7 @@ namespace Izuto
                     currentNodes = currentNode.Items;
                 }
             }
-            treeViewData.Items[0].text = System.IO.Path.GetFileName(UI_MainWindow.LoadedArchiveFilePath);
+            treeViewData.Items[0].text = System.IO.Path.GetFileName(UI_ArchiveFA.LoadedArchiveFilePath);
             treeViewData.Items[0].IsExpanded = true;
         }
 

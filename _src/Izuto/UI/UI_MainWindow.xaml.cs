@@ -24,15 +24,11 @@ namespace Izuto.UI
         public static dynamic? loadedTab = null;
         public int RecentItem_Clicked { get; private set; }
 
-        private listViewDataType? pkbList;
         public static UI_MainWindow? self;
         public static string CurrentWorkingDirectory = "";
         public static OptionsFileData OptionsFile = new OptionsFileData();
-        public static string LoadedArchiveFilePath = "";
         private static string ApplicationTempPath = Path.Combine(Path.GetTempPath(), "Izuto");
         public static UI_MainWindow? Self;
-        public static List<OptionsFileData.FileReplacementEntry> QueuedImports = new List<OptionsFileData.FileReplacementEntry>();
-        public static List<B123ArchiveFile> ArchiveFiles = new List<B123ArchiveFile>();
         public static BitmapImage? icon_zip = appImages.getImageFromResources("file_zip.png");
         public static BitmapImage? icon_unknown = appImages.getImageFromResources("file_unk.png");
         public static BitmapImage? icon_text = appImages.getImageFromResources("file_txt.png");
@@ -167,38 +163,9 @@ namespace Izuto.UI
             return folderPath;
         }
 
-
-        private async Task ListFiles()
-        {
-            if(LoadedArchiveFilePath != "")
-                RecentFilesManager.AddRecentFile(LoadedArchiveFilePath, Path.GetFileName(LoadedArchiveFilePath));
-            QueuedImports = new List<OptionsFileData.FileReplacementEntry>();
-            UpdateProgress("Reading Archive", 0, 1);
-            CreateNewTempDirectory(true);
-            ArchiveFiles = await ArchiveFA.ListFiles(LoadedArchiveFilePath);
-
-            pkbList = new listViewDataType(MainWindow.Self, ref listView1);
-            pkbList.Items = new ObservableCollection<listViewItemDataType>();
-            List<B123ArchiveFile> pkb_files = ArchiveFiles.Where(f => f.FilePath.FullName.EndsWith(".pkb") && f.FilePath.FullName.Contains("script/") && !f.FilePath.FullName.Contains("pic3d/")).ToList();
-            var sortedPkbFiles = pkb_files.OrderBy(p => p.FilePath).ToList();
-
-            for (int i = 0; i < sortedPkbFiles.Count(); i++)
-            {
-                var file = sortedPkbFiles[i];
-                var item = new listViewItemDataType(pkbList, file.FilePath.FullName, i.ToString());
-                item.Tag = file;
-                item.icon = icon_zip;
-                pkbList.AddItem(item);
-            }
-            listView1.DataContext = pkbList;
-            EndProgressUpdates();
-        }
-
         private async void MenuItem_Open_Click(object sender, RoutedEventArgs e)
         {
-            LoadedArchiveFilePath = BrowseForFile("Level 5 Archive File (*.fa)|*.fa", "Select a FA file");
-            textArchiveFaPath.Text = LoadedArchiveFilePath;
-            await ListFiles();
+            await uiArchiveFA.Open_Click();
         }
 
         private void MenuItem_Close_Click(object sender, RoutedEventArgs e)
@@ -206,107 +173,6 @@ namespace Izuto.UI
             Application.Current.Shutdown();
         }
 
-        private async void btnExplorePKB_Click(object sender, EventArgs e)
-        {
-            if (listView1.SelectedItems.Count == 0) return;
-            listViewItemDataType? selectedItem = ((listViewItemDataType?)listView1.SelectedItems[0]);
-            if (selectedItem == null) return;
-            if (selectedItem.Tag == null) return;
-            if (selectedItem.Tag?.GetType() != typeof(B123ArchiveFile)) return;
-            B123ArchiveFile? file = (B123ArchiveFile?)selectedItem.Tag;
-            if (file == null) return;
-            await LoadFile(file);
-        }
-
-        private async Task LoadFile(B123ArchiveFile file)
-        {
-
-            // check whether this is a linked package
-
-            bool doNotSave = false;
-            if (file.FilePath.FullName.Contains("t.pkb") && ArchiveFiles.FirstOrDefault(p => p.FilePath.FullName.Equals(file.FilePath.FullName.Replace("t.pkb", ".pkb"))) != null)
-            {
-                if (MessageBox.Show($"You appear to be loading a linked text script package. To modify the strings in this package you should open\n\n{file.FilePath.FullName.Replace("t.pkb", ".pkb")}\n\nDo you want to view the package anyway without saving changes", "Linked Package Warning", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
-                    return;
-                doNotSave = true;
-            }
-            PKB.FileEntry pkbFileData = new PKB.FileEntry();
-            string archivepath = textArchiveFaPath.Text;
-            await Task.Run(async () =>
-            {
-
-                UpdateProgress("Unpacking Archive", 0, 1);
-                pkbFileData = await PKB.UnpackPKBFromArchiveFA_Async(archivepath, file, CurrentWorkingDirectory);
-                EndProgressUpdates();
-            });
-            //---------------
-            // OPENING FORM
-            //---------------
-
-            CustomWindow win = DockHandler.CreateCustomWindow(MainWindow.Self.Window, new CustomWindowOptions() { WindowType = CustomWindow.WindowTypes.Resizable });
-            win.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-
-            PKBWindow pkbform = new PKBWindow(pkbFileData, file);
-            win.ApplyContent(pkbform);
-            win.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            win.Loaded += CustomWindow_Loaded;
-            win.ShowDialog();
-            if (pkbform.DialogResult == false || doNotSave) return;
-
-            await Task.Run(async ()=>
-            {
-                //---------------
-                // FORM CLOSED
-                //---------------
-                int filesToPack = 2 + QueuedImports.Count + (OptionsFile.Config == null ? 0 : OptionsFile.Config.FileReplacements.Count);
-
-                UpdateProgress("Listing Archive Contents", 0, 1);
-                B123ArchiveFile? pkhFile = ArchiveFiles.FirstOrDefault(f => f.FilePath.FullName.Equals(file.FilePath.FullName.Replace(".pkb", ".pkh")));
-                int filesToReplaceCount = 2;
-                UpdateProgress("Queuing Files", 0, filesToPack);
-                // add main pkb and pkh 
-                await ArchiveFA.QueueReplaceFile(archivepath, file, pkbFileData.FileData.path);
-                UpdateProgress("Queuing Files", 1, filesToPack);
-                await ArchiveFA.QueueReplaceFile(archivepath, pkhFile, pkbFileData.FileData.path.Replace(".pkb", ".pkh"));
-                // queue file replacements from options
-                if (OptionsFile.Config != null)
-                {
-                    foreach (var replaceFile in OptionsFile.Config.FileReplacements)
-                    {
-                        UpdateProgress("Queuing Files", filesToReplaceCount, filesToPack);
-                        filesToReplaceCount++;
-                        B123ArchiveFile? fileToReplace = ArchiveFiles.FirstOrDefault(f => f.FilePath.FullName.Equals(replaceFile.PathToReplace));
-                        if (fileToReplace == null)
-                        {
-                            if (MessageBox.Show("The file requested to replace was not found:\n\n" + replaceFile.PathToReplace + "\n\nDo you want to continue importing any remaining files?", "Import File Error", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Cancel)
-                                return;
-                            continue;
-                        }
-                        await ArchiveFA.QueueReplaceFile(archivepath, fileToReplace, OptionsFile.GetFileActualPath(replaceFile));
-                    }
-                }
-                // queue the other queued imports (usually coming from linked text pacs)
-                foreach (OptionsFileData.FileReplacementEntry queuedFile in QueuedImports)
-                {
-                    UpdateProgress("Queuing Files", filesToReplaceCount, filesToPack);
-                    filesToReplaceCount++;
-                    B123ArchiveFile? fileToReplace = ArchiveFiles.FirstOrDefault(f => f.FilePath.FullName.Equals(queuedFile.RelativePath));
-                    if (fileToReplace == null)
-                    {
-                        if (MessageBox.Show("The file requested to replace was not found:\n\n" + queuedFile.RelativePath + "\n\nDo you want to continue importing any remaining files?", "Import File Error", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Cancel)
-                            return;
-                        continue;
-                    }
-                    await ArchiveFA.QueueReplaceFile(archivepath, fileToReplace, queuedFile.PathToReplace);
-                }
-                // actually do the replacements
-                await ArchiveFA.ReplaceQueuedFiles(archivepath);
-                EndProgressUpdates();
-                QueuedImports = new List<OptionsFileData.FileReplacementEntry>();
-            });
-            MessageBox.Show("Archive modification completed, rebuild your rom for testing", "Completed!", MessageBoxButton.OK, MessageBoxImage.Information);
-
-        }
 
         public void UpdateProgress(string text, int value, int maxValue)
         { 
@@ -387,9 +253,14 @@ namespace Izuto.UI
                     RecentFilesManager.RemoveRecentFile(data.FilePath);
                 return;
             }
-            LoadedArchiveFilePath = data.FilePath;
-            textArchiveFaPath.Text = LoadedArchiveFilePath;
-            await ListFiles();
+            if (data.FilePath.ToLower().EndsWith(".pkh"))
+            {
+                uiArchiveFA.OpenPKHFile(data.FilePath);
+                return;
+            }
+            UI_ArchiveFA.LoadedArchiveFilePath = data.FilePath;
+            uiArchiveFA.textArchiveFaPath.Text = UI_ArchiveFA.LoadedArchiveFilePath;
+            await uiArchiveFA.ListFiles();
         }
         private void upperMenu_SubmenuOpened(object sender, RoutedEventArgs e)
         {
@@ -463,14 +334,6 @@ namespace Izuto.UI
 
             return string.Join(Path.DirectorySeparatorChar.ToString(),
                 new[] { first }.Concat(middle).Concat(new[] { last }));
-        }
-
-
-        public async Task OpenRecentFile(string fn)
-        {
-            LoadedArchiveFilePath = fn;
-            textArchiveFaPath.Text = LoadedArchiveFilePath;
-            await ListFiles();
         }
 
         private void MenutItem_Settings_Click(object sender, RoutedEventArgs e)
